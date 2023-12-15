@@ -1,0 +1,14 @@
+/.classpath
+/.project
+
+*.jar
+*.war
+*.ear
+*.class
+
+.metadata
+bin/**
+tmp/**
+.settings/
+*.launch
+/build/
