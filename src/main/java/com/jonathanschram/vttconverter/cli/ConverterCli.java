@@ -1,4 +1,4 @@
-package com.jonathanschram.vtt;
+package com.jonathanschram.vttconverter.cli;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
