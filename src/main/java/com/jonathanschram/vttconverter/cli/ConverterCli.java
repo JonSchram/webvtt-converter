@@ -34,9 +34,9 @@ public class ConverterCli {
 		Options options = new Options();
 
 		// Rendering.
-		options.addOption(Option.builder("x").longOpt("xresolution").type(Integer.class)
+		options.addOption(Option.builder("x").longOpt("xresolution").hasArg().type(Integer.class)
 				.desc("The x-resolution of the screen that ASS subtitles will be rendered on. Required.").build());
-		options.addOption(Option.builder("y").longOpt("yresolution").type(Integer.class)
+		options.addOption(Option.builder("y").longOpt("yresolution").hasArg().type(Integer.class)
 				.desc("The y-resolution of the screen that ASS subtitles will be rendered on. Required").build());
 		options.addOption(Option.builder("m").longOpt("mediumfontsize").hasArg().type(Integer.class)
 				.desc("Size of medium font in points. Other font sizes will be calculated from this value.").build());
