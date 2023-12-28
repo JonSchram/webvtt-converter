@@ -1,5 +1,10 @@
 package com.jonathanschram.vttconverter.cli;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.List;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -7,6 +12,8 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import com.jonathanschram.vttconverter.lib.vtt.VttParser;
 
 public class ConverterCli {
 
@@ -16,6 +23,17 @@ public class ConverterCli {
 		if (!commandArgs.hasOption("help") && !commandArgs.hasOption("version")) {
 			// Neither "help" or "version" is set, continue.
 			
+			List<String> unparsedArgs = commandArgs.getArgList();
+			for (String path : unparsedArgs) {
+				File input = new File(path);
+				try {
+					VttParser parser = new VttParser(new FileInputStream(input));
+					parser.parseFromStream();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
