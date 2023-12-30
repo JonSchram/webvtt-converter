@@ -1,4 +1,4 @@
-package com.jonathanschram.vttconverter.lib.vtt;
+package com.jonathanschram.vttconverter.lib.vtt.parsing;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.jonathanschram.vttconverter.lib.vtt.VttObject;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
+import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
+import com.jonathanschram.vttconverter.lib.vtt.parsing.RawCue.Builder;
 
 /***
  * A WebVTT parser based on the official W3C VTT specification
@@ -24,22 +27,6 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
 public class VttParser {
 
 	private static final String VTT_MAGIC_HEADER = "WEBVTT";
-	private static final Set<Character> ASCII_WHITESPACE;
-
-	static {
-		Set<Character> set = new HashSet<>();
-		// Tab.
-		set.add('\u0009');
-		// Line feed.
-		set.add('\n');
-		// Form feed.
-		set.add('\f');
-		// Carriage return.
-		set.add('\r');
-		// Space.
-		set.add(' ');
-		ASCII_WHITESPACE = Collections.unmodifiableSet(set);
-	}
 
 	private InputStream input;
 	/**
@@ -52,7 +39,13 @@ public class VttParser {
 	 * maintain state in order to return to previous lines.
 	 */
 	private int currentLine = 0;
-	
+
+	/***
+	 * Whether a cue has been seen while parsing. All cues must appear after style
+	 * and region definitions.
+	 */
+	private boolean seenCue = false;
+
 	private boolean inputParsed = false;
 
 	public VttParser(InputStream input) {
@@ -92,11 +85,15 @@ public class VttParser {
 			 * Old versions of the VTT spec allowed regions to be specified with a metadata
 			 * header but this is no longer in the spec.
 			 */
+			skipNonBlankLines();
+
+			// Advance to the first block.
 			skipBlankLines();
 
 			while (currentLine < inputLines.size()) {
 				// TODO: Parse a block, then skip blank lines.
-				parseBlock();
+				// TODO: Set inVttBody correctly
+				parseBlock(true);
 				skipBlankLines();
 			}
 
@@ -104,6 +101,9 @@ public class VttParser {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		// Input lines aren't needed after parsing.
+		inputLines = null;
 
 		return null;
 	}
@@ -146,6 +146,12 @@ public class VttParser {
 		}
 	}
 
+	private void skipNonBlankLines() {
+		while (currentLine < inputLines.size() && !"".equals(inputLines.get(currentLine))) {
+			currentLine++;
+		}
+	}
+
 	/***
 	 * Parses a block section of a VTT file.
 	 * 
@@ -156,141 +162,121 @@ public class VttParser {
 	 * 
 	 * @param inHeader
 	 */
-	private void parseBlock() {
-		int lineCount = 0;
-
-		boolean seenArrow = false;
-		// TODO: Really want this to be outside this method, because once a cue is seen,
-		// parsing a block should never allow a style or region definition.
-		boolean seenCue = false;
-
-		// Buffer is always populated with complete lines, so maybe this isn't needed,
-		// can just reference previous line...?
-		// But that would be hard with cues occupying a variable number of lines.
-		StringBuilder buffer = new StringBuilder();
-
-		// Initialize line for first iteration of loop.
-		// TODO: May need to remove the string comparison from while loop to prevent
-		// crashing when there are no lines remaining.
-		String line = inputLines.get(currentLine);
-		while (currentLine < inputLines.size() && !"".equals(line)) {
-			lineCount++;
-			line = inputLines.get(currentLine);
-			if (line.contains("-->")) {
-				// An arrow appears once per cue, so it will be safe to construct a new cue
-				// (text will be added later).
-				if (lineCount == 1 || (lineCount == 2 && !seenArrow)) {
-					// Ensure the arrow is either the first line (no cue identifier) or the second
-					// line (with cue identifier).
-					seenArrow = true;
-
-					// TODO: Populate.
-					Cue cue = new Cue();
-					System.out.println("Creating cue with identifier: " + buffer);
-					
-					// Clear buffer.
-					buffer.setLength(0);
-					seenCue = true;
-
-				}
-			} else if ("".equals(line)) {
-				// If this condition is on the while loop, this branch might be redundant.
-				break;
-			} else {
-				if (lineCount == 2) {
-					if (seenCue == false) {
-						String bufferContents = buffer.toString();
-						if (isPrefixFollowedByWhitespace(bufferContents, "STYLE")) {
-							// Everything after STYLE is a whitespace.
-							// TODO: Parse style
-						} else if (isPrefixFollowedByWhitespace(bufferContents, "REGION")) {
-							// Everything after "REGION" is a whitespace.
-							// TODO: Parse region
-						}
-					}
-
-				}
-				if (!buffer.isEmpty()) {
-					buffer.append('\n');
-				}
-				buffer.append(line);
-			}
-
-			currentLine++;
+	private void parseBlock(boolean inVttBody) {
+		if (currentLine + 1 >= inputLines.size()) {
+			// No data can be parsed from the file.
+			// A comment is the only thing that can be on a single line and those are
+			// ignored.
+			currentLine = inputLines.size();
+			return;
 		}
-		// TODO: If cue isn't null, set cue text to buffer, return cue.
-		System.out.println("Cue text: " + buffer);
 
-		// TODO: If style sheet is not null, parse style sheet from buffer and return
-		// it.
+		String line = inputLines.get(currentLine);
+		String nextLine = inputLines.get(currentLine + 1);
 
-		// TODO: If region is not null, collect region settings from buffer, parse, and
-		// return.
-
-		// Nothing found.
+		if (line.contains("-->")) {
+			parseCue(null, currentLine);
+		} else if (nextLine.contains("-->")) {
+			parseCue(line, currentLine + 1);
+		} else if (!seenCue && isPrefixFollowedByWhitespace(line, "STYLE")) {
+			// Check for style block after checking for timing arrow, because a cue could
+			// theoretically have the identifier "STYLE".
+			parseStyle();
+		} else if (!seenCue && isPrefixFollowedByWhitespace(line, "REGION")) {
+			// Same as with STYLE, a cue may be named "REGION" so this must be checked after
+			// cues.
+			parseRegion();
+		} else if (line.startsWith("NOTE")) {
+			parseComment();
+		}
+		// If none of the above conditions matched, there is a malformed file and no
+		// action should be taken. Any blank lines should have been consumed before
+		// calling this method.
 	}
-	
+
 	/***
-	 * Returns whether the string 's' starts with the given prefix and is followed by ASCII whitespace.
+	 * Returns whether the string 's' starts with the given prefix and is followed
+	 * by ASCII whitespace.
+	 * 
 	 * @param s
 	 * @param prefix
 	 * @return
 	 */
 	private boolean isPrefixFollowedByWhitespace(String s, String prefix) {
-		return s.startsWith(prefix) && endsWithWhitespace(s, prefix.length());
+		return s.startsWith(prefix) && Utils.endsWithWhitespace(s, prefix.length());
 	}
 
 	/***
-	 * Returns whether every character in the string after the given start position
-	 * is an ASCII whitespace.
-	 * 
-	 * This checks for tab, line feed, form feed, carriage return, and space
-	 * according to the
-	 * <a href="https://infra.spec.whatwg.org/#ascii-whitespace">official
-	 * specification</a>.
-	 * <p>
-	 * Java's {@link Character#isWhitespace(char)} checks for a different set of
-	 * characters and cannot be used.
-	 * 
-	 * @param line
-	 * @param start
-	 * @return
+	 * Moves CurrentLine past a WebVTT comment block.
 	 */
-	private boolean endsWithWhitespace(String line, int start) {
-		for (int i = start; i < line.length(); i++) {
-			if (!ASCII_WHITESPACE.contains(line.charAt(i))) {
-				return false;
-			}
-		}
-
-		return true;
+	private void parseComment() {
+		// Comment blocks begin with NOTE and continue until a blank line. As we don't
+		// need to parse comments, we can just skip until the next blank line.
+		skipNonBlankLines();
 	}
 
 	/***
 	 * Parses a WebVTT Region block.
 	 */
 	private void parseRegion() {
-
-	}
-
-	/***
-	 * Parses (and ignores) a WebVTT comment block.
-	 */
-	private void parseComment() {
-
+		// TODO
+		System.out.println("Region definition found.");
+		skipNonBlankLines();
 	}
 
 	/***
 	 * Parses a WebVTT Style block containing CSS rules.
 	 */
 	private void parseStyle() {
-
+		// TODO
+		System.out.println("Style definition found");
+		skipNonBlankLines();
 	}
 
 	/***
 	 * Parses a WebVTT cue block.
+	 * 
+	 * @param identifier       The identifier name to give the cue. Null if there is
+	 *                         no identifier.
+	 * @param timingLineNumber The index into {@link this#inputLines} containing the
+	 *                         timing line for this cue. This is guaranteed to be a
+	 *                         valid index.
 	 */
-	private void parseCue() {
+	private void parseCue(String identifier, int timingLineNumber) {
+		if (identifier != null) {
+			System.out.println("Cue found with identifier: " + identifier);
+		} else {
+			System.out.println("Cue found, no identifier");
+		}
 
+		StringBuilder cueText = new StringBuilder();
+		int i = timingLineNumber + 1;
+		while (i < inputLines.size()) {
+			String line = inputLines.get(i);
+			if ("".equals(line) || line.contains("-->")) {
+				break;
+			}
+			if (!cueText.isEmpty()) {
+				cueText.append("\n");
+			}
+			cueText.append(line);
+			i++;
+		}
+
+		System.out.println(cueText);
+
+		String timingLine = inputLines.get(timingLineNumber);
+		TimingLineParser p = new TimingLineParser(timingLine);
+		try {
+			p.parse();
+			RawCue.Builder cueBuilder = new Builder(p.getStartTime(), p.getEndTime());
+
+		} catch (Exception e) {
+			System.out.println("Error parsing: " + e.toString());
+		}
+
+		seenCue = true;
+		this.currentLine = i;
 	}
+
 }

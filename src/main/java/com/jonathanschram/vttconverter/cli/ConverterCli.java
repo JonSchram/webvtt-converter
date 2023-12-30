@@ -13,7 +13,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.jonathanschram.vttconverter.lib.vtt.VttParser;
+import com.jonathanschram.vttconverter.lib.vtt.parsing.VttParser;
 
 public class ConverterCli {
 
