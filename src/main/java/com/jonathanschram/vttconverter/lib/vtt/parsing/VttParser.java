@@ -270,6 +270,9 @@ public class VttParser {
 		try {
 			p.parse();
 			RawCue.Builder cueBuilder = new Builder(p.getStartTime(), p.getEndTime());
+			cueBuilder.setRawSettings(p.getSettings()).setIdentifier(identifier).setRawText(cueText.toString());
+			
+			RawCue cue = cueBuilder.build(); 
 
 		} catch (Exception e) {
 			System.out.println("Error parsing: " + e.toString());

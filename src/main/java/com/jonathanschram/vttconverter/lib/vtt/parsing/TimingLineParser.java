@@ -1,8 +1,10 @@
 package com.jonathanschram.vttconverter.lib.vtt.parsing;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
 
@@ -15,7 +17,7 @@ public class TimingLineParser {
 
 	private TimeCode start;
 	private TimeCode end;
-	private final HashMap<String, String> cueSettings;
+	private final Map<String, String> cueSettings;
 
 	private int currentPosition = 0;
 
@@ -32,12 +34,21 @@ public class TimingLineParser {
 		return start;
 	}
 
+	public Map<String,String> getSettings() { 
+		return Collections.unmodifiableMap(cueSettings);
+	}
+	
 	public void parse() throws Exception {
 		start = parseTimestamp();
 		currentPosition = Utils.getWhitespaceEnd(line, currentPosition);
 		assertArrow();
 		currentPosition = Utils.getWhitespaceEnd(line, currentPosition);
 		end = parseTimestamp();
+
+		currentPosition = Utils.getWhitespaceEnd(line, currentPosition);
+		if (currentPosition < line.length()) {
+			parseSettingsList(line.substring(currentPosition).split("[ \\t]+"));
+		}
 	}
 
 	/***
@@ -70,7 +81,7 @@ public class TimingLineParser {
 		if (currentPosition + 2 > line.length()) {
 			throw new Exception("Invalid format. Expected sequence \"-->\", but line ended.");
 		}
-		
+
 		if (!"-->".contentEquals(line.subSequence(currentPosition, currentPosition + 3))) {
 			throw new Exception("Invalid format. Expected sequence \"-->\".");
 		}
@@ -130,7 +141,7 @@ public class TimingLineParser {
 		if (line.charAt(currentPosition) != '.') {
 			throw new Exception("Time code in incorrect format. Expected a period.");
 		}
-		
+
 		currentPosition++;
 		values.add(parseNumberWithLength(3));
 
@@ -140,6 +151,18 @@ public class TimingLineParser {
 		}
 
 		return new TimeCode(values.get(0), values.get(1), values.get(2), values.get(3));
+	}
+
+	private void parseSettingsList(String[] settings) {
+		for (String setting : settings) {
+			int colonIndex = setting.indexOf(':');
+			// Only process setting if the colon isn't the first or last character
+			if (colonIndex > 0 && colonIndex < setting.length()) {
+				String propertyName = setting.substring(0, colonIndex);
+				String value = setting.substring(colonIndex + 1);
+				cueSettings.put(propertyName, value);
+			}
+		}
 	}
 
 }
