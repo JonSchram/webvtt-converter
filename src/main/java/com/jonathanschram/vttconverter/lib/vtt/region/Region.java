@@ -5,9 +5,50 @@ package com.jonathanschram.vttconverter.lib.vtt.region;
  * the entire video.
  */
 public class Region {
+	public static class Builder {
+		private String identifier = "";
+		private double widthPercent = 100;
+		private int lineCount = 3;
+		private Location regionAnchor = new Location(0, 100);
+		private Location viewportAnchor = new Location(0, 100);
+		private boolean scroll = false;
+
+		public Builder() {
+		}
+
+		public Region build() {
+			return new Region(this);
+		}
+
+		public void setIdentifier(String identifier) {
+			this.identifier = identifier;
+		}
+
+		public void setLineCount(int lineCount) {
+			this.lineCount = lineCount;
+		}
+
+		public void setRegionAnchor(Location regionAnchor) {
+			this.regionAnchor = regionAnchor;
+		}
+
+		public void setScroll(boolean scroll) {
+			this.scroll = scroll;
+		}
+
+		public void setViewportAnchor(Location viewportAnchor) {
+			this.viewportAnchor = viewportAnchor;
+		}
+
+		public void setWidthPercent(double widthPercent) {
+			this.widthPercent = widthPercent;
+		}
+	}
+
 	private String identifier;
-	private int widthPercent;
+	private double widthPercent;
 	private int lineCount;
+
 	/***
 	 * The location in the region that should stay in the same place on screen.
 	 */
@@ -20,12 +61,17 @@ public class Region {
 
 	private boolean scroll;
 
-	public String getIdentifier() {
-		return identifier;
+	public Region(Builder builder) {
+		this.identifier = builder.identifier;
+		this.widthPercent = builder.widthPercent;
+		this.lineCount = builder.lineCount;
+		this.regionAnchor = builder.regionAnchor;
+		this.viewportAnchor = builder.viewportAnchor;
+		this.scroll = builder.scroll;
 	}
 
-	public int getWidthPercent() {
-		return widthPercent;
+	public String getIdentifier() {
+		return identifier;
 	}
 
 	public int getLineCount() {
@@ -38,6 +84,10 @@ public class Region {
 
 	public Location getViewportAnchor() {
 		return viewportAnchor;
+	}
+
+	public double getWidthPercent() {
+		return widthPercent;
 	}
 
 	public boolean isScroll() {

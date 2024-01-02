@@ -5,16 +5,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.jonathanschram.vttconverter.lib.vtt.VttObject;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.RawCue.Builder;
+import com.jonathanschram.vttconverter.lib.vtt.region.Location;
+import com.jonathanschram.vttconverter.lib.vtt.region.Region;
 
 /***
  * A WebVTT parser based on the official W3C VTT specification
@@ -47,6 +48,9 @@ public class VttParser {
 	private boolean seenCue = false;
 
 	private boolean inputParsed = false;
+
+	private List<RawCue> parsedCues = new ArrayList<>();
+	private List<Region> parsedRegions = new ArrayList<>();
 
 	public VttParser(InputStream input) {
 		this.input = input;
@@ -84,6 +88,8 @@ public class VttParser {
 			 * 
 			 * Old versions of the VTT spec allowed regions to be specified with a metadata
 			 * header but this is no longer in the spec.
+			 * 
+			 * TODO: Maybe allow parsing region metadata headers.
 			 */
 			skipNonBlankLines();
 
@@ -98,6 +104,9 @@ public class VttParser {
 			}
 
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -161,8 +170,9 @@ public class VttParser {
 	 * the WebVTT spec (https://www.w3.org/TR/webvtt1/).
 	 * 
 	 * @param inHeader
+	 * @throws Exception
 	 */
-	private void parseBlock(boolean inVttBody) {
+	private void parseBlock(boolean inVttBody) throws Exception {
 		if (currentLine + 1 >= inputLines.size()) {
 			// No data can be parsed from the file.
 			// A comment is the only thing that can be on a single line and those are
@@ -217,11 +227,81 @@ public class VttParser {
 
 	/***
 	 * Parses a WebVTT Region block.
+	 * 
+	 * @throws Exception
 	 */
-	private void parseRegion() {
-		// TODO
+	private void parseRegion() throws Exception {
 		System.out.println("Region definition found.");
-		skipNonBlankLines();
+		// Advance past REGION tag.
+		currentLine++;
+
+		List<String> settingEntries = parseSpaceSeparatedValues();
+		Map<String, String> settingsMap = Utils.parseSettingsList(settingEntries);
+
+		Region.Builder builder = new Region.Builder();
+
+		for (Entry<String, String> entry : settingsMap.entrySet()) {
+			String value = entry.getValue();
+			switch (entry.getKey()) {
+			case "id":
+				builder.setIdentifier(value);
+				break;
+			case "width":
+				builder.setWidthPercent(Utils.parsePercentage(value));
+				break;
+			case "lines":
+				if (value.chars().allMatch(Character::isDigit)) {
+					builder.setLineCount(Integer.parseInt(value));
+				}
+				break;
+			case "regionanchor":
+				if (value.contains(",")) {
+					builder.setRegionAnchor(parseLocation(value));
+				}
+				break;
+			case "viewportanchor":
+				if (value.contains(",")) {
+					builder.setViewportAnchor(parseLocation(value));
+				}
+				break;
+			case "scroll":
+				builder.setScroll("up".equals(value));
+				break;
+			}
+		}
+		parsedRegions.add(builder.build());
+	}
+
+	private Location parseLocation(String value) throws Exception {
+		String[] anchorPoints = value.split(",");
+		if (anchorPoints.length == 2) {
+			double anchorX = Utils.parsePercentage(anchorPoints[0]);
+			double anchorY = Utils.parsePercentage(anchorPoints[1]);
+			return new Location(anchorX, anchorY);
+		} else {
+			throw new Exception("Expected two percentage values, received " + value);
+		}
+	}
+
+	/***
+	 * Parses a list of values from {@link this#inputLines} starting at
+	 * {@link this#currentLine}, separated by spaces, tabs, or line breaks.
+	 * 
+	 * Advances {@link this#currentLine} to the line after the end of the list.
+	 * 
+	 * @return
+	 */
+	private List<String> parseSpaceSeparatedValues() {
+		List<String> keyValuePairs = new ArrayList<>();
+		while (currentLine < inputLines.size() && !"".equals(inputLines.get(currentLine))) {
+			String line = inputLines.get(currentLine);
+			String[] attributes = Utils.splitOnTabsAndSpaces(line);
+			for (String item : attributes) {
+				keyValuePairs.add(item);
+			}
+			currentLine++;
+		}
+		return keyValuePairs;
 	}
 
 	/***
@@ -271,10 +351,13 @@ public class VttParser {
 			p.parse();
 			RawCue.Builder cueBuilder = new Builder(p.getStartTime(), p.getEndTime());
 			cueBuilder.setRawSettings(p.getSettings()).setIdentifier(identifier).setRawText(cueText.toString());
-			
-			RawCue cue = cueBuilder.build(); 
+
+			RawCue cue = cueBuilder.build();
+			parsedCues.add(cue);
 
 		} catch (Exception e) {
+			// TODO: Possibly fail parsing the file. Probably indicates a major problem with
+			// the file.
 			System.out.println("Error parsing: " + e.toString());
 		}
 

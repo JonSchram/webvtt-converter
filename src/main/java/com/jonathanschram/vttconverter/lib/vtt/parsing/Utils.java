@@ -1,10 +1,16 @@
 package com.jonathanschram.vttconverter.lib.vtt.parsing;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Utils {
+
+	private static final Pattern PERCENT_PATTERN = Pattern.compile("\\d+(?:\\.\\d+)?%");
 	private static final Set<Character> ASCII_WHITESPACE;
 
 	static {
@@ -63,4 +69,38 @@ public class Utils {
 		}
 		return i;
 	}
+
+	static String[] splitOnTabsAndSpaces(String line) {
+		return line.split("[ \\t]+");
+	}
+
+	static Map<String, String> parseSettingsList(Iterable<String> settings) {
+		Map<String, String> result = new HashMap<>();
+		for (String setting : settings) {
+			int colonIndex = setting.indexOf(':');
+			// Only process setting if the colon isn't the first or last character
+			if (colonIndex > 0 && colonIndex < setting.length()) {
+				String propertyName = setting.substring(0, colonIndex);
+				String value = setting.substring(colonIndex + 1);
+				result.put(propertyName, value);
+			}
+		}
+		return result;
+	}
+
+	static Map<String, String> parseSettingsList(String[] settings) {
+		return parseSettingsList(Arrays.asList(settings));
+	}
+
+	static double parsePercentage(String value) throws Exception {
+		if (!PERCENT_PATTERN.matcher(value).matches()) {
+			throw new Exception("Expected percent value, received " + value);
+		}
+
+		// Strip percent sign from end.
+		String numberPortion = value.substring(0, value.length() - 1);
+
+		return Double.parseDouble(numberPortion);
+	}
+
 }

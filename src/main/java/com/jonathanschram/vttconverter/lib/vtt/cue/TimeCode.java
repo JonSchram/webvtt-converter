@@ -30,4 +30,9 @@ public class TimeCode {
 		return seconds;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%d:%02d:%02d.%03d", hours, minutes, seconds, milliseconds);
+	}
+
 }

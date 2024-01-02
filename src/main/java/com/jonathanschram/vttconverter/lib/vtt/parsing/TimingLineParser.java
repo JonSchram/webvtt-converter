@@ -17,7 +17,7 @@ public class TimingLineParser {
 
 	private TimeCode start;
 	private TimeCode end;
-	private final Map<String, String> cueSettings;
+	private Map<String, String> cueSettings;
 
 	private int currentPosition = 0;
 
@@ -34,10 +34,10 @@ public class TimingLineParser {
 		return start;
 	}
 
-	public Map<String,String> getSettings() { 
+	public Map<String, String> getSettings() {
 		return Collections.unmodifiableMap(cueSettings);
 	}
-	
+
 	public void parse() throws Exception {
 		start = parseTimestamp();
 		currentPosition = Utils.getWhitespaceEnd(line, currentPosition);
@@ -47,7 +47,7 @@ public class TimingLineParser {
 
 		currentPosition = Utils.getWhitespaceEnd(line, currentPosition);
 		if (currentPosition < line.length()) {
-			parseSettingsList(line.substring(currentPosition).split("[ \\t]+"));
+			cueSettings = Utils.parseSettingsList(Utils.splitOnTabsAndSpaces(line.substring(currentPosition)));
 		}
 	}
 
@@ -151,18 +151,6 @@ public class TimingLineParser {
 		}
 
 		return new TimeCode(values.get(0), values.get(1), values.get(2), values.get(3));
-	}
-
-	private void parseSettingsList(String[] settings) {
-		for (String setting : settings) {
-			int colonIndex = setting.indexOf(':');
-			// Only process setting if the colon isn't the first or last character
-			if (colonIndex > 0 && colonIndex < setting.length()) {
-				String propertyName = setting.substring(0, colonIndex);
-				String value = setting.substring(colonIndex + 1);
-				cueSettings.put(propertyName, value);
-			}
-		}
 	}
 
 }
