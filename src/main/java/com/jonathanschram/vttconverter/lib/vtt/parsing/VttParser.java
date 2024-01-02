@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 
 import com.jonathanschram.vttconverter.lib.vtt.VttObject;
+import com.jonathanschram.vttconverter.lib.vtt.css.RawCssBlock;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.RawCue.Builder;
@@ -52,6 +53,7 @@ public class VttParser {
 
 	private List<RawCue> parsedCues = new ArrayList<>();
 	private List<Region> parsedRegions = new ArrayList<>();
+	private List<RawCssBlock> parsedStyleBlocks = new ArrayList<>();
 
 	public VttParser(InputStream input) {
 		this.input = input;
@@ -313,9 +315,20 @@ public class VttParser {
 	 * Parses a WebVTT Style block containing CSS rules.
 	 */
 	private void parseStyle() {
-		// TODO
 		System.out.println("Style definition found");
-		skipNonBlankLines();
+		// Advance past STYLE definition.
+		currentLine++;
+
+		StringBuilder blockBuilder = new StringBuilder();
+		while (currentLine < inputLines.size() && !"".equals(inputLines.get(currentLine))) {
+			if (!blockBuilder.isEmpty()) {
+				blockBuilder.append('\n');
+			}
+			blockBuilder.append(inputLines.get(currentLine));
+			currentLine++;
+		}
+
+		parsedStyleBlocks.add(new RawCssBlock(blockBuilder.toString()));
 	}
 
 	/***
