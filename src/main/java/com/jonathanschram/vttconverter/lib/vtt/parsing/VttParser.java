@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import com.jonathanschram.vttconverter.lib.vtt.VttObject;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
@@ -247,7 +248,8 @@ public class VttParser {
 				builder.setIdentifier(value);
 				break;
 			case "width":
-				builder.setWidthPercent(Utils.parsePercentage(value));
+				Optional<Double> width = Utils.parsePercentage(value);
+				width.ifPresent((val) -> builder.setWidthPercent(val));
 				break;
 			case "lines":
 				if (value.chars().allMatch(Character::isDigit)) {
@@ -256,12 +258,12 @@ public class VttParser {
 				break;
 			case "regionanchor":
 				if (value.contains(",")) {
-					builder.setRegionAnchor(parseLocation(value));
+					parseLocation(value).ifPresent((anchor) -> builder.setRegionAnchor(anchor));
 				}
 				break;
 			case "viewportanchor":
 				if (value.contains(",")) {
-					builder.setViewportAnchor(parseLocation(value));
+					parseLocation(value).ifPresent((anchor) -> builder.setViewportAnchor(anchor));
 				}
 				break;
 			case "scroll":
@@ -272,12 +274,15 @@ public class VttParser {
 		parsedRegions.add(builder.build());
 	}
 
-	private Location parseLocation(String value) throws Exception {
+	private Optional<Location> parseLocation(String value) throws Exception {
 		String[] anchorPoints = value.split(",");
 		if (anchorPoints.length == 2) {
-			double anchorX = Utils.parsePercentage(anchorPoints[0]);
-			double anchorY = Utils.parsePercentage(anchorPoints[1]);
-			return new Location(anchorX, anchorY);
+			Optional<Double> anchorX = Utils.parsePercentage(anchorPoints[0]);
+			Optional<Double> anchorY = Utils.parsePercentage(anchorPoints[1]);
+			if (anchorX.isPresent() && anchorY.isPresent()) {
+				return Optional.of(new Location(anchorX.get(), anchorY.get()));				
+			}
+			return Optional.empty();
 		} else {
 			throw new Exception("Expected two percentage values, received " + value);
 		}

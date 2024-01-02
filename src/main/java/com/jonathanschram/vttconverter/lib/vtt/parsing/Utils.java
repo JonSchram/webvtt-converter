@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -92,15 +93,15 @@ public class Utils {
 		return parseSettingsList(Arrays.asList(settings));
 	}
 
-	static double parsePercentage(String value) throws Exception {
+	static Optional<Double> parsePercentage(String value) throws Exception {
 		if (!PERCENT_PATTERN.matcher(value).matches()) {
-			throw new Exception("Expected percent value, received " + value);
+			return Optional.empty();
 		}
 
 		// Strip percent sign from end.
 		String numberPortion = value.substring(0, value.length() - 1);
 
-		return Double.parseDouble(numberPortion);
+		return Optional.of(Double.parseDouble(numberPortion));
 	}
 
 }
