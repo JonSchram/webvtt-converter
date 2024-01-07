@@ -15,7 +15,9 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.properties.position.PositionA
 public class Cue {
 	private TimeCode start;
 	private TimeCode end;
-	private List<VttLine> lines;
+	
+	/*** Text payload of the cue, possibly containing HTML tags. */
+	private VttNode payload;
 	
 
 	/*** Whether playback will pause at the end of this cue. */
@@ -51,8 +53,4 @@ public class Cue {
 	private int size = 100;
 	/*** How the text should be aligned within the cue box. */
 	private TextAlignment textAlign = TextAlignment.CENTER;
-
-	private class VttLine {
-		private List<VttNode> spans;
-	}
 }
