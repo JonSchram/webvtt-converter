@@ -16,7 +16,9 @@ import com.jonathanschram.vttconverter.lib.vtt.VttObject;
 import com.jonathanschram.vttconverter.lib.vtt.css.RawCssBlock;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
+import com.jonathanschram.vttconverter.lib.vtt.cue.node.RootCueNode;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.RawCue.Builder;
+import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.CueTextParser;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.CueTextToken;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.Tokenizer;
 import com.jonathanschram.vttconverter.lib.vtt.region.Location;
@@ -107,13 +109,12 @@ public class VttParser {
                 skipBlankLines();
             }
 
-            System.out.println("Tokens in cues: ");
+            System.out.println("Cue nodes: ");
             for (RawCue cue : parsedCues) {
                 Tokenizer t = new Tokenizer(cue.getRawText());
-                Iterator<CueTextToken> tokenIterator = t.getTokens();
-                while (tokenIterator.hasNext()) {
-                    System.out.println(tokenIterator.next());
-                }
+                CueTextParser textParser = new CueTextParser(t.getTokens());
+                RootCueNode rootNode = textParser.parse();
+                System.out.println(rootNode);
             }
 
         } catch (IOException e) {

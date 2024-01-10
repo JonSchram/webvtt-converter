@@ -1,10 +1,18 @@
 package com.jonathanschram.vttconverter.lib.vtt.cue.node;
 
-import java.util.List;
-
 /***
  * An ordered collection of ruby base text and ruby text.
  */
 public class RubyNode extends InternalNode {
-	private List<RubySegment> segments;
+    public static class Builder extends InternalNode.Builder {
+
+        @Override
+        public RubyNode build() {
+            return new RubyNode(this);
+        }
+    }
+
+    public RubyNode(Builder builder) {
+        super(builder);
+    }
 }
