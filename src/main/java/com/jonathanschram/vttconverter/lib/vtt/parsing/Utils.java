@@ -9,8 +9,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/***
+ * Common utilities for parsing VTT files. Written to conform to ASCII
+ * definitions of characters (ASCII digits, whitespace, etc.).
+ */
 public class Utils {
 
+    private static final Pattern ASCII_DIGIT_PATTERN = Pattern.compile("\\d");
     private static final Pattern PERCENT_PATTERN = Pattern.compile("\\d+(?:\\.\\d+)?%");
     private static final Set<Character> ASCII_WHITESPACE;
 
@@ -145,12 +150,24 @@ public class Utils {
     public static Map<String, String> parseSettingsList(String[] settings) {
         return parseSettingsList(Arrays.asList(settings));
     }
-    
+
+    public static boolean containsAsciiDigits(String s) {
+        return ASCII_DIGIT_PATTERN.matcher(s).find();
+    }
+
     public static boolean isAsciiDigit(char c) {
         return '0' <= c && c <= '9';
     }
 
-    public static Optional<Double> parsePercentage(String value) throws Exception {
+    /***
+     * Parses a double value represented as a percentage, returning an empty value
+     * if the value is not a percent or cannot be parsed as a double.
+     * 
+     * @param value
+     * @return
+     * @throws NumberFormatException
+     */
+    public static Optional<Double> parsePercentage(String value) {
         if (!PERCENT_PATTERN.matcher(value).matches()) {
             return Optional.empty();
         }
@@ -158,7 +175,11 @@ public class Utils {
         // Strip percent sign from end.
         String numberPortion = value.substring(0, value.length() - 1);
 
-        return Optional.of(Double.parseDouble(numberPortion));
+        try {
+            return Optional.of(Double.parseDouble(numberPortion));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
     }
 
 }

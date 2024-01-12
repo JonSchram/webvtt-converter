@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.cue;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.cue.node.RootCueNode;
 import com.jonathanschram.vttconverter.lib.vtt.cue.properties.TextAlignment;
 import com.jonathanschram.vttconverter.lib.vtt.cue.properties.WritingDirection;
@@ -176,6 +178,25 @@ public class Cue {
         this.textAlign = builder.textAlign;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Cue other = (Cue) obj;
+        return direction == other.direction && Objects.equals(end, other.end)
+                && Objects.equals(identifier, other.identifier) && Objects.equals(line, other.line)
+                && lineAlign == other.lineAlign && pauseOnExit == other.pauseOnExit
+                && Objects.equals(payload, other.payload) && Objects.equals(position, other.position)
+                && positionAlign == other.positionAlign && Objects.equals(regionId, other.regionId)
+                && Double.doubleToLongBits(size) == Double.doubleToLongBits(other.size)
+                && snapToLines == other.snapToLines && Objects.equals(start, other.start)
+                && textAlign == other.textAlign;
+    }
+
     public WritingDirection getDirection() {
         return direction;
     }
@@ -224,11 +245,25 @@ public class Cue {
         return textAlign;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(direction, end, identifier, line, lineAlign, pauseOnExit, payload, position, positionAlign,
+                regionId, size, snapToLines, start, textAlign);
+    }
+
     public boolean isPauseOnExit() {
         return pauseOnExit;
     }
 
     public boolean isSnapToLines() {
         return snapToLines;
+    }
+
+    @Override
+    public String toString() {
+        return "Cue [identifier=" + identifier + ", start=" + start + ", end=" + end + ", payload=" + payload
+                + ", pauseOnExit=" + pauseOnExit + ", regionId=" + regionId + ", direction=" + direction + ", line="
+                + line + ", snapToLines=" + snapToLines + ", lineAlign=" + lineAlign + ", position=" + position
+                + ", positionAlign=" + positionAlign + ", size=" + size + ", textAlign=" + textAlign + "]";
     }
 }

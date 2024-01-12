@@ -114,8 +114,6 @@ public class TimeCodeParser {
             currentPosition++;
         }
         if (buffer.length() != length) {
-            // TODO: Throw a more appropriate exception, might want to re-throw any Integer
-            // parse exceptions as this as well.
             throw new TimeCodeParseException("Time code in incorrect format. Expected an integer with " + length
                     + " digits. Received: " + buffer);
         }

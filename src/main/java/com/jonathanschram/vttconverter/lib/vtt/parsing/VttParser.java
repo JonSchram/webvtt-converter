@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,12 +14,8 @@ import java.util.Optional;
 import com.jonathanschram.vttconverter.lib.vtt.VttObject;
 import com.jonathanschram.vttconverter.lib.vtt.css.RawCssBlock;
 import com.jonathanschram.vttconverter.lib.vtt.cue.Cue;
-import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
-import com.jonathanschram.vttconverter.lib.vtt.cue.node.RootCueNode;
 import com.jonathanschram.vttconverter.lib.vtt.parsing.RawCue.Builder;
-import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.CueTextParser;
-import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.CueTextToken;
-import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.Tokenizer;
+import com.jonathanschram.vttconverter.lib.vtt.parsing.cuetext.CueFinalizer;
 import com.jonathanschram.vttconverter.lib.vtt.region.Location;
 import com.jonathanschram.vttconverter.lib.vtt.region.Region;
 
@@ -35,6 +30,7 @@ import com.jonathanschram.vttconverter.lib.vtt.region.Region;
 public class VttParser {
 
     private static final String VTT_MAGIC_HEADER = "WEBVTT";
+    private static final String VTT_MAGIC_HEADER_WITH_BOM = "\ufeffWEBVTT";
 
     private InputStream input;
     /**
@@ -62,11 +58,16 @@ public class VttParser {
 
     public VttParser(InputStream input) {
         this.input = input;
-
-        VttObject.Builder builder = new VttObject.Builder();
     }
 
-    public VttObject parseFromStream() {
+    /***
+     * 
+     * @return
+     * @throws IOException
+     * @throws IncorrectFormatException If the input stream cannot be interpreted as
+     *                                  a VTT file.
+     */
+    public VttObject parse() throws IOException, IncorrectFormatException {
         if (inputParsed) {
             throw new IllegalStateException("Input stream has already been parsed");
         }
@@ -80,12 +81,12 @@ public class VttParser {
 
             if (inputLines.size() == 0) {
                 // There are no lines in input, this is an invalid file.
-                return null;
+                throw new IncorrectFormatException("Not valid VTT: Input is empty.");
             }
 
             if (!validateSignature(inputLines.get(0))) {
                 // Signature doesn't pass, it is an invalid file.
-                return null;
+                throw new IncorrectFormatException("Not valid VTT: Input lacks VTT header.");
             }
 
             currentLine = 1;
@@ -105,30 +106,14 @@ public class VttParser {
             skipBlankLines();
 
             while (currentLine < inputLines.size()) {
-                parseBlock(true);
+                parseBlock();
                 skipBlankLines();
             }
 
-            System.out.println("Cue nodes: ");
-            for (RawCue cue : parsedCues) {
-                Tokenizer t = new Tokenizer(cue.getRawText());
-                CueTextParser textParser = new CueTextParser(t.getTokens());
-                RootCueNode rootNode = textParser.parse();
-                System.out.println(rootNode);
-            }
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            // Input lines aren't needed after parsing.
+            inputLines = null;
+            return buildVttObject();
         }
-
-        // Input lines aren't needed after parsing.
-        inputLines = null;
-
-        return null;
     }
 
     private boolean validateSignature(String line) {
@@ -140,20 +125,25 @@ public class VttParser {
             return false;
         }
 
-        // TODO: Handle byte order mark.
+        int headerLength = 6;
+        if (line.startsWith(VTT_MAGIC_HEADER_WITH_BOM)) {
+            headerLength = 7;
+        } else if (line.startsWith(VTT_MAGIC_HEADER)) {
+            headerLength = 6;
+        } else {
+            return false;
+        }
 
-        if (line.startsWith(VTT_MAGIC_HEADER)) {
-            if (line.length() == 6) {
-                // VTT header contains the magic string and nothing else.
-                return true;
-            }
-            // There is text following the magic string - it must begin with a space or a
-            // tab.
-            char headerSuffix = line.charAt(6);
-            if (headerSuffix == ' ' || headerSuffix == '\u0009') {
-                // We don't care what the remainder of the line is.
-                return true;
-            }
+        if (line.length() == headerLength) {
+            // VTT header contains the magic string and nothing else.
+            return true;
+        }
+        // There is text following the magic string - it must begin with a space or a
+        // tab.
+        char headerSuffix = line.charAt(headerLength);
+        if (headerSuffix == ' ' || headerSuffix == '\u0009') {
+            // We don't care what the remainder of the line is.
+            return true;
         }
 
         return false;
@@ -184,9 +174,8 @@ public class VttParser {
      * the WebVTT spec (https://www.w3.org/TR/webvtt1/).
      * 
      * @param inHeader
-     * @throws Exception
      */
-    private void parseBlock(boolean inVttBody) throws Exception {
+    private void parseBlock() {
         if (currentLine + 1 >= inputLines.size()) {
             // No data can be parsed from the file.
             // A comment is the only thing that can be on a single line and those are
@@ -241,53 +230,62 @@ public class VttParser {
 
     /***
      * Parses a WebVTT Region block.
-     * 
-     * @throws Exception
      */
-    private void parseRegion() throws Exception {
+    private void parseRegion() {
         System.out.println("Region definition found.");
         // Advance past REGION tag.
         currentLine++;
 
         List<String> settingEntries = parseSpaceSeparatedValues();
-        Map<String, String> settingsMap = Utils.parseSettingsList(settingEntries);
 
-        Region.Builder builder = new Region.Builder();
+        // If the region tag was followed by a blank line, this can't add a new region.
+        if (settingEntries.size() > 0) {
+            Map<String, String> settingsMap = Utils.parseSettingsList(settingEntries);
+            Region.Builder builder = new Region.Builder();
 
-        for (Entry<String, String> entry : settingsMap.entrySet()) {
-            String value = entry.getValue();
-            switch (entry.getKey()) {
-            case "id":
-                builder.setIdentifier(value);
-                break;
-            case "width":
-                Optional<Double> width = Utils.parsePercentage(value);
-                width.ifPresent((val) -> builder.setWidthPercent(val));
-                break;
-            case "lines":
-                if (value.chars().allMatch(Character::isDigit)) {
-                    builder.setLineCount(Integer.parseInt(value));
+            for (Entry<String, String> entry : settingsMap.entrySet()) {
+                String value = entry.getValue();
+                switch (entry.getKey()) {
+                case "id":
+                    builder.setIdentifier(value);
+                    break;
+                case "width":
+                    Optional<Double> width = Utils.parsePercentage(value);
+                    width.ifPresent((val) -> builder.setWidthPercent(val));
+                    break;
+                case "lines":
+                    if (value.chars().allMatch(Character::isDigit)) {
+                        builder.setLineCount(Integer.parseInt(value));
+                    }
+                    break;
+                case "regionanchor":
+                    if (value.contains(",")) {
+                        parseLocation(value).ifPresent((anchor) -> builder.setRegionAnchor(anchor));
+                    }
+                    break;
+                case "viewportanchor":
+                    if (value.contains(",")) {
+                        parseLocation(value).ifPresent((anchor) -> builder.setViewportAnchor(anchor));
+                    }
+                    break;
+                case "scroll":
+                    builder.setScroll("up".equals(value));
+                    break;
                 }
-                break;
-            case "regionanchor":
-                if (value.contains(",")) {
-                    parseLocation(value).ifPresent((anchor) -> builder.setRegionAnchor(anchor));
-                }
-                break;
-            case "viewportanchor":
-                if (value.contains(",")) {
-                    parseLocation(value).ifPresent((anchor) -> builder.setViewportAnchor(anchor));
-                }
-                break;
-            case "scroll":
-                builder.setScroll("up".equals(value));
-                break;
             }
+            parsedRegions.add(builder.build());
         }
-        parsedRegions.add(builder.build());
     }
 
-    private Optional<Location> parseLocation(String value) throws Exception {
+    /***
+     * Parses a location line from the input string.
+     * <p>
+     * If the line cannot be parsed, an empty location is returned.
+     * 
+     * @param value
+     * @return
+     */
+    private Optional<Location> parseLocation(String value) {
         String[] anchorPoints = value.split(",");
         if (anchorPoints.length == 2) {
             Optional<Double> anchorX = Utils.parsePercentage(anchorPoints[0]);
@@ -297,7 +295,7 @@ public class VttParser {
             }
             return Optional.empty();
         } else {
-            throw new Exception("Expected two percentage values, received " + value);
+            return Optional.empty();
         }
     }
 
@@ -383,15 +381,33 @@ public class VttParser {
 
             RawCue cue = cueBuilder.build();
             parsedCues.add(cue);
+            seenCue = true;
 
-        } catch (Exception e) {
-            // TODO: Possibly fail parsing the file. Probably indicates a major problem with
-            // the file.
-            System.out.println("Error parsing: " + e.toString());
+        } catch (TimingLineParseException e) {
+            // Couldn't parse timing line. Ignore.
         }
 
-        seenCue = true;
         this.currentLine = i;
+    }
+
+    private VttObject buildVttObject() {
+        VttObject.Builder builder = new VttObject.Builder();
+
+        for (RawCssBlock css : parsedStyleBlocks) {
+            builder.addRawCss(css);
+        }
+
+        for (Region region : parsedRegions) {
+            builder.addRegion(region);
+        }
+
+        CueFinalizer finalizer = new CueFinalizer();
+        for (RawCue rawCue : parsedCues) {
+            Cue fullCue = finalizer.processRawCue(rawCue);
+            builder.addCue(fullCue);
+        }
+
+        return builder.build();
     }
 
 }

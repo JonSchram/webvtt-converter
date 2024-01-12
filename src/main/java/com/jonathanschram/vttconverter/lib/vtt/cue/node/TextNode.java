@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.cue.node;
 
+import java.util.Objects;
+
 public class TextNode extends VttNode {
     public static class Builder extends VttNode.Builder {
 
@@ -24,8 +26,25 @@ public class TextNode extends VttNode {
         this.text = builder.text;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TextNode other = (TextNode) obj;
+        return Objects.equals(text, other.text);
+    }
+
     public String getText() {
         return text;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text);
     }
 
 }

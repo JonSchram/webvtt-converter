@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.region;
 
+import java.util.Objects;
+
 /***
  * A named screen region that cues can be placed into instead of rendering over
  * the entire video.
@@ -20,28 +22,34 @@ public class Region {
             return new Region(this);
         }
 
-        public void setIdentifier(String identifier) {
+        public Builder setIdentifier(String identifier) {
             this.identifier = identifier;
+            return this;
         }
 
-        public void setLineCount(int lineCount) {
+        public Builder setLineCount(int lineCount) {
             this.lineCount = lineCount;
+            return this;
         }
 
-        public void setRegionAnchor(Location regionAnchor) {
+        public Builder setRegionAnchor(Location regionAnchor) {
             this.regionAnchor = regionAnchor;
+            return this;
         }
 
-        public void setScroll(boolean scroll) {
+        public Builder setScroll(boolean scroll) {
             this.scroll = scroll;
+            return this;
         }
 
-        public void setViewportAnchor(Location viewportAnchor) {
+        public Builder setViewportAnchor(Location viewportAnchor) {
             this.viewportAnchor = viewportAnchor;
+            return this;
         }
 
-        public void setWidthPercent(double widthPercent) {
+        public Builder setWidthPercent(double widthPercent) {
             this.widthPercent = widthPercent;
+            return this;
         }
     }
 
@@ -70,6 +78,21 @@ public class Region {
         this.scroll = builder.scroll;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Region other = (Region) obj;
+        return Objects.equals(identifier, other.identifier) && lineCount == other.lineCount
+                && Objects.equals(regionAnchor, other.regionAnchor) && scroll == other.scroll
+                && Objects.equals(viewportAnchor, other.viewportAnchor)
+                && Double.doubleToLongBits(widthPercent) == Double.doubleToLongBits(other.widthPercent);
+    }
+
     public String getIdentifier() {
         return identifier;
     }
@@ -88,6 +111,11 @@ public class Region {
 
     public double getWidthPercent() {
         return widthPercent;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identifier, lineCount, regionAnchor, scroll, viewportAnchor, widthPercent);
     }
 
     public boolean isScroll() {
