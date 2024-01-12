@@ -4,14 +4,6 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.TextAlignment;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.WritingDirection;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.line.AutoLine;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.line.LineAlignment;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.line.LineProperties;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.position.AutoPosition;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.position.Position;
-import com.jonathanschram.vttconverter.lib.vtt.cue.properties.position.PositionAlignment;
 
 public class RawCue {
 

@@ -3,10 +3,10 @@ package com.jonathanschram.vttconverter.lib.vtt.cue;
 import java.util.Objects;
 
 public class TimeCode {
-    private int hours;
-    private int minutes;
-    private int seconds;
-    private int milliseconds;
+    private final int hours;
+    private final int minutes;
+    private final int seconds;
+    private final int milliseconds;
 
     public TimeCode(int hours, int minutes, int seconds, int milliseconds) {
         super();
