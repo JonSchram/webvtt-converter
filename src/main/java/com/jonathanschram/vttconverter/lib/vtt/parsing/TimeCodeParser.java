@@ -39,12 +39,12 @@ public class TimeCodeParser {
         this.currentPosition = newPosition;
     }
 
-    public TimeCode parseTimestamp() throws Exception {
+    public TimeCode parseTimestamp() throws TimeCodeParseException {
         List<Integer> values = new ArrayList<>();
 
         boolean firstValueHours = false;
         String firstTime = "";
-        while (currentPosition < input.length() && Character.isDigit(input.charAt(currentPosition))) {
+        while (currentPosition < input.length() && Utils.isAsciiDigit(input.charAt(currentPosition))) {
             firstTime += input.charAt(currentPosition);
             currentPosition++;
         }
@@ -74,7 +74,7 @@ public class TimeCodeParser {
         assertNotEndOfLine();
 
         if (input.charAt(currentPosition) != '.') {
-            throw new Exception("Time code in incorrect format. Expected a period.");
+            throw new TimeCodeParseException("Time code in incorrect format. Expected a period.");
         }
 
         currentPosition++;
@@ -82,7 +82,7 @@ public class TimeCodeParser {
 
         // Guaranteed to have 4 entries in the list. Validate minutes and seconds.
         if (values.get(1) > 59 || values.get(2) > 59) {
-            throw new Exception("Time code in incorrect format. Minutes and seconds cannot be greater than 59.");
+            throw new TimeCodeParseException("Time code in incorrect format. Minutes and seconds cannot be greater than 59.");
         }
 
         return new TimeCode(values.get(0), values.get(1), values.get(2), values.get(3));
@@ -94,29 +94,29 @@ public class TimeCodeParser {
      * 
      * @throws Exception
      */
-    private void assertColon() throws Exception {
+    private void assertColon() throws TimeCodeParseException {
         if (input.charAt(currentPosition) != ':') {
-            throw new Exception("Time code in incorrect format. Expected colon.");
+            throw new TimeCodeParseException("Time code in incorrect format. Expected colon.");
         }
         currentPosition++;
     }
 
-    private void assertNotEndOfLine() throws Exception {
+    private void assertNotEndOfLine() throws TimeCodeParseException {
         if (currentPosition >= input.length()) {
-            throw new Exception("Unexpected end of time code.");
+            throw new TimeCodeParseException("Unexpected end of time code.");
         }
     }
 
-    private int parseNumberWithLength(int length) throws Exception {
+    private int parseNumberWithLength(int length) throws TimeCodeParseException {
         String buffer = "";
-        while (currentPosition < input.length() && Character.isDigit(input.charAt(currentPosition))) {
+        while (currentPosition < input.length() && Utils.isAsciiDigit(input.charAt(currentPosition))) {
             buffer += input.charAt(currentPosition);
             currentPosition++;
         }
         if (buffer.length() != length) {
             // TODO: Throw a more appropriate exception, might want to re-throw any Integer
             // parse exceptions as this as well.
-            throw new Exception("Time code in incorrect format. Expected an integer with " + length
+            throw new TimeCodeParseException("Time code in incorrect format. Expected an integer with " + length
                     + " digits. Received: " + buffer);
         }
 

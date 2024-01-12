@@ -145,6 +145,10 @@ public class Utils {
     public static Map<String, String> parseSettingsList(String[] settings) {
         return parseSettingsList(Arrays.asList(settings));
     }
+    
+    public static boolean isAsciiDigit(char c) {
+        return '0' <= c && c <= '9';
+    }
 
     public static Optional<Double> parsePercentage(String value) throws Exception {
         if (!PERCENT_PATTERN.matcher(value).matches()) {
