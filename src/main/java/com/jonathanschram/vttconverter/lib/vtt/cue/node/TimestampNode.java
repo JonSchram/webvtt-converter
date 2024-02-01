@@ -2,6 +2,7 @@ package com.jonathanschram.vttconverter.lib.vtt.cue.node;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
 
 /***
@@ -49,5 +50,10 @@ public class TimestampNode extends VttNode {
     @Override
     public int hashCode() {
         return Objects.hash(time);
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        visitor.visitTimestampNode(this);
     }
 }

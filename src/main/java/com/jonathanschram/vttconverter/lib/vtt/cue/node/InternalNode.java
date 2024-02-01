@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
+
 public abstract class InternalNode extends VttNode {
     public static abstract class Builder extends VttNode.Builder {
         protected List<VttNode.Builder> children = new ArrayList<>();
@@ -33,11 +35,13 @@ public abstract class InternalNode extends VttNode {
     protected final List<String> classes;
 
     protected final String applicableLanguage;
+
     public InternalNode() {
         this.classes = new ArrayList<>();
         this.children = new ArrayList<>();
         this.applicableLanguage = "";
     }
+
     public InternalNode(Builder builder) {
         if (builder.children != null) {
             this.children = new ArrayList<>();
@@ -70,6 +74,13 @@ public abstract class InternalNode extends VttNode {
         InternalNode other = (InternalNode) obj;
         return Objects.equals(applicableLanguage, other.applicableLanguage) && Objects.equals(children, other.children)
                 && Objects.equals(classes, other.classes);
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        for (VttNode vttNode : children) {
+            vttNode.accept(visitor);
+        }
     }
 
     public String getApplicableLanguage() {

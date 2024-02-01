@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.cue.node;
 
+import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
+
 /***
  * The node wrapping the entire text node.
  * 
@@ -23,6 +25,11 @@ public class RootCueNode extends InternalNode {
 
     public RootCueNode() {
         super();
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        super.accept(visitor);
     }
     
 }

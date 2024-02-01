@@ -2,6 +2,8 @@ package com.jonathanschram.vttconverter.lib.vtt.cue.node;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
+
 public class VoiceNode extends InternalNode {
     public static class Builder extends InternalNode.Builder {
         private String voiceName;
@@ -22,6 +24,12 @@ public class VoiceNode extends InternalNode {
     public VoiceNode(Builder builder) {
         super(builder);
         this.voiceName = builder.voiceName;
+    }
+
+    @Override
+    public void accept(NodeVisitor visitor) {
+        visitor.visitVoiceNode(this);
+        super.accept(visitor);
     }
 
     @Override
