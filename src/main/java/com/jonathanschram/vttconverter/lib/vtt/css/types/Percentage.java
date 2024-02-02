@@ -15,8 +15,22 @@ public class Percentage {
         this.value = value;
     }
 
-    public double getValue() {
+    /***
+     * Returns the percentage value, where 100% is represented as 100.
+     * 
+     * @return
+     */
+    public double getAsPercent() {
         return value;
+    }
+
+    /***
+     * Returns the percentage value, where 100% is represented as 1.
+     * 
+     * @return
+     */
+    public double getAsDouble() {
+        return value / 100;
     }
 
 }

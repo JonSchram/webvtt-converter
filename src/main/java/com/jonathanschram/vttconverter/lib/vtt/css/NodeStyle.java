@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.Opacity;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextCombineUpright;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
@@ -16,7 +17,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
  */
 public class NodeStyle {
     private final Color color;
-    private final int opacity;
+    private final Opacity opacity;
     private final Visibility visibility;
     private final TextDecoration textDecoration;
     private final TextShadow textShadow;
@@ -27,7 +28,7 @@ public class NodeStyle {
     private final TextCombineUpright textCombineUpright;
     private final RubyPosition rubyPosition;
 
-    public NodeStyle(Color color, int opacity, Visibility visibility, TextDecoration textDecoration,
+    public NodeStyle(Color color, Opacity opacity, Visibility visibility, TextDecoration textDecoration,
             TextShadow textShadow, Background background, Outline outline, Font font, WhiteSpace whiteSpace,
             TextCombineUpright textCombineUpright, RubyPosition rubyPosition) {
         super();
@@ -48,7 +49,7 @@ public class NodeStyle {
         return color;
     }
 
-    public int getOpacity() {
+    public Opacity getOpacity() {
         return opacity;
     }
 
