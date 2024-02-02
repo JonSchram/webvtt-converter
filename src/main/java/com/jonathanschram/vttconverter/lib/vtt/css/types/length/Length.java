@@ -1,4 +1,4 @@
-package com.jonathanschram.vttconverter.lib.vtt.css.properties;
+package com.jonathanschram.vttconverter.lib.vtt.css.types.length;
 
 /***
  * An interface for CSS length. This allows setting absolute sizes (in terms of

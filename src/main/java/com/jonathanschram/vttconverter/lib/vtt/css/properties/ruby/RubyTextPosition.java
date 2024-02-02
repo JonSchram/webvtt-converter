@@ -1,5 +1,5 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby;
 
-public enum Position {
+public enum RubyTextPosition {
     OVER, UNDER
 }

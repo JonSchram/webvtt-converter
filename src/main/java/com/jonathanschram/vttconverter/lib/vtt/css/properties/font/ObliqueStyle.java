@@ -1,6 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Angle;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Angle;
 
 public class ObliqueStyle {
 

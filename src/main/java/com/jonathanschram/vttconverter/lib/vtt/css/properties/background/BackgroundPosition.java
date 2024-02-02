@@ -1,11 +1,13 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Position;
+
 /***
- * An interface for setting the position of a background image. The real
- * implementation may specify specific coordinates, or may be a keyword that
- * specifies an edge of the bounding box.
+ * An interface for setting the position of a background image. Beyond a regular
+ * position, this allows specifying an offset from a position.
  * 
+ * TODO: Now that Position is a data type, this may not be needed
  */
-public interface BackgroundPosition {
+public interface BackgroundPosition extends Position {
 
 }

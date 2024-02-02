@@ -1,6 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class Outline {
     private final Color color;

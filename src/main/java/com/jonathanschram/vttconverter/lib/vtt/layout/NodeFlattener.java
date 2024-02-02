@@ -70,5 +70,4 @@ public class NodeFlattener implements NodeVisitor {
     public void visitVoiceNode(VoiceNode node) {
         System.out.println("Visiting voice node");
     }
-
 }

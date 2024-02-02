@@ -1,4 +1,4 @@
-package com.jonathanschram.vttconverter.lib.vtt.css.properties;
+package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
 /***
  * A size measurement representing a percentage of another element's size (often

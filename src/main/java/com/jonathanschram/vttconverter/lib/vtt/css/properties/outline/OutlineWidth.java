@@ -1,6 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Length;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 
 /**
  * Allows specifying the width of an outline with either a CSS measurement or

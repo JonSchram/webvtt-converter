@@ -10,9 +10,9 @@ public class OverUnderPosition implements RubyPosition {
      * Whether the ruby position alternates between over and under.
      */
     private final boolean alternate;
-    private final Position position;
+    private final RubyTextPosition position;
 
-    public OverUnderPosition(boolean alternate, Position position) {
+    public OverUnderPosition(boolean alternate, RubyTextPosition position) {
         super();
         this.alternate = alternate;
         this.position = position;
@@ -22,7 +22,7 @@ public class OverUnderPosition implements RubyPosition {
         return alternate;
     }
 
-    public Position getPosition() {
+    public RubyTextPosition getPosition() {
         return position;
     }
 

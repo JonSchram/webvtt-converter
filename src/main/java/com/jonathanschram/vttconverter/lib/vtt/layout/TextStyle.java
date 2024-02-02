@@ -1,11 +1,11 @@
 package com.jonathanschram.vttconverter.lib.vtt.layout;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.Background;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDecoration;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 /***
  * The set of CSS styles that can apply to text runs in a style box. This is a

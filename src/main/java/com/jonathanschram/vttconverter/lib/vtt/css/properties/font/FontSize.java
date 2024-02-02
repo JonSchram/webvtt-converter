@@ -1,7 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Length;
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Percentage;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 
 /***
  * An interface for representing a font size. Allows for setting keywords

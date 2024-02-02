@@ -1,4 +1,4 @@
-package com.jonathanschram.vttconverter.lib.vtt.css.properties;
+package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
 /***
  * A representation of an angle value. Allows representing in terms of degrees,

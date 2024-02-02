@@ -1,4 +1,4 @@
-package com.jonathanschram.vttconverter.lib.vtt.css.properties;
+package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
 public class Color {
     // Standard HTML named colors.

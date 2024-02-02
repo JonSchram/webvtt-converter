@@ -1,6 +1,5 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextCombineUpright;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
@@ -10,6 +9,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDec
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.Outline;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyPosition;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 /***
  * The set of CSS properties that can apply to a cue node.

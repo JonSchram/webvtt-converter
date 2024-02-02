@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 public class TextShadow {
     private final int offsetX;
     private final int offsetY;
