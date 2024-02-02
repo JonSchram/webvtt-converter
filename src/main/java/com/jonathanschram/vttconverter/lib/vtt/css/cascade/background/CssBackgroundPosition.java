@@ -8,9 +8,9 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.PercentageLength;
 
-public class CssPosition extends CascadingStyle<BackgroundPosition> {
+public class CssBackgroundPosition extends CascadingStyle<BackgroundPosition> {
 
-    public CssPosition() {
+    public CssBackgroundPosition() {
         // TODO Auto-generated constructor stub
     }
 

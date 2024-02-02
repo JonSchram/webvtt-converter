@@ -3,9 +3,9 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundClip;
 
-public class CssClip extends CascadingStyle<BackgroundClip> {
+public class CssCssBackgroundClip extends CascadingStyle<BackgroundClip> {
 
-    public CssClip() {
+    public CssCssBackgroundClip() {
         // TODO Auto-generated constructor stub
     }
 

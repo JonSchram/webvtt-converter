@@ -5,9 +5,9 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.Au
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.BackgroundSize;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.MeasuredSize;
 
-public class CssSize extends CascadingStyle<BackgroundSize> {
+public class CssBackgroundSize extends CascadingStyle<BackgroundSize> {
 
-    public CssSize() {
+    public CssBackgroundSize() {
         // TODO Auto-generated constructor stub
     }
 
