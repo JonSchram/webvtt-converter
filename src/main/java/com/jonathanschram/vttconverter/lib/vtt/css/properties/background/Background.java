@@ -1,20 +1,20 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.BackgroundSize;
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
 public class Background {
 
     private final BackgroundAttachment attachment;
     private final BackgroundClip clip;
-    private final Color color;
+    private final AbsoluteColor color;
     private final BackgroundImage image;
     private final BackgroundOrigin origin;
     private final BackgroundPosition position;
     private final BackgroundRepeat repeat;
     private final BackgroundSize size;
 
-    public Background(BackgroundAttachment attachment, BackgroundClip clip, Color color, BackgroundImage image,
+    public Background(BackgroundAttachment attachment, BackgroundClip clip, AbsoluteColor color, BackgroundImage image,
             BackgroundOrigin origin, BackgroundPosition position, BackgroundRepeat repeat, BackgroundSize size) {
         super();
         this.attachment = attachment;
@@ -35,7 +35,7 @@ public class Background {
         return clip;
     }
 
-    public Color getColor() {
+    public AbsoluteColor getColor() {
         return color;
     }
 

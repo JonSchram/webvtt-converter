@@ -1,20 +1,20 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
 public class Outline {
-    private final Color color;
+    private final AbsoluteColor color;
     private final OutlineStyle style;
     private final OutlineWidth width;
 
-    public Outline(Color color, OutlineStyle style, OutlineWidth width) {
+    public Outline(AbsoluteColor color, OutlineStyle style, OutlineWidth width) {
         super();
         this.color = color;
         this.style = style;
         this.width = width;
     }
 
-    public Color getColor() {
+    public AbsoluteColor getColor() {
         return color;
     }
 

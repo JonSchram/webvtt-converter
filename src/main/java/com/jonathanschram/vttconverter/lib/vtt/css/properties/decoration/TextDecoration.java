@@ -1,7 +1,8 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration;
 
-import java.awt.Color;
 import java.util.Set;
+
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class TextDecoration {
     private final Color color;

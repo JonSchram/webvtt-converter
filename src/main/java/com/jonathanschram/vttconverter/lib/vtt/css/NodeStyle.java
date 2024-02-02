@@ -10,13 +10,13 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDec
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.Outline;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyPosition;
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
 /***
  * The set of CSS properties that can apply to a cue node.
  */
 public class NodeStyle {
-    private final Color color;
+    private final AbsoluteColor color;
     private final Opacity opacity;
     private final Visibility visibility;
     private final TextDecoration textDecoration;
@@ -28,7 +28,7 @@ public class NodeStyle {
     private final TextCombineUpright textCombineUpright;
     private final RubyPosition rubyPosition;
 
-    public NodeStyle(Color color, Opacity opacity, Visibility visibility, TextDecoration textDecoration,
+    public NodeStyle(AbsoluteColor color, Opacity opacity, Visibility visibility, TextDecoration textDecoration,
             TextShadow textShadow, Background background, Outline outline, Font font, WhiteSpace whiteSpace,
             TextCombineUpright textCombineUpright, RubyPosition rubyPosition) {
         super();
@@ -45,7 +45,7 @@ public class NodeStyle {
         this.rubyPosition = rubyPosition;
     }
 
-    public Color getColor() {
+    public AbsoluteColor getColor() {
         return color;
     }
 

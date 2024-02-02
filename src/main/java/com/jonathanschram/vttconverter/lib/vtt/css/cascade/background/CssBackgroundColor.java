@@ -1,16 +1,16 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
-public class CssBackgroundColor extends CascadingStyle<Color> {
+public class CssBackgroundColor extends CascadingStyle<AbsoluteColor> {
 
     public CssBackgroundColor() {
         // TODO Auto-generated constructor stub
     }
 
     @Override
-    public Color getInitialValue() {
+    public AbsoluteColor getInitialValue() {
         // TODO Auto-generated method stub
         return null;
     }

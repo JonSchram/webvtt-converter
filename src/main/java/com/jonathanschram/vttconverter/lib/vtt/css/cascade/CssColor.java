@@ -1,16 +1,15 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
-public class CssColor extends CascadingStyle<Color> {
+public class CssColor extends CascadingStyle<AbsoluteColor> {
 
     public CssColor() {
         // TODO Auto-generated constructor stub
     }
 
     @Override
-    public Color getInitialValue() {
-        // TODO: Implement system colors. This should be canvas text, a system color that looks like it is black.
-        return Color.ALICE_BLUE;
+    public AbsoluteColor getInitialValue() {
+        return AbsoluteColor.CANVAS_TEXT;
     }
 }

@@ -5,14 +5,14 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.Background;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDecoration;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
-import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
 /***
  * The set of CSS styles that can apply to text runs in a style box. This is a
  * subset of all CSS properties.
  */
 public class TextStyle {
-    private final Color color;
+    private final AbsoluteColor color;
     private final int opacity;
     private final Visibility visibility;
     private final TextDecoration textDecoration;
@@ -20,7 +20,7 @@ public class TextStyle {
     private final Background background;
     private final Font font;
 
-    public TextStyle(Color color, int opacity, Visibility visibility, TextDecoration textDecoration,
+    public TextStyle(AbsoluteColor color, int opacity, Visibility visibility, TextDecoration textDecoration,
             TextShadow textShadow, Background background, Font font) {
         super();
         this.color = color;
@@ -36,7 +36,7 @@ public class TextStyle {
         return background;
     }
 
-    public Color getColor() {
+    public AbsoluteColor getColor() {
         return color;
     }
 
