@@ -151,6 +151,27 @@ public class Color {
     public static final Color YELLOW = new Color(255, 255, 0);
     public static final Color YELLOW_GREEN = new Color(154, 205, 50);
 
+    // System colors. Arbitrarily chosen based on CSS documentation, might revisit.
+    public static final Color CANVAS = WHITE;
+    public static final Color CANVAS_TEXT = BLACK;
+    public static final Color LINK_TEXT = BLUE;
+    public static final Color VISITED_TEXT = DARK_ORCHID;
+    public static final Color ACTIVE_TEXT = DARK_RED;
+    public static final Color BUTTON_FACE = GHOST_WHITE;
+    public static final Color BUTTON_TEXT = BLACK;
+    public static final Color BUTTON_BORDER = BLACK;
+    public static final Color FIELD = WHITE;
+    public static final Color FIELD_TEXT = BLACK;
+    public static final Color HIGHLIGHT = DODGER_BLUE;
+    public static final Color HIGHLIGHT_TEXT = WHITE;
+    public static final Color SELECTED_ITEM = DODGER_BLUE;
+    public static final Color SELECTED_ITEM_TEXT = WHITE;
+    public static final Color MARK = YELLOW;
+    public static final Color MARK_TEXT = BLACK;
+    public static final Color GRAY_TEXT = GRAY;
+    public static final Color ACCENT_COLOR = GREEN;
+    public static final Color ACCENT_COLOR_TEXT = WHITE;
+
     private final byte red;
     private final byte green;
     private final byte blue;
