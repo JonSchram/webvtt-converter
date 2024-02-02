@@ -1,9 +1,10 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class Outline {
-    private final AbsoluteColor color;
+    private final Color color;
     private final OutlineStyle style;
     private final OutlineWidth width;
 
@@ -14,7 +15,7 @@ public class Outline {
         this.width = width;
     }
 
-    public AbsoluteColor getColor() {
+    public Color getColor() {
         return color;
     }
 
