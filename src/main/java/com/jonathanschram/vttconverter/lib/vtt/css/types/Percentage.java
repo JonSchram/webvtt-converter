@@ -11,6 +11,11 @@ public class Percentage {
      */
     private final double value;
 
+    /***
+     * Constructs a new Percentage object, where 100 corresponds to 100%.
+     * 
+     * @param value
+     */
     public Percentage(double value) {
         this.value = value;
     }

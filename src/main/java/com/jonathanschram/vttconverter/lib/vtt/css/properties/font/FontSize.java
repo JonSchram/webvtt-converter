@@ -4,9 +4,9 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 
 /***
- * An interface for representing a font size. Allows for setting keywords
- * (absolute size like "large" or relative like "larger"), a {@link Length}, or
- * a {@link Percentage}.
+ * An interface for representing a font size. Allows for setting a
+ * {@link FontSizeKeyword} (absolute size like "large" or relative like
+ * "larger"), a {@link Length}, or a {@link Percentage}.
  */
 public interface FontSize {
 
