@@ -5,7 +5,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextCombineUpright
 public class CssTextCombineUpright extends CascadingStyle<TextCombineUpright> {
 
     public CssTextCombineUpright() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

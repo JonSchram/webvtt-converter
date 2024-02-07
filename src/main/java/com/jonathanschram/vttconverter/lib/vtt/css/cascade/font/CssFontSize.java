@@ -8,7 +8,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontSi
 public class CssFontSize extends CascadingStyle<FontSize> {
 
     public CssFontSize() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontVariant;
 public class CssFontVariant extends CascadingStyle<FontVariant> {
 
     public CssFontVariant() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

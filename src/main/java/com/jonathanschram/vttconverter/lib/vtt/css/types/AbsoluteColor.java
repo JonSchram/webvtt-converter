@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
+import java.util.Objects;
+
 public class AbsoluteColor implements Color {
     // Standard HTML named colors.
     public static final AbsoluteColor ALICE_BLUE = new AbsoluteColor(240, 248, 255);
@@ -180,10 +182,6 @@ public class AbsoluteColor implements Color {
     private final byte blue;
     private final double alpha;
 
-    public AbsoluteColor(int red, int green, int blue) {
-        this((byte) red, (byte) green, (byte) blue);
-    }
-
     /***
      * Creates a new {@link AbsoluteColor} that is fully opaque. Alpha is set to 1.
      * 
@@ -195,10 +193,6 @@ public class AbsoluteColor implements Color {
         this(red, green, blue, 1.0);
     }
 
-    public AbsoluteColor(int red, int green, int blue, double alpha) {
-        this((byte) red, (byte) green, (byte) blue, alpha);
-    }
-
     public AbsoluteColor(byte red, byte green, byte blue, double alpha) {
         if (alpha < 0 || alpha > 1) {
             throw new IllegalArgumentException("Illegal value for alpha channel: Must be between 0 and 1");
@@ -208,6 +202,27 @@ public class AbsoluteColor implements Color {
         this.green = green;
         this.blue = blue;
         this.alpha = alpha;
+    }
+
+    public AbsoluteColor(int red, int green, int blue) {
+        this((byte) red, (byte) green, (byte) blue);
+    }
+
+    public AbsoluteColor(int red, int green, int blue, double alpha) {
+        this((byte) red, (byte) green, (byte) blue, alpha);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AbsoluteColor other = (AbsoluteColor) obj;
+        return Double.doubleToLongBits(alpha) == Double.doubleToLongBits(other.alpha) && blue == other.blue
+                && green == other.green && red == other.red;
     }
 
     public double getAlpha() {
@@ -224,6 +239,11 @@ public class AbsoluteColor implements Color {
 
     public int getRed() {
         return red;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alpha, blue, green, red);
     }
 
 }

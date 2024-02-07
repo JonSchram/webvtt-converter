@@ -8,5 +8,4 @@ public class CssVisibility extends CascadingStyle<Visibility> {
     public Visibility getInitialValue() {
         return Visibility.VISIBLE;
     }
-
 }

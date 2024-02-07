@@ -6,7 +6,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineSty
 public class CssDecorationStyle extends CascadingStyle<LineStyle> {
 
     public CssDecorationStyle() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

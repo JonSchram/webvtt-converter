@@ -3,15 +3,15 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundClip;
 
-public class CssCssBackgroundClip extends CascadingStyle<BackgroundClip> {
+public class CssBackgroundClip extends CascadingStyle<BackgroundClip> {
+    public static final BackgroundClip INITIAL_VALUE = BackgroundClip.BORDER_BOX;
 
-    public CssCssBackgroundClip() {
-        // TODO Auto-generated constructor stub
+    public CssBackgroundClip() {
     }
 
     @Override
     public BackgroundClip getInitialValue() {
-        return BackgroundClip.BORDER_BOX;
+        return INITIAL_VALUE;
     }
 
 }

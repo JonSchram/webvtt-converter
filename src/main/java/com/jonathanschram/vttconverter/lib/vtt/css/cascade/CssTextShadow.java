@@ -5,7 +5,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 public class CssTextShadow extends CascadingStyle<TextShadow> {
 
     public CssTextShadow() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

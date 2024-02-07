@@ -6,14 +6,18 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineWid
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineWidthKeyword;
 
 public class CssOutlineWidth extends CascadingStyle<OutlineWidth> {
+    public static final OutlineWidth INITIAL_VALUE = new KeywordOutlineWidth(OutlineWidthKeyword.MEDIUM);
 
     public CssOutlineWidth() {
-        // TODO Auto-generated constructor stub
+    }
+
+    public CssOutlineWidth(OutlineWidth width) {
+        super(width);
     }
 
     @Override
     public OutlineWidth getInitialValue() {
-        return new KeywordOutlineWidth(OutlineWidthKeyword.MEDIUM);
+        return INITIAL_VALUE;
     }
 
 }

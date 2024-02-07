@@ -7,7 +7,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.NormalLineHei
 public class CssLineHeight extends CascadingStyle<LineHeight> {
 
     public CssLineHeight() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

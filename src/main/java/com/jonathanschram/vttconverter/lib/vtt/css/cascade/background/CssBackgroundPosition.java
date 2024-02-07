@@ -9,15 +9,16 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.PercentageLength;
 
 public class CssBackgroundPosition extends CascadingStyle<BackgroundPosition> {
+    private static final Length ZERO_LENGTH = new PercentageLength(new Percentage(0));
+    public static final BackgroundPosition INITIAL_VALUE = new SimpleBackgroundPosition(
+            new LengthPosition(ZERO_LENGTH, ZERO_LENGTH));
 
     public CssBackgroundPosition() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public BackgroundPosition getInitialValue() {
-        Length zero = new PercentageLength(new Percentage(0));
-        return new SimpleBackgroundPosition(new LengthPosition(zero, zero));
+        return INITIAL_VALUE;
     }
 
 }

@@ -6,14 +6,15 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.Ba
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.MeasuredSize;
 
 public class CssBackgroundSize extends CascadingStyle<BackgroundSize> {
+    public static final BackgroundSize INITIAL_VALUE = new MeasuredSize(AutoDimension.getInstance(),
+            AutoDimension.getInstance());
 
     public CssBackgroundSize() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public BackgroundSize getInitialValue() {
-        return new MeasuredSize(new AutoDimension(), new AutoDimension());
+        return INITIAL_VALUE;
     }
 
 }

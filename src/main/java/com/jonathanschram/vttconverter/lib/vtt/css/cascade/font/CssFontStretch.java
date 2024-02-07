@@ -8,7 +8,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontSt
 public class CssFontStretch extends CascadingStyle<FontStretch> {
 
     public CssFontStretch() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

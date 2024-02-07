@@ -10,7 +10,12 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.GenericFontFa
 public class CssFontFamily extends CascadingStyle<List<FontFamily>> {
 
     public CssFontFamily() {
-        // TODO Auto-generated constructor stub
+    }
+
+    public CssFontFamily(List<FontFamily> values) {
+        // Create defensive copy of input values so this can't be modified.
+        // If this style needs to be modified, the whole list should be reassigned.
+        super(List.copyOf(values));
     }
 
     @Override

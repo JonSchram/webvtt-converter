@@ -5,8 +5,16 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size;
  */
 public class AutoDimension implements SizeDimension {
 
-    public AutoDimension() {
-        // TODO Auto-generated constructor stub
+    private static AutoDimension instance;
+
+    public static final AutoDimension getInstance() {
+        if (instance == null) {
+            instance = new AutoDimension();
+        }
+        return instance;
+    }
+
+    private AutoDimension() {
     }
 
 }

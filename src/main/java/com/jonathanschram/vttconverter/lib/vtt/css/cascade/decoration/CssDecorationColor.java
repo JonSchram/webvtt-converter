@@ -7,7 +7,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.CurrentColor;
 public class CssDecorationColor extends CascadingStyle<Color> {
 
     public CssDecorationColor() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

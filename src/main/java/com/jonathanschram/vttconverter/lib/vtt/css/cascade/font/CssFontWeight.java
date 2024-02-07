@@ -7,7 +7,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.NumericFontWe
 public class CssFontWeight extends CascadingStyle<FontWeight> {
 
     public CssFontWeight() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override

@@ -7,11 +7,11 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyTextPosit
 public class CssRubyPosition extends CascadingStyle<RubyPosition> {
 
     public CssRubyPosition() {
-        // TODO Auto-generated constructor stub
     }
 
     @Override
     public RubyPosition getInitialValue() {
         return new OverUnderPosition(true, RubyTextPosition.OVER);
     }
+
 }
