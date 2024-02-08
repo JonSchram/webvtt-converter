@@ -12,4 +12,9 @@ public class CssTextCombineUpright extends CascadingStyle<TextCombineUpright> {
         // Default is to not combine. May want to revisit returning null.
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "CssTextCombineUpright [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

@@ -24,4 +24,9 @@ public class CssBackgroundColor extends CascadingStyle<Color> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundColor [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

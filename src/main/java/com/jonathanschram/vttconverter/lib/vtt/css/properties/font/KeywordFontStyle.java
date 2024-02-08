@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
+import java.util.Objects;
+
 public class KeywordFontStyle implements FontStyle {
     private final FontStyleKeyword style;
 
@@ -9,6 +11,28 @@ public class KeywordFontStyle implements FontStyle {
 
     public FontStyleKeyword getStyle() {
         return style;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(style);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        KeywordFontStyle other = (KeywordFontStyle) obj;
+        return style == other.style;
+    }
+
+    @Override
+    public String toString() {
+        return "KeywordFontStyle [style=" + style + "]";
     }
 
 }

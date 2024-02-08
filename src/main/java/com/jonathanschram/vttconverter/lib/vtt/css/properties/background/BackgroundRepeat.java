@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
+import java.util.Objects;
+
 public class BackgroundRepeat {
 
     public static final BackgroundRepeat REPEAT_X = new BackgroundRepeat(Repeat.REPEAT, Repeat.NO_REPEAT);
@@ -23,6 +25,28 @@ public class BackgroundRepeat {
 
     public Repeat getRepeatY() {
         return repeatY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(repeatX, repeatY);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        BackgroundRepeat other = (BackgroundRepeat) obj;
+        return repeatX == other.repeatX && repeatY == other.repeatY;
+    }
+
+    @Override
+    public String toString() {
+        return "BackgroundRepeat [repeatX=" + repeatX + ", repeatY=" + repeatY + "]";
     }
 
 }

@@ -19,4 +19,9 @@ public class CssOutlineColor extends CascadingStyle<Color> {
     public Color getInitialValue() {
         return INITIAL_VALUE;
     }
+
+    @Override
+    public String toString() {
+        return "CssOutlineColor [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

@@ -14,4 +14,9 @@ public class CssRubyPosition extends CascadingStyle<RubyPosition> {
         return new OverUnderPosition(true, RubyTextPosition.OVER);
     }
 
+    @Override
+    public String toString() {
+        return "CssRubyPosition [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

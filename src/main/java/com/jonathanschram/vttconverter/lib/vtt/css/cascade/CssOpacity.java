@@ -13,4 +13,9 @@ public class CssOpacity extends CascadingStyle<Opacity> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssOpacity [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

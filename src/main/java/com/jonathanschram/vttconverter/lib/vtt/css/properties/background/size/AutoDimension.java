@@ -17,4 +17,9 @@ public class AutoDimension implements SizeDimension {
     private AutoDimension() {
     }
 
+    @Override
+    public String toString() {
+        return "AutoDimension []";
+    }
+
 }

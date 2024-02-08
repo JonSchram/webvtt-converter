@@ -15,7 +15,7 @@ public abstract class CascadingStyle<T> implements CssProperty<T> {
      * A special global value that indicates this object either contains no data or
      * must take its value from another element.
      */
-    private GlobalValue globalValue;
+    protected GlobalValue globalValue;
 
     protected T wrappedValue;
 

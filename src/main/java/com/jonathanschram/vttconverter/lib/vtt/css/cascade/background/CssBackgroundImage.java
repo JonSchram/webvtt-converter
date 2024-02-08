@@ -19,4 +19,9 @@ public class CssBackgroundImage extends CascadingStyle<BackgroundImage> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundImage [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

@@ -17,4 +17,9 @@ public class CssBackgroundSize extends CascadingStyle<BackgroundSize> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundSize [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

@@ -17,4 +17,9 @@ public class CssOutlineStyle extends CascadingStyle<OutlineStyle> {
     public OutlineStyle getInitialValue() {
         return INITIAL_VALUE;
     }
+
+    @Override
+    public String toString() {
+        return "CssOutlineStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

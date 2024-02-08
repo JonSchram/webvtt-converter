@@ -14,4 +14,9 @@ public class CssBackgroundClip extends CascadingStyle<BackgroundClip> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundClip [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

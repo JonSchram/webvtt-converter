@@ -23,4 +23,9 @@ public class CssBackgroundOrigin extends CascadingStyle<BackgroundOrigin> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundOrigin [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

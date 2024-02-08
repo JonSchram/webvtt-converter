@@ -246,4 +246,9 @@ public class AbsoluteColor implements Color {
         return Objects.hash(alpha, blue, green, red);
     }
 
+    @Override
+    public String toString() {
+        return "AbsoluteColor [red=" + red + ", green=" + green + ", blue=" + blue + ", alpha=" + alpha + "]";
+    }
+
 }

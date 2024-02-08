@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 
 public class TextShadow {
@@ -34,6 +36,30 @@ public class TextShadow {
 
     public int getOffsetY() {
         return offsetY;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(blurRadius, color, offsetX, offsetY);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TextShadow other = (TextShadow) obj;
+        return blurRadius == other.blurRadius && Objects.equals(color, other.color) && offsetX == other.offsetX
+                && offsetY == other.offsetY;
+    }
+
+    @Override
+    public String toString() {
+        return "TextShadow [offsetX=" + offsetX + ", offsetY=" + offsetY + ", blurRadius=" + blurRadius + ", color="
+                + color + "]";
     }
 
 }

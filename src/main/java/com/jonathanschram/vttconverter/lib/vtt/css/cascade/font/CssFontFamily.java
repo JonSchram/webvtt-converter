@@ -24,4 +24,9 @@ public class CssFontFamily extends CascadingStyle<List<FontFamily>> {
         // Arbitrarily chosen, sources indicate sans-serif is easier to read on screens.
         return List.of(new GenericFontFamily(GenericFamilyName.SANS_SERIF));
     }
+
+    @Override
+    public String toString() {
+        return "CssFontFamily [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

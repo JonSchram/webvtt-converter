@@ -18,6 +18,11 @@ public class CurrentColor implements Color {
     private CurrentColor() {
     }
 
+    @Override
+    public String toString() {
+        return "CurrentColor []";
+    }
+
     // TODO: resolve against a node to get the color. Needs to be on the Color
     // interface so this can work without an instanceOf check.
 

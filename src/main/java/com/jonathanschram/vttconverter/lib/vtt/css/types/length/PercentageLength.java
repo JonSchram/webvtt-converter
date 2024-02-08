@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.types.length;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 
 /***
@@ -15,6 +17,28 @@ public class PercentageLength implements Length {
 
     public Percentage getPercent() {
         return percent;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(percent);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        PercentageLength other = (PercentageLength) obj;
+        return Objects.equals(percent, other.percent);
+    }
+
+    @Override
+    public String toString() {
+        return "PercentageLength [percent=" + percent + "]";
     }
 
 }

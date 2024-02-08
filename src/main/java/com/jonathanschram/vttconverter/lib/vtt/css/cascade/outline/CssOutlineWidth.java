@@ -20,4 +20,9 @@ public class CssOutlineWidth extends CascadingStyle<OutlineWidth> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssOutlineWidth [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

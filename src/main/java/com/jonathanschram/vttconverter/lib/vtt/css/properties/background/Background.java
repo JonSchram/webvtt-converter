@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.BackgroundSize;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
@@ -57,6 +59,32 @@ public class Background {
 
     public BackgroundSize getSize() {
         return size;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attachment, clip, color, image, origin, position, repeat, size);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Background other = (Background) obj;
+        return attachment == other.attachment && clip == other.clip && Objects.equals(color, other.color)
+                && Objects.equals(image, other.image) && origin == other.origin
+                && Objects.equals(position, other.position) && Objects.equals(repeat, other.repeat)
+                && Objects.equals(size, other.size);
+    }
+
+    @Override
+    public String toString() {
+        return "Background [attachment=" + attachment + ", clip=" + clip + ", color=" + color + ", image=" + image
+                + ", origin=" + origin + ", position=" + position + ", repeat=" + repeat + ", size=" + size + "]";
     }
 
 }

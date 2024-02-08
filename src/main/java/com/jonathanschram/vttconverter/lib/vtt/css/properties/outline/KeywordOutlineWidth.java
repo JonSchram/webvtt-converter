@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Unit;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.NumericLength;
@@ -24,6 +26,28 @@ public class KeywordOutlineWidth implements OutlineWidth {
             // Default to medium.
             return new NumericLength(3, Unit.PIXELS);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(width);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        KeywordOutlineWidth other = (KeywordOutlineWidth) obj;
+        return width == other.width;
+    }
+
+    @Override
+    public String toString() {
+        return "KeywordOutlineWidth [width=" + width + "]";
     }
 
 }

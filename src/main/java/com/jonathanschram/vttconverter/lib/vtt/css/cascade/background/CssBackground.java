@@ -150,6 +150,12 @@ public class CssBackground implements CssShorthand<Background, CssBackground> {
     }
 
     @Override
+    public String toString() {
+        return "CssBackground [attachment=" + attachment + ", color=" + color + ", image=" + image + ", origin="
+                + origin + ", position=" + position + ", repeat=" + repeat + ", size=" + size + ", clip=" + clip + "]";
+    }
+
+    @Override
     public void updateStyle(CssBackground newValue) {
         if (newValue == null) {
             return;

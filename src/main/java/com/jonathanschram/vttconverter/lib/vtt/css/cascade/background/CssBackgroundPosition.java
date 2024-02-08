@@ -21,4 +21,9 @@ public class CssBackgroundPosition extends CascadingStyle<BackgroundPosition> {
         return INITIAL_VALUE;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundPosition [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

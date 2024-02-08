@@ -2,10 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
 import java.util.Objects;
 
-public class NumericFontWeight implements FontWeight {
-    private final int weight;
+public class KeywordFontWeight implements FontWeight {
+    private final FontWeightKeyword weight;
 
-    public NumericFontWeight(int weight) {
+    public KeywordFontWeight(FontWeightKeyword weight) {
         this.weight = weight;
     }
 
@@ -17,12 +17,8 @@ public class NumericFontWeight implements FontWeight {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        NumericFontWeight other = (NumericFontWeight) obj;
+        KeywordFontWeight other = (KeywordFontWeight) obj;
         return weight == other.weight;
-    }
-
-    public int getWeight() {
-        return weight;
     }
 
     @Override
@@ -32,7 +28,7 @@ public class NumericFontWeight implements FontWeight {
 
     @Override
     public String toString() {
-        return "NumericFontWeight [weight=" + weight + "]";
+        return "KeywordFontWeight [weight=" + weight + "]";
     }
 
 }

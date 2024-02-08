@@ -8,4 +8,9 @@ public class CssVisibility extends CascadingStyle<Visibility> {
     public Visibility getInitialValue() {
         return Visibility.VISIBLE;
     }
+
+    @Override
+    public String toString() {
+        return "CssVisibility [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

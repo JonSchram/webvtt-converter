@@ -9,11 +9,16 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public abstract class InternalNode extends VttNode {
     public static abstract class Builder extends VttNode.Builder {
-        protected List<VttNode.Builder> children = new ArrayList<>();
+        protected List<VttNode> children = new ArrayList<>();
         protected List<String> classes = null;
         protected String applicableLanguage;
 
         public Builder appendChild(VttNode.Builder child) {
+            this.children.add(child.build());
+            return this;
+        }
+
+        public Builder appendChild(VttNode child) {
             this.children.add(child);
             return this;
         }
@@ -44,10 +49,7 @@ public abstract class InternalNode extends VttNode {
 
     public InternalNode(Builder builder) {
         if (builder.children != null) {
-            this.children = new ArrayList<>();
-            for (VttNode.Builder childBuilder : builder.children) {
-                this.children.add(childBuilder.build());
-            }
+            this.children = Collections.unmodifiableList(builder.children);
         } else {
             this.children = new ArrayList<>();
         }
@@ -93,7 +95,8 @@ public abstract class InternalNode extends VttNode {
      * @return
      */
     public List<VttNode> getChildren() {
-        return Collections.unmodifiableList(children);
+        // Children is already an unmodifiable list.
+        return children;
     }
 
     /***

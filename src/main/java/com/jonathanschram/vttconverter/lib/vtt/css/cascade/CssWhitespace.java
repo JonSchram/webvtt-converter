@@ -12,4 +12,9 @@ public class CssWhitespace extends CascadingStyle<WhiteSpace> {
         return WhiteSpace.NORMAL;
     }
 
+    @Override
+    public String toString() {
+        return "CssWhitespace [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

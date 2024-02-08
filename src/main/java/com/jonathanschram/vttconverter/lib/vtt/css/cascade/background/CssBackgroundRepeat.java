@@ -14,4 +14,9 @@ public class CssBackgroundRepeat extends CascadingStyle<BackgroundRepeat> {
         return BackgroundRepeat.REPEAT;
     }
 
+    @Override
+    public String toString() {
+        return "CssBackgroundRepeat [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
+
 }

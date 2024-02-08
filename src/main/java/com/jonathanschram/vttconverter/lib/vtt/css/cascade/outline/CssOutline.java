@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.Outline;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineStyle;
@@ -30,8 +32,31 @@ public class CssOutline implements CssShorthand<Outline, CssOutline> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CssOutline other = (CssOutline) obj;
+        return Objects.equals(color, other.color) && Objects.equals(style, other.style)
+                && Objects.equals(width, other.width);
+    }
+
+    @Override
     public Outline getInitialValue() {
         return new Outline(color.getInitialValue(), style.getInitialValue(), width.getInitialValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, style, width);
+    }
+
+    @Override
+    public String toString() {
+        return "CssOutline [color=" + color + ", style=" + style + ", width=" + width + "]";
     }
 
     @Override
@@ -39,7 +64,7 @@ public class CssOutline implements CssShorthand<Outline, CssOutline> {
         if (newValue == null) {
             return;
         }
-        
+
         color.updateStyle(newValue.color);
         style.updateStyle(newValue.style);
         width.updateStyle(newValue.width);

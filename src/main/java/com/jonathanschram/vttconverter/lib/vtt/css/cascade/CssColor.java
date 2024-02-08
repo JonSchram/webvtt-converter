@@ -22,4 +22,9 @@ public class CssColor extends CascadingStyle<Color> {
     public Color getInitialValue() {
         return INITIAL_VALUE;
     }
+
+    @Override
+    public String toString() {
+        return "CssColor [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+    }
 }

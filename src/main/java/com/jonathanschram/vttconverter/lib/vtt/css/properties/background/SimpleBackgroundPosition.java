@@ -1,5 +1,7 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
+import java.util.Objects;
+
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Position;
 
 /***
@@ -15,6 +17,28 @@ public class SimpleBackgroundPosition implements BackgroundPosition {
 
     public Position getPosition() {
         return position;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SimpleBackgroundPosition other = (SimpleBackgroundPosition) obj;
+        return Objects.equals(position, other.position);
+    }
+
+    @Override
+    public String toString() {
+        return "SimpleBackgroundPosition [position=" + position + "]";
     }
 
 }

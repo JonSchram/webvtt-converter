@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration;
 
+import java.util.Objects;
 import java.util.Set;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
@@ -18,6 +19,7 @@ public class TextDecoration {
         this.lines = Set.copyOf(lines);
         this.style = style;
     }
+
     public Color getColor() {
         return color;
     }
@@ -25,9 +27,31 @@ public class TextDecoration {
     public Set<LineType> getLines() {
         return lines;
     }
-    
+
     public LineStyle getStyle() {
         return style;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, lines, style);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TextDecoration other = (TextDecoration) obj;
+        return Objects.equals(color, other.color) && Objects.equals(lines, other.lines) && style == other.style;
+    }
+
+    @Override
+    public String toString() {
+        return "TextDecoration [color=" + color + ", lines=" + lines + ", style=" + style + "]";
     }
 
 }
