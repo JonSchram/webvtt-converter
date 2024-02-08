@@ -18,6 +18,11 @@ public class CssBackgroundSize extends CascadingStyle<BackgroundSize> {
     }
 
     @Override
+    public boolean isInherited() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CssBackgroundSize [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

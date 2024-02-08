@@ -13,6 +13,11 @@ public class CssWhitespace extends CascadingStyle<WhiteSpace> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssWhitespace [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

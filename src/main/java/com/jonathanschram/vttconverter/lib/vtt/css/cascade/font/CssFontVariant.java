@@ -23,6 +23,11 @@ public class CssFontVariant extends CascadingStyle<FontVariant> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssFontVariant [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

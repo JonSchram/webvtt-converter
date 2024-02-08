@@ -25,6 +25,11 @@ public class CssFontWeight extends CascadingStyle<FontWeight> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssFontWeight [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

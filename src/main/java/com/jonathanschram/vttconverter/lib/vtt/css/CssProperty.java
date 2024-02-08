@@ -42,4 +42,15 @@ public interface CssProperty<T> {
      * @param updatedValue
      */
     void updateStyle(CssProperty<T> updatedValue);
+
+    /***
+     * Whether this CSS property is inherited from the parent element.
+     * <p>
+     * If true, this property inherit their value from the computed value of the
+     * parent's property during the cascade. If false, this property is set to its
+     * initial value.
+     * 
+     * @return
+     */
+    boolean isInherited();
 }

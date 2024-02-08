@@ -23,6 +23,11 @@ public class CssDecorationStyle extends CascadingStyle<LineStyle> {
     }
 
     @Override
+    public boolean isInherited() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CssDecorationStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

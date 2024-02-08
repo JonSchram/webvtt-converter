@@ -20,6 +20,11 @@ public class CssBackgroundImage extends CascadingStyle<BackgroundImage> {
     }
 
     @Override
+    public boolean isInherited() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CssBackgroundImage [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

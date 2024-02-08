@@ -24,6 +24,11 @@ public class CssLineHeight extends CascadingStyle<LineHeight> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssLineHeight [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

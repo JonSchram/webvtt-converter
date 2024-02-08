@@ -25,6 +25,11 @@ public class CssFontStyle extends CascadingStyle<FontStyle> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssFontStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

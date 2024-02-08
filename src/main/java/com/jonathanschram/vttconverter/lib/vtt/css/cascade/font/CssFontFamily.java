@@ -26,6 +26,11 @@ public class CssFontFamily extends CascadingStyle<List<FontFamily>> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssFontFamily [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

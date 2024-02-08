@@ -19,6 +19,11 @@ public class CssBackgroundAttachment extends CascadingStyle<BackgroundAttachment
     }
 
     @Override
+    public boolean isInherited() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CssBackgroundAttachment [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

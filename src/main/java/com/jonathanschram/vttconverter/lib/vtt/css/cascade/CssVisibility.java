@@ -10,6 +10,11 @@ public class CssVisibility extends CascadingStyle<Visibility> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssVisibility [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

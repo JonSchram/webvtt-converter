@@ -15,6 +15,11 @@ public class CssTextShadow extends CascadingStyle<TextShadow> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssTextShadow [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

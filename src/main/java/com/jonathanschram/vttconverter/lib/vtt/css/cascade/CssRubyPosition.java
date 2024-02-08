@@ -15,6 +15,11 @@ public class CssRubyPosition extends CascadingStyle<RubyPosition> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssRubyPosition [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

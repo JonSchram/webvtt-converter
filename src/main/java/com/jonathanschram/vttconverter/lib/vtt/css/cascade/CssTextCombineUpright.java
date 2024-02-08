@@ -14,6 +14,11 @@ public class CssTextCombineUpright extends CascadingStyle<TextCombineUpright> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssTextCombineUpright [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

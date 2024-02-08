@@ -25,6 +25,11 @@ public class CssFontSize extends CascadingStyle<FontSize> {
     }
 
     @Override
+    public boolean isInherited() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "CssFontSize [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }

@@ -24,6 +24,11 @@ public class CssDecorationColor extends CascadingStyle<Color> {
     }
 
     @Override
+    public boolean isInherited() {
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CssDecorationColor [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
     }
