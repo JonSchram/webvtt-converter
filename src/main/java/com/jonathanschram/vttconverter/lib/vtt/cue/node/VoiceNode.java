@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public class VoiceNode extends InternalNode {
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<VoiceNode, Builder> {
         private String voiceName;
 
         @Override
@@ -15,6 +15,11 @@ public class VoiceNode extends InternalNode {
 
         public Builder setVoiceName(String voiceName) {
             this.voiceName = voiceName;
+            return this;
+        }
+
+        @Override
+        public Builder getThis() {
             return this;
         }
     }

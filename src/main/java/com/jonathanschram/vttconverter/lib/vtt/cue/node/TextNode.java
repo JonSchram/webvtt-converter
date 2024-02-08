@@ -5,7 +5,7 @@ import java.util.Objects;
 import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public class TextNode extends VttNode {
-    public static class Builder extends VttNode.Builder {
+    public static class Builder extends VttNode.Builder<TextNode> {
 
         private String text;
 

@@ -8,29 +8,47 @@ import java.util.Objects;
 import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public abstract class InternalNode extends VttNode {
-    public static abstract class Builder extends VttNode.Builder {
+    /***
+     * 
+     * @param <T> Type of node being built.
+     * @param <B> Type of builder returned by method chaining.
+     */
+    public static abstract class Builder<T extends InternalNode, B extends InternalNode.Builder<T, B>>
+            extends VttNode.Builder<T> {
         protected List<VttNode> children = new ArrayList<>();
         protected List<String> classes = null;
         protected String applicableLanguage;
 
-        public Builder appendChild(VttNode.Builder child) {
+        /***
+         * Returns a reference to the current builder type, to allow builder methods to
+         * return a type-safe reference to <code>this</code>.
+         * 
+         * <p>
+         * Strategy from
+         * <a href="https://stackoverflow.com/users/3114959/stepan-vavra">Stepan
+         * Vavra</a> on this
+         * <a href="https://stackoverflow.com/a/34741836">StackOverflow answer</a>
+         */
+        public abstract B getThis();
+
+        public B appendChild(VttNode.Builder<? extends VttNode> child) {
             this.children.add(child.build());
-            return this;
+            return getThis();
         }
 
-        public Builder appendChild(VttNode child) {
+        public B appendChild(VttNode child) {
             this.children.add(child);
-            return this;
+            return getThis();
         }
 
-        public Builder setApplicableLanguage(String applicableLanguage) {
+        public B setApplicableLanguage(String applicableLanguage) {
             this.applicableLanguage = applicableLanguage;
-            return this;
+            return getThis();
         }
 
-        public Builder setClasses(List<String> classes) {
+        public B setClasses(List<String> classes) {
             this.classes = classes;
-            return this;
+            return getThis();
         }
 
     }
@@ -47,7 +65,7 @@ public abstract class InternalNode extends VttNode {
         this.applicableLanguage = "";
     }
 
-    public InternalNode(Builder builder) {
+    public <B extends InternalNode.Builder<? extends VttNode, B>> InternalNode(B builder) {
         if (builder.children != null) {
             this.children = Collections.unmodifiableList(builder.children);
         } else {

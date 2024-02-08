@@ -4,10 +4,15 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public class RubyTextNode extends InternalNode {
 
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<RubyTextNode, Builder> {
         @Override
         public RubyTextNode build() {
             return new RubyTextNode(this);
+        }
+
+        @Override
+        public Builder getThis() {
+            return this;
         }
     }
 

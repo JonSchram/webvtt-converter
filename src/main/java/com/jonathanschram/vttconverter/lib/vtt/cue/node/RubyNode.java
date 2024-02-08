@@ -6,11 +6,16 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
  * An ordered collection of ruby base text and ruby text.
  */
 public class RubyNode extends InternalNode {
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<RubyNode, Builder> {
 
         @Override
         public RubyNode build() {
             return new RubyNode(this);
+        }
+
+        @Override
+        public Builder getThis() {
+            return this;
         }
     }
 

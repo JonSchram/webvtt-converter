@@ -5,9 +5,14 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public abstract class VttNode {
 
-    public static abstract class Builder {
+    /***
+     * 
+     * @param <T> Type of built node.
+     * @param <B> Type of builder.
+     */
+    public static abstract class Builder<T extends VttNode> {
 
-        public abstract VttNode build();
+        public abstract T build();
     }
 
     private final NodeStyle style;

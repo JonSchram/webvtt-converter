@@ -10,7 +10,11 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
  */
 public class RootCueNode extends InternalNode {
 
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<RootCueNode, Builder> {
+        @Override
+        public Builder getThis() {
+            return this;
+        }
 
         @Override
         public RootCueNode build() {
@@ -31,5 +35,5 @@ public class RootCueNode extends InternalNode {
     public void accept(NodeVisitor visitor) {
         super.accept(visitor);
     }
-    
+
 }

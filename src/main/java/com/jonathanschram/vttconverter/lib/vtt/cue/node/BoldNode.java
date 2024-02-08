@@ -4,11 +4,16 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public class BoldNode extends InternalNode {
 
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<BoldNode, Builder> {
 
         @Override
         public BoldNode build() {
             return new BoldNode(this);
+        }
+
+        @Override
+        public Builder getThis() {
+            return this;
         }
 
     }

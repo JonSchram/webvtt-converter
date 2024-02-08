@@ -27,7 +27,7 @@ public class CueTextParser {
     private final Iterator<CueTextToken> tokens;
 
     private boolean hasParsed = false;
-    private InternalNode.Builder currentParent;
+    private InternalNode.Builder<?, ?> currentParent;
 
     /***
      * Creates a {@link CueTextParser} that will parse cue text tokens from the
@@ -66,7 +66,7 @@ public class CueTextParser {
         }
         hasParsed = true;
 
-        Stack<InternalNode.Builder> allParents = new Stack<>();
+        Stack<InternalNode.Builder<?, ?>> allParents = new Stack<>();
         RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
         currentParent = rootBuilder;
 
@@ -86,7 +86,7 @@ public class CueTextParser {
 
             } else if (token instanceof StartTagToken) {
                 StartTagToken startToken = (StartTagToken) token;
-                InternalNode.Builder nodeBuilder = processStartTagToken(startToken, languages);
+                InternalNode.Builder<?, ?> nodeBuilder = processStartTagToken(startToken, languages);
                 if (nodeBuilder != null) {
                     // Save current parent so it can be retrieved when the end tag is found.
                     allParents.push(currentParent);
@@ -114,7 +114,7 @@ public class CueTextParser {
         return new TextNode.Builder().setText(token.text());
     }
 
-    private InternalNode.Builder processStartTagToken(StartTagToken token, Stack<String> languages) {
+    private InternalNode.Builder<?, ?> processStartTagToken(StartTagToken token, Stack<String> languages) {
         switch (token.tagName()) {
         case "c":
             return new ClassNode.Builder();
@@ -152,7 +152,8 @@ public class CueTextParser {
         return null;
     }
 
-    private void applyLanguageAndClasses(StartTagToken token, InternalNode.Builder builder, Stack<String> languages) {
+    private void applyLanguageAndClasses(StartTagToken token, InternalNode.Builder<?, ?> builder,
+            Stack<String> languages) {
         if (languages.size() > 0) {
             builder.setApplicableLanguage(languages.peek());
         }
@@ -161,7 +162,7 @@ public class CueTextParser {
         }
     }
 
-    private void processEndTagToken(EndTagToken token, Stack<InternalNode.Builder> allParents,
+    private void processEndTagToken(EndTagToken token, Stack<InternalNode.Builder<?, ?>> allParents,
             Stack<String> languages) {
         if ("c".equals(token.tagName()) && currentParent instanceof ClassNode.Builder
                 || "i".equals(token.tagName()) && currentParent instanceof ItalicsNode.Builder

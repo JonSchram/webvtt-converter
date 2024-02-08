@@ -40,8 +40,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -68,8 +68,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -96,8 +96,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -125,8 +125,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Words"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Words"));
         Cue expectedCue = new Cue.Builder()
                 .setIdentifier("Cue name")
                 .setStart(new TimeCode(0, 1, 0, 0))
@@ -154,8 +154,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Words"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Words"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 1, 0, 0))
                 .setEnd(new TimeCode(0, 1, 10, 0))
@@ -188,8 +188,8 @@ class VttParserTest {
         assertEquals(2, cues.size());
 
         Cue firstCue = cues.get(0);
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Hello, world!"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Hello, world!"));
         Cue expectedFirstCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 1, 0, 0))
                 .setEnd(new TimeCode(0, 1, 10, 0))
@@ -198,8 +198,8 @@ class VttParserTest {
         assertEquals(expectedFirstCue, firstCue);
 
         Cue secondCue = cues.get(1);
-        RootCueNode.Builder secondRootBuilder = new RootCueNode.Builder();
-        secondRootBuilder.appendChild(new TextNode.Builder().setText("Hello, test!"));
+        RootCueNode.Builder secondRootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Hello, test!"));
         Cue expectedSecondCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 1, 5, 0))
                 .setEnd(new TimeCode(0, 1, 8, 0))
@@ -227,8 +227,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -265,8 +265,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -295,8 +295,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))
@@ -328,8 +328,8 @@ class VttParserTest {
         assertEquals(1, cues.size());
         Cue cue = cues.get(0);
 
-        RootCueNode.Builder rootBuilder = new RootCueNode.Builder();
-        rootBuilder.appendChild(new TextNode.Builder().setText("Cue text"));
+        RootCueNode.Builder rootBuilder = new RootCueNode.Builder()
+                .appendChild(new TextNode.Builder().setText("Cue text"));
         Cue expectedCue = new Cue.Builder()
                 .setStart(new TimeCode(0, 0, 1, 0))
                 .setEnd(new TimeCode(0, 0, 2, 0))

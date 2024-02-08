@@ -66,10 +66,7 @@ class ExplicitStyleVisitorTest {
     @Test
     void testAccept_NestedNodes() {
         ItalicsNode italicsNode = new ItalicsNode.Builder().build();
-        // TODO: Add generics to node builder so this ugly pattern can be fixed.
-        BoldNode.Builder boldBuilder = new BoldNode.Builder();
-        boldBuilder.appendChild(italicsNode);
-        BoldNode boldNode = boldBuilder.build();
+        BoldNode boldNode = new BoldNode.Builder().appendChild(italicsNode).build();
 
         ExplicitStyleVisitor visitor = new ExplicitStyleVisitor();
         boldNode.accept(visitor);

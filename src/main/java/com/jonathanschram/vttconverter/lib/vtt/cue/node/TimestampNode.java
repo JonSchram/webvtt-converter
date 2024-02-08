@@ -9,12 +9,12 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.TimeCode;
  * A node that indicates a time at which the text that follows it should appear.
  */
 public class TimestampNode extends VttNode {
-    public static class Builder extends VttNode.Builder {
+    public static class Builder extends VttNode.Builder<TimestampNode> {
 
         protected TimeCode time;
 
         @Override
-        public VttNode build() {
+        public TimestampNode build() {
             return new TimestampNode(this);
         }
 

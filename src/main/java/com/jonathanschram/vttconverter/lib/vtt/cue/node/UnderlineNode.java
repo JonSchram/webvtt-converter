@@ -4,10 +4,15 @@ import com.jonathanschram.vttconverter.lib.vtt.cue.NodeVisitor;
 
 public class UnderlineNode extends InternalNode {
 
-    public static class Builder extends InternalNode.Builder {
+    public static class Builder extends InternalNode.Builder<UnderlineNode, Builder> {
         @Override
         public UnderlineNode build() {
             return new UnderlineNode(this);
+        }
+
+        @Override
+        public Builder getThis() {
+            return this;
         }
     }
 
