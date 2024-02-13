@@ -4,14 +4,10 @@ import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
-public class CssColor extends CascadingStyle<Color> {
+public class CssColor extends CascadingProperty<Color> {
     private static final Color INITIAL_VALUE = AbsoluteColor.CANVAS_TEXT;
 
     public CssColor() {
-    }
-
-    public CssColor(Color value) {
-        super(value);
     }
 
     public CssColor(GlobalValue value) {
@@ -30,6 +26,7 @@ public class CssColor extends CascadingStyle<Color> {
 
     @Override
     public String toString() {
-        return "CssColor [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssColor [globalValue=" + globalValue + "]";
     }
+
 }

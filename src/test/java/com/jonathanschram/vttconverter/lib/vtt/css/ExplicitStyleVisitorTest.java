@@ -6,8 +6,8 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.CssTextDecoration;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.CssFont;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.TextDecorationShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.FontShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyleKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeightKeyword;
@@ -30,7 +30,8 @@ class ExplicitStyleVisitorTest {
         ExplicitStyleVisitor visitor = new ExplicitStyleVisitor();
         visitor.visitBoldNode(node);
 
-        CssFont expectedFont = new CssFont.Builder().setWeight(new KeywordFontWeight(FontWeightKeyword.BOLD)).build();
+        FontShorthand expectedFont = FontShorthand.Builder.createUnset()
+                .setWeight(new KeywordFontWeight(FontWeightKeyword.BOLD)).build();
         NodeStyle expectedStyle = new NodeStyle.Builder().setFont(expectedFont).build();
 
         assertEquals(expectedStyle, node.getStyle());
@@ -43,7 +44,9 @@ class ExplicitStyleVisitorTest {
         ExplicitStyleVisitor visitor = new ExplicitStyleVisitor();
         visitor.visitItalicsNode(node);
 
-        CssFont expectedFont = new CssFont.Builder().setStyle(new KeywordFontStyle(FontStyleKeyword.ITALIC)).build();
+        FontShorthand expectedFont = FontShorthand.Builder.createUnset()
+                .setStyle(new KeywordFontStyle(FontStyleKeyword.ITALIC))
+                .build();
         NodeStyle expectedStyle = new NodeStyle.Builder().setFont(expectedFont).build();
 
         assertEquals(expectedStyle, node.getStyle());
@@ -56,7 +59,8 @@ class ExplicitStyleVisitorTest {
         ExplicitStyleVisitor visitor = new ExplicitStyleVisitor();
         visitor.visitUnderlineNode(node);
 
-        CssTextDecoration expectedDecoration = new CssTextDecoration.Builder().setLine(Set.of(LineType.UNDERLINE))
+        TextDecorationShorthand expectedDecoration = TextDecorationShorthand.Builder.createUnset()
+                .setLine(Set.of(LineType.UNDERLINE))
                 .build();
         NodeStyle expectedStyle = new NodeStyle.Builder().setTextDecoration(expectedDecoration).build();
 
@@ -72,12 +76,15 @@ class ExplicitStyleVisitorTest {
         boldNode.accept(visitor);
 
         NodeStyle expectedBoldStyle = new NodeStyle.Builder()
-                .setFont(new CssFont.Builder().setWeight(new KeywordFontWeight(FontWeightKeyword.BOLD)).build())
+                .setFont(FontShorthand.Builder.createUnset().setWeight(new KeywordFontWeight(FontWeightKeyword.BOLD))
+                        .build())
                 .build();
         assertEquals(expectedBoldStyle, boldNode.getStyle());
 
         NodeStyle expectedItalicStyle = new NodeStyle.Builder()
-                .setFont(new CssFont.Builder().setStyle(new KeywordFontStyle(FontStyleKeyword.ITALIC)).build()).build();
+                .setFont(FontShorthand.Builder.createUnset().setStyle(new KeywordFontStyle(FontStyleKeyword.ITALIC))
+                        .build())
+                .build();
         assertEquals(expectedItalicStyle, italicsNode.getStyle());
     }
 

@@ -3,7 +3,9 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade.font;
 import java.util.List;
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontFamily;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontSize;
@@ -13,19 +15,35 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontVariant;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeight;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.LineHeight;
 
-public class CssFont implements CssShorthand<Font, CssFont> {
+public class FontShorthand implements CssShorthand<Font, FontShorthand> {
 
     public static class Builder {
-        private CssFontFamily family = new CssFontFamily();
-        private CssFontSize size = new CssFontSize();
-        private CssFontStretch stretch = new CssFontStretch();
-        private CssFontStyle style = new CssFontStyle();
-        private CssFontVariant variant = new CssFontVariant();
-        private CssFontWeight weight = new CssFontWeight();
-        private CssLineHeight lineHeight = new CssLineHeight();
+        public static Builder createUnset() {
+            Builder builder = new Builder();
+            builder.family = new CssFontFamily();
+            builder.size = new CssFontSize();
+            builder.stretch = new CssFontStretch();
+            builder.style = new CssFontStyle();
+            builder.variant = new CssFontVariant();
+            builder.weight = new CssFontWeight();
+            builder.lineHeight = new CssLineHeight();
+            return builder;
+        }
 
-        public CssFont build() {
-            return new CssFont(family, size, stretch, style, variant, weight, lineHeight);
+        public static Builder createUpdate() {
+            return new Builder();
+        }
+
+        private CssProperty<List<FontFamily>> family = null;
+        private CssProperty<FontSize> size = null;
+        private CssProperty<FontStretch> stretch = null;
+        private CssProperty<FontStyle> style = null;
+        private CssProperty<FontVariant> variant = null;
+        private CssProperty<FontWeight> weight = null;
+        private CssProperty<LineHeight> lineHeight = null;
+
+        public FontShorthand build() {
+            return new FontShorthand(this);
         }
 
         public Builder setFamily(CssFontFamily family) {
@@ -34,7 +52,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setFamily(List<FontFamily> values) {
-            this.family = new CssFontFamily(values);
+            this.family = new ConcreteProperty<List<FontFamily>>(values);
             return this;
         }
 
@@ -44,7 +62,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setLineHeight(LineHeight height) {
-            this.lineHeight = new CssLineHeight(height);
+            this.lineHeight = new ConcreteProperty<LineHeight>(height);
             return this;
         }
 
@@ -54,7 +72,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setSize(FontSize size) {
-            this.size = new CssFontSize(size);
+            this.size = new ConcreteProperty<FontSize>(size);
             return this;
         }
 
@@ -64,7 +82,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setStretch(FontStretch stretch) {
-            this.stretch = new CssFontStretch(stretch);
+            this.stretch = new ConcreteProperty<FontStretch>(stretch);
             return this;
         }
 
@@ -74,7 +92,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setStyle(FontStyle style) {
-            this.style = new CssFontStyle(style);
+            this.style = new ConcreteProperty<FontStyle>(style);
             return this;
         }
 
@@ -84,35 +102,48 @@ public class CssFont implements CssShorthand<Font, CssFont> {
         }
 
         public Builder setVariant(FontVariant variant) {
-            this.variant = new CssFontVariant(variant);
+            this.variant = new ConcreteProperty<FontVariant>(variant);
             return this;
         }
 
+        // TODO: Consider adding builder methods for concrete properties. They may not
+        // be needed, because they would accomplish the same thing as the value-based
+        // ones.
         public Builder setWeight(CssFontWeight weight) {
             this.weight = weight;
             return this;
         }
 
         public Builder setWeight(FontWeight weight) {
-            this.weight = new CssFontWeight(weight);
+            this.weight = new ConcreteProperty<FontWeight>(weight);
             return this;
         }
     }
 
-    private CssFontFamily family;
-    private CssFontSize size;
-    private CssFontStretch stretch;
-    private CssFontStyle style;
-    private CssFontVariant variant;
-    private CssFontWeight weight;
-    private CssLineHeight lineHeight;
+    private CssProperty<List<FontFamily>> family;
+    private CssProperty<FontSize> size;
+    private CssProperty<FontStretch> stretch;
+    private CssProperty<FontStyle> style;
+    private CssProperty<FontVariant> variant;
+    private CssProperty<FontWeight> weight;
+    private CssProperty<LineHeight> lineHeight;
 
-    public CssFont() {
+    public FontShorthand() {
         this(new CssFontFamily(), new CssFontSize(), new CssFontStretch(), new CssFontStyle(), new CssFontVariant(),
                 new CssFontWeight(), new CssLineHeight());
     }
 
-    public CssFont(CssFontFamily family, CssFontSize size, CssFontStretch stretch,
+    public FontShorthand(Builder builder) {
+        this.family = builder.family;
+        this.size = builder.size;
+        this.stretch = builder.stretch;
+        this.style = builder.style;
+        this.variant = builder.variant;
+        this.weight = builder.weight;
+        this.lineHeight = builder.lineHeight;
+    }
+
+    public FontShorthand(CssFontFamily family, CssFontSize size, CssFontStretch stretch,
             CssFontStyle style, CssFontVariant variant, CssFontWeight weight,
             CssLineHeight lineHeight) {
         this.family = family;
@@ -132,7 +163,7 @@ public class CssFont implements CssShorthand<Font, CssFont> {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        CssFont other = (CssFont) obj;
+        FontShorthand other = (FontShorthand) obj;
         return Objects.equals(family, other.family) && Objects.equals(lineHeight, other.lineHeight)
                 && Objects.equals(size, other.size) && Objects.equals(stretch, other.stretch)
                 && Objects.equals(style, other.style) && Objects.equals(variant, other.variant)
@@ -141,9 +172,9 @@ public class CssFont implements CssShorthand<Font, CssFont> {
 
     @Override
     public Font getInitialValue() {
-        return new Font(family.getInitialValue(), size.getInitialValue(), stretch.getInitialValue(),
-                style.getInitialValue(), variant.getInitialValue(), weight.getInitialValue(),
-                lineHeight.getInitialValue());
+        return new Font(CssFontFamily.INITIAL_VALUE, CssFontSize.INITIAL_VALUE, CssFontStretch.INITIAL_VALUE,
+                CssFontStyle.INITIAL_VALUE, CssFontVariant.INITIAL_VALUE, CssFontWeight.INITIAL_VALUE,
+                CssLineHeight.INITIAL_VALUE);
     }
 
     @Override
@@ -152,20 +183,23 @@ public class CssFont implements CssShorthand<Font, CssFont> {
     }
 
     @Override
-    public void updateStyle(CssFont newValue) {
-        family.updateStyle(newValue.family);
-        size.updateStyle(newValue.size);
-        stretch.updateStyle(newValue.stretch);
-        style.updateStyle(newValue.style);
-        variant.updateStyle(newValue.variant);
-        weight.updateStyle(newValue.weight);
-        lineHeight.updateStyle(newValue.lineHeight);
-    }
-
-    @Override
     public String toString() {
         return "CssFont [family=" + family + ", size=" + size + ", stretch=" + stretch + ", style=" + style
                 + ", variant=" + variant + ", weight=" + weight + ", lineHeight=" + lineHeight + "]";
+    }
+
+    @Override
+    public void updateStyle(FontShorthand newValue) {
+        if (newValue == null) {
+            return;
+        }
+        family = CssShorthand.newPropertyIfNotNull(family, newValue.family);
+        size = CssShorthand.newPropertyIfNotNull(size, newValue.size);
+        stretch = CssShorthand.newPropertyIfNotNull(stretch, newValue.stretch);
+        style = CssShorthand.newPropertyIfNotNull(style, newValue.style);
+        variant = CssShorthand.newPropertyIfNotNull(variant, newValue.variant);
+        weight = CssShorthand.newPropertyIfNotNull(weight, newValue.weight);
+        lineHeight = CssShorthand.newPropertyIfNotNull(lineHeight, newValue.lineHeight);
     }
 
 }

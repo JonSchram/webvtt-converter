@@ -1,16 +1,12 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundAttachment;
 
-public class CssBackgroundAttachment extends CascadingStyle<BackgroundAttachment> {
+public class CssBackgroundAttachment extends CascadingProperty<BackgroundAttachment> {
     public static final BackgroundAttachment INITIAL_VALUE = BackgroundAttachment.SCROLL;
 
     public CssBackgroundAttachment() {
-    }
-
-    public CssBackgroundAttachment(BackgroundAttachment attachment) {
-        super(attachment);
     }
 
     @Override
@@ -25,7 +21,7 @@ public class CssBackgroundAttachment extends CascadingStyle<BackgroundAttachment
 
     @Override
     public String toString() {
-        return "CssBackgroundAttachment [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssBackgroundAttachment [globalValue=" + globalValue + "]";
     }
 
 }

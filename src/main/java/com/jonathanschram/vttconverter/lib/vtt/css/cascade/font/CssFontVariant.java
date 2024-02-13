@@ -1,16 +1,13 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.font;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontVariant;
 
-public class CssFontVariant extends CascadingStyle<FontVariant> {
+public class CssFontVariant extends CascadingProperty<FontVariant> {
+    public static final FontVariant INITIAL_VALUE = FontVariant.NORMAL;
 
     public CssFontVariant() {
-    }
-
-    public CssFontVariant(FontVariant currentValue) {
-        super(currentValue);
     }
 
     public CssFontVariant(GlobalValue currentValue) {
@@ -19,7 +16,7 @@ public class CssFontVariant extends CascadingStyle<FontVariant> {
 
     @Override
     public FontVariant getInitialValue() {
-        return FontVariant.NORMAL;
+        return INITIAL_VALUE;
     }
 
     @Override
@@ -29,7 +26,7 @@ public class CssFontVariant extends CascadingStyle<FontVariant> {
 
     @Override
     public String toString() {
-        return "CssFontVariant [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssFontVariant [globalValue=" + globalValue + "]";
     }
 
 }

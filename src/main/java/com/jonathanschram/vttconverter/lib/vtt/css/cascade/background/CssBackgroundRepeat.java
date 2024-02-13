@@ -1,9 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundRepeat;
 
-public class CssBackgroundRepeat extends CascadingStyle<BackgroundRepeat> {
+public class CssBackgroundRepeat extends CascadingProperty<BackgroundRepeat> {
     public static final BackgroundRepeat INITIAL_VALUE = BackgroundRepeat.REPEAT;
 
     public CssBackgroundRepeat() {
@@ -21,7 +21,7 @@ public class CssBackgroundRepeat extends CascadingStyle<BackgroundRepeat> {
 
     @Override
     public String toString() {
-        return "CssBackgroundRepeat [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssBackgroundRepeat [globalValue=" + globalValue + "]";
     }
 
 }

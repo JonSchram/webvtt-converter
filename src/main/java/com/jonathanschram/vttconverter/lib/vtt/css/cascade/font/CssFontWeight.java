@@ -1,18 +1,15 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.font;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeight;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeightKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontWeight;
 
-public class CssFontWeight extends CascadingStyle<FontWeight> {
+public class CssFontWeight extends CascadingProperty<FontWeight> {
+    public static final FontWeight INITIAL_VALUE = new KeywordFontWeight(FontWeightKeyword.NORMAL);
 
     public CssFontWeight() {
-    }
-
-    public CssFontWeight(FontWeight currentValue) {
-        super(currentValue);
     }
 
     public CssFontWeight(GlobalValue currentValue) {
@@ -21,7 +18,7 @@ public class CssFontWeight extends CascadingStyle<FontWeight> {
 
     @Override
     public FontWeight getInitialValue() {
-        return new KeywordFontWeight(FontWeightKeyword.NORMAL);
+        return INITIAL_VALUE;
     }
 
     @Override
@@ -31,6 +28,6 @@ public class CssFontWeight extends CascadingStyle<FontWeight> {
 
     @Override
     public String toString() {
-        return "CssFontWeight [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssFontWeight [globalValue=" + globalValue + "]";
     }
 }

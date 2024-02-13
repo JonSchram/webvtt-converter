@@ -4,7 +4,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.OverUnderPosi
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyPosition;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyTextPosition;
 
-public class CssRubyPosition extends CascadingStyle<RubyPosition> {
+public class CssRubyPosition extends CascadingProperty<RubyPosition> {
 
     public CssRubyPosition() {
     }
@@ -21,7 +21,7 @@ public class CssRubyPosition extends CascadingStyle<RubyPosition> {
 
     @Override
     public String toString() {
-        return "CssRubyPosition [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssRubyPosition [globalValue=" + globalValue + "]";
     }
 
 }

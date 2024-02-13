@@ -2,7 +2,7 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 
-public class CssTextShadow extends CascadingStyle<TextShadow> {
+public class CssTextShadow extends CascadingProperty<TextShadow> {
 
     public CssTextShadow() {
     }
@@ -21,7 +21,7 @@ public class CssTextShadow extends CascadingStyle<TextShadow> {
 
     @Override
     public String toString() {
-        return "CssTextShadow [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssTextShadow [globalValue=" + globalValue + "]";
     }
 
 }

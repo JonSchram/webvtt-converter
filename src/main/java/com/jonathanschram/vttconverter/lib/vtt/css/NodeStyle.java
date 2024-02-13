@@ -2,6 +2,7 @@ package com.jonathanschram.vttconverter.lib.vtt.css;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssColor;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssOpacity;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssRubyPosition;
@@ -9,10 +10,17 @@ import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssTextCombineUpright
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssTextShadow;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssVisibility;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CssWhitespace;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.background.CssBackground;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.CssTextDecoration;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.CssFont;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline.CssOutline;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.background.BackgroundShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.TextDecorationShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.FontShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline.OutlineShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.Opacity;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextCombineUpright;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.WhiteSpace;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyPosition;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;;
 
 /***
  * The set of CSS properties that can apply to a cue node.
@@ -20,14 +28,14 @@ import com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline.CssOutline;
 public class NodeStyle {
 
     public static class Builder {
-        private CssBackground background = new CssBackground();
-        private CssColor color = new CssColor();
-        private CssFont font = new CssFont();
+        private BackgroundShorthand background = new BackgroundShorthand();
+        private CssProperty<Color> color = new CssColor();
+        private FontShorthand font = new FontShorthand();
         private CssOpacity opacity = new CssOpacity();
-        private CssOutline outline = new CssOutline();
+        private OutlineShorthand outline = new OutlineShorthand();
         private CssRubyPosition rubyPosition = new CssRubyPosition();
         private CssTextCombineUpright textCombineUpright = new CssTextCombineUpright();
-        private CssTextDecoration textDecoration = new CssTextDecoration();
+        private TextDecorationShorthand textDecoration = new TextDecorationShorthand();
         private CssTextShadow textShadow = new CssTextShadow();
         private CssVisibility visibility = new CssVisibility();
         private CssWhitespace whiteSpace = new CssWhitespace();
@@ -37,17 +45,22 @@ public class NodeStyle {
                     textDecoration, textShadow, visibility, whiteSpace);
         }
 
-        public Builder setBackground(CssBackground background) {
+        public Builder setBackground(BackgroundShorthand background) {
             this.background = background;
             return this;
         }
 
-        public Builder setColor(CssColor color) {
+        public Builder setColor(Color newColor) {
+            this.color = new ConcreteProperty<Color>(newColor);
+            return this;
+        }
+
+        public Builder setColor(CssProperty<Color> color) {
             this.color = color;
             return this;
         }
 
-        public Builder setFont(CssFont font) {
+        public Builder setFont(FontShorthand font) {
             this.font = font;
             return this;
         }
@@ -57,7 +70,7 @@ public class NodeStyle {
             return this;
         }
 
-        public Builder setOutline(CssOutline outline) {
+        public Builder setOutline(OutlineShorthand outline) {
             this.outline = outline;
             return this;
         }
@@ -72,7 +85,7 @@ public class NodeStyle {
             return this;
         }
 
-        public Builder setTextDecoration(CssTextDecoration textDecoration) {
+        public Builder setTextDecoration(TextDecorationShorthand textDecoration) {
             this.textDecoration = textDecoration;
             return this;
         }
@@ -94,29 +107,35 @@ public class NodeStyle {
 
     }
 
-    private final CssBackground background;
-    private final CssColor color;
-    private final CssFont font;
-    private final CssOpacity opacity;
-    private final CssOutline outline;
-    private final CssRubyPosition rubyPosition;
-    private final CssTextCombineUpright textCombineUpright;
-    private final CssTextDecoration textDecoration;
-    private final CssTextShadow textShadow;
-    private final CssVisibility visibility;
-    private final CssWhitespace whiteSpace;
+    // Shorthand properties.
+    private final BackgroundShorthand background;
+    private final FontShorthand font;
+    private final OutlineShorthand outline;
+    private final TextDecorationShorthand textDecoration;
+
+    // Single properties.
+    private CssProperty<Color> color;
+    private CssProperty<Opacity> opacity;
+    private CssProperty<RubyPosition> rubyPosition;
+    private CssProperty<TextCombineUpright> textCombineUpright;
+    private CssProperty<TextShadow> textShadow;
+    private CssProperty<Visibility> visibility;
+    private CssProperty<WhiteSpace> whiteSpace;
 
     /***
      * Constructor for NodeStyle that has all values unset.
      */
     public NodeStyle() {
-        this(new CssBackground(), new CssColor(), new CssFont(), new CssOpacity(), new CssOutline(),
-                new CssRubyPosition(), new CssTextCombineUpright(), new CssTextDecoration(), new CssTextShadow(),
+        this(new BackgroundShorthand(), new CssColor(), new FontShorthand(), new CssOpacity(),
+                new OutlineShorthand(),
+                new CssRubyPosition(), new CssTextCombineUpright(), new TextDecorationShorthand(), new CssTextShadow(),
                 new CssVisibility(), new CssWhitespace());
     }
 
-    public NodeStyle(CssBackground background, CssColor color, CssFont font, CssOpacity opacity, CssOutline outline,
-            CssRubyPosition rubyPosition, CssTextCombineUpright textCombineUpright, CssTextDecoration textDecoration,
+    public NodeStyle(BackgroundShorthand background, CssProperty<Color> color, FontShorthand font, CssOpacity opacity,
+            OutlineShorthand outline,
+            CssRubyPosition rubyPosition, CssTextCombineUpright textCombineUpright,
+            TextDecorationShorthand textDecoration,
             CssTextShadow textShadow, CssVisibility visibility, CssWhitespace whiteSpace) {
         this.background = background;
         this.color = color;
@@ -148,47 +167,47 @@ public class NodeStyle {
                 && Objects.equals(visibility, other.visibility) && Objects.equals(whiteSpace, other.whiteSpace);
     }
 
-    public CssBackground getBackground() {
+    public BackgroundShorthand getBackground() {
         return background;
     }
 
-    public CssColor getColor() {
+    public CssProperty<Color> getColor() {
         return color;
     }
 
-    public CssFont getFont() {
+    public FontShorthand getFont() {
         return font;
     }
 
-    public CssOpacity getOpacity() {
+    public CssProperty<Opacity> getOpacity() {
         return opacity;
     }
 
-    public CssOutline getOutline() {
+    public OutlineShorthand getOutline() {
         return outline;
     }
 
-    public CssRubyPosition getRubyPosition() {
+    public CssProperty<RubyPosition> getRubyPosition() {
         return rubyPosition;
     }
 
-    public CssTextCombineUpright getTextCombineUpright() {
+    public CssProperty<TextCombineUpright> getTextCombineUpright() {
         return textCombineUpright;
     }
 
-    public CssTextDecoration getTextDecoration() {
+    public TextDecorationShorthand getTextDecoration() {
         return textDecoration;
     }
 
-    public CssTextShadow getTextShadow() {
+    public CssProperty<TextShadow> getTextShadow() {
         return textShadow;
     }
 
-    public CssVisibility getVisibility() {
+    public CssProperty<Visibility> getVisibility() {
         return visibility;
     }
 
-    public CssWhitespace getWhiteSpace() {
+    public CssProperty<WhiteSpace> getWhiteSpace() {
         return whiteSpace;
     }
 
@@ -196,5 +215,84 @@ public class NodeStyle {
     public int hashCode() {
         return Objects.hash(background, color, font, opacity, outline, rubyPosition, textCombineUpright, textDecoration,
                 textShadow, visibility, whiteSpace);
+    }
+
+    @Override
+    public String toString() {
+        return "NodeStyle [background=" + background + ", font=" + font + ", outline=" + outline + ", textDecoration="
+                + textDecoration + ", color=" + color + ", opacity=" + opacity + ", rubyPosition=" + rubyPosition
+                + ", textCombineUpright=" + textCombineUpright + ", textShadow=" + textShadow + ", visibility="
+                + visibility + ", whiteSpace=" + whiteSpace + "]";
+    }
+
+    /***
+     * Convenience method for updating the background shorthand styles.
+     * 
+     * @param newBackground
+     */
+    public void updateBackground(BackgroundShorthand newBackground) {
+        background.updateStyle(newBackground);
+    }
+
+    public void updateColor(CssProperty<Color> newColor) {
+        color = calculateUpdate(color, newColor);
+    }
+
+    /***
+     * Convenience method for updating the font shorthand styles.
+     * 
+     * @param newFont
+     */
+    public void updateFont(FontShorthand newFont) {
+        font.updateStyle(newFont);
+    }
+
+    public void updateOpacity(CssProperty<Opacity> newOpacity) {
+        opacity = calculateUpdate(opacity, newOpacity);
+    }
+
+    /***
+     * Convenience method for updating the outline shorthand styles.
+     * 
+     * @param newOutline
+     */
+    public void updateOutline(OutlineShorthand newOutline) {
+        outline.updateStyle(newOutline);
+    }
+
+    public void updateRubyPosition(CssProperty<RubyPosition> newPosition) {
+        rubyPosition = calculateUpdate(rubyPosition, newPosition);
+    }
+
+    public void updateTextCombineUpright(CssProperty<TextCombineUpright> newValue) {
+        textCombineUpright = calculateUpdate(textCombineUpright, newValue);
+    }
+
+    /***
+     * Convenience method for updating the text decoration shorthand.
+     * 
+     * @param newTextDecoration
+     */
+    public void updateTextDecoration(TextDecorationShorthand newTextDecoration) {
+        textDecoration.updateStyle(newTextDecoration);
+    }
+
+    public void updateTextShadow(CssProperty<TextShadow> newValue) {
+        textShadow = calculateUpdate(textShadow, newValue);
+    }
+
+    public void updateVisibility(CssProperty<Visibility> newValue) {
+        visibility = calculateUpdate(visibility, newValue);
+    }
+
+    public void updateWhitespace(CssProperty<WhiteSpace> newValue) {
+        whiteSpace = calculateUpdate(whiteSpace, newValue);
+    }
+
+    private <T> CssProperty<T> calculateUpdate(CssProperty<T> oldValue, CssProperty<T> newValue) {
+        if (newValue != null) {
+            return newValue;
+        }
+        return oldValue;
     }
 }

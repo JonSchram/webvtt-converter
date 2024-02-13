@@ -2,9 +2,8 @@ package com.jonathanschram.vttconverter.lib.vtt.css;
 
 import java.util.Set;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.CssTextDecoration;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.CssFont;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.CssFontWeight;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.TextDecorationShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.FontShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyleKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeightKeyword;
@@ -34,10 +33,10 @@ public class ExplicitStyleVisitor implements NodeVisitor {
 
     @Override
     public void visitBoldNode(BoldNode node) {
-        CssFont fontUpdate = new CssFont.Builder()
-                .setWeight(new CssFontWeight(new KeywordFontWeight(FontWeightKeyword.BOLD))).build();
+        FontShorthand fontUpdate = FontShorthand.Builder.createUpdate()
+                .setWeight(new KeywordFontWeight(FontWeightKeyword.BOLD)).build();
 
-        node.getStyle().getFont().updateStyle(fontUpdate);
+        node.getStyle().updateFont(fontUpdate);
     }
 
     @Override
@@ -47,11 +46,11 @@ public class ExplicitStyleVisitor implements NodeVisitor {
 
     @Override
     public void visitItalicsNode(ItalicsNode node) {
-        CssFont fontUpdate = new CssFont.Builder()
+        FontShorthand fontUpdate = FontShorthand.Builder.createUpdate()
                 .setStyle(new KeywordFontStyle(FontStyleKeyword.ITALIC))
                 .build();
 
-        node.getStyle().getFont().updateStyle(fontUpdate);
+        node.getStyle().updateFont(fontUpdate);
     }
 
     @Override
@@ -81,9 +80,10 @@ public class ExplicitStyleVisitor implements NodeVisitor {
 
     @Override
     public void visitUnderlineNode(UnderlineNode node) {
-        CssTextDecoration decorationUpdate = new CssTextDecoration.Builder().setLine(Set.of(LineType.UNDERLINE))
+        TextDecorationShorthand decorationUpdate = TextDecorationShorthand.Builder.createUpdate()
+                .setLine(Set.of(LineType.UNDERLINE))
                 .build();
-        node.getStyle().getTextDecoration().updateStyle(decorationUpdate);
+        node.getStyle().updateTextDecoration(decorationUpdate);
     }
 
     @Override

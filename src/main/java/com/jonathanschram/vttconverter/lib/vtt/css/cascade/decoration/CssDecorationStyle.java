@@ -1,10 +1,11 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineStyle;
 
-public class CssDecorationStyle extends CascadingStyle<LineStyle> {
+public class CssDecorationStyle extends CascadingProperty<LineStyle> {
+    public static final LineStyle INITIAL_VALUE = LineStyle.SOLID;
 
     public CssDecorationStyle() {
     }
@@ -13,13 +14,9 @@ public class CssDecorationStyle extends CascadingStyle<LineStyle> {
         super(currentValue);
     }
 
-    public CssDecorationStyle(LineStyle currentValue) {
-        super(currentValue);
-    }
-
     @Override
     public LineStyle getInitialValue() {
-        return LineStyle.SOLID;
+        return INITIAL_VALUE;
     }
 
     @Override
@@ -29,7 +26,7 @@ public class CssDecorationStyle extends CascadingStyle<LineStyle> {
 
     @Override
     public String toString() {
-        return "CssDecorationStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssDecorationStyle [globalValue=" + globalValue + "]";
     }
 
 }

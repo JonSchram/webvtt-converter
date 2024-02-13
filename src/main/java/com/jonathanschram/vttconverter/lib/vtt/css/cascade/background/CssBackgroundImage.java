@@ -1,16 +1,12 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundImage;
 
-public class CssBackgroundImage extends CascadingStyle<BackgroundImage> {
+public class CssBackgroundImage extends CascadingProperty<BackgroundImage> {
     public static final BackgroundImage INITIAL_VALUE = null;
 
     public CssBackgroundImage() {
-    }
-
-    public CssBackgroundImage(BackgroundImage image) {
-        super(image);
     }
 
     @Override
@@ -26,7 +22,7 @@ public class CssBackgroundImage extends CascadingStyle<BackgroundImage> {
 
     @Override
     public String toString() {
-        return "CssBackgroundImage [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssBackgroundImage [globalValue=" + globalValue + "]";
     }
 
 }

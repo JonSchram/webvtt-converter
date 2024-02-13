@@ -1,18 +1,15 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.font;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyleKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontStyle;
 
-public class CssFontStyle extends CascadingStyle<FontStyle> {
+public class CssFontStyle extends CascadingProperty<FontStyle> {
+    public static final FontStyle INITIAL_VALUE = new KeywordFontStyle(FontStyleKeyword.NORMAL);
 
     public CssFontStyle() {
-    }
-
-    public CssFontStyle(FontStyle currentValue) {
-        super(currentValue);
     }
 
     public CssFontStyle(GlobalValue currentValue) {
@@ -21,7 +18,7 @@ public class CssFontStyle extends CascadingStyle<FontStyle> {
 
     @Override
     public FontStyle getInitialValue() {
-        return new KeywordFontStyle(FontStyleKeyword.NORMAL);
+        return INITIAL_VALUE;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class CssFontStyle extends CascadingStyle<FontStyle> {
 
     @Override
     public String toString() {
-        return "CssFontStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssFontStyle [globalValue=" + globalValue + "]";
     }
 
 }

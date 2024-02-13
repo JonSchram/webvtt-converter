@@ -1,16 +1,12 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineStyle;
 
-public class CssOutlineStyle extends CascadingStyle<OutlineStyle> {
+public class CssOutlineStyle extends CascadingProperty<OutlineStyle> {
     public static final OutlineStyle INITIAL_VALUE = OutlineStyle.NONE;
 
     public CssOutlineStyle() {
-    }
-
-    public CssOutlineStyle(OutlineStyle style) {
-        super(style);
     }
 
     @Override
@@ -25,6 +21,6 @@ public class CssOutlineStyle extends CascadingStyle<OutlineStyle> {
 
     @Override
     public String toString() {
-        return "CssOutlineStyle [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssOutlineStyle [globalValue=" + globalValue + "]";
     }
 }

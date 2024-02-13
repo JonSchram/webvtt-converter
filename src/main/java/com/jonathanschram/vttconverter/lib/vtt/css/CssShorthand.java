@@ -9,6 +9,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css;
  *            usually be the same as the type implementing this interface.
  */
 public interface CssShorthand<T, S extends CssShorthand<T, S>> {
+
+    // TODO: This might not be needed either. In what case do you need anything
+    // other than unset values?
+
     T getInitialValue();
 
     /***
@@ -18,4 +22,20 @@ public interface CssShorthand<T, S extends CssShorthand<T, S>> {
      * @param newValue
      */
     void updateStyle(S newValue);
+
+    /**
+     * Convenience method for choosing <code>newValue</code> only if it is non-null.
+     * 
+     * @param <P>
+     * @param oldValue
+     * @param newValue
+     * @return
+     */
+    static <P> CssProperty<P> newPropertyIfNotNull(CssProperty<P> oldValue, CssProperty<P> newValue) {
+        if (newValue != null) {
+            return newValue;
+        }
+
+        return oldValue;
+    }
 }

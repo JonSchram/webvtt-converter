@@ -3,26 +3,22 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration;
 import java.util.Set;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
 
-public class CssDecorationLine extends CascadingStyle<Set<LineType>> {
+public class CssDecorationLine extends CascadingProperty<Set<LineType>> {
+    public static final Set<LineType> INITIAL_VALUE = Set.of(LineType.NONE);
 
     public CssDecorationLine() {
     }
 
     @Override
     public Set<LineType> getInitialValue() {
-        return Set.of(LineType.NONE);
+        return INITIAL_VALUE;
     }
 
     public CssDecorationLine(GlobalValue currentValue) {
         super(currentValue);
-    }
-
-    public CssDecorationLine(Set<LineType> currentValue) {
-        // Defensively copy input value.
-        super(Set.copyOf(currentValue));
     }
 
     @Override
@@ -32,7 +28,7 @@ public class CssDecorationLine extends CascadingStyle<Set<LineType>> {
 
     @Override
     public String toString() {
-        return "CssDecorationLine [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssDecorationLine [globalValue=" + globalValue + "]";
     }
 
 }

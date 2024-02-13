@@ -2,7 +2,7 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.Visibility;
 
-public class CssVisibility extends CascadingStyle<Visibility> {
+public class CssVisibility extends CascadingProperty<Visibility> {
 
     @Override
     public Visibility getInitialValue() {
@@ -16,6 +16,6 @@ public class CssVisibility extends CascadingStyle<Visibility> {
 
     @Override
     public String toString() {
-        return "CssVisibility [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssVisibility [globalValue=" + globalValue + "]";
     }
 }

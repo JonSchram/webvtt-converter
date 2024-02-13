@@ -1,9 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
-import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingStyle;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundClip;
 
-public class CssBackgroundClip extends CascadingStyle<BackgroundClip> {
+public class CssBackgroundClip extends CascadingProperty<BackgroundClip> {
     public static final BackgroundClip INITIAL_VALUE = BackgroundClip.BORDER_BOX;
 
     public CssBackgroundClip() {
@@ -21,7 +21,7 @@ public class CssBackgroundClip extends CascadingStyle<BackgroundClip> {
 
     @Override
     public String toString() {
-        return "CssBackgroundClip [globalValue=" + globalValue + ", wrappedValue=" + wrappedValue + "]";
+        return "CssBackgroundClip [globalValue=" + globalValue + "]";
     }
 
 }
