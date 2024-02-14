@@ -1,14 +1,13 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Set;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.TextDecorationShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.FontShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineTypeSet;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyleKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeightKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontStyle;
@@ -60,7 +59,7 @@ class ExplicitStyleVisitorTest {
         visitor.visitUnderlineNode(node);
 
         TextDecorationShorthand expectedDecoration = TextDecorationShorthand.Builder.createUnset()
-                .setLine(Set.of(LineType.UNDERLINE))
+                .setLine(new LineTypeSet(LineType.UNDERLINE))
                 .build();
         NodeStyle expectedStyle = new NodeStyle.Builder().setTextDecoration(expectedDecoration).build();
 

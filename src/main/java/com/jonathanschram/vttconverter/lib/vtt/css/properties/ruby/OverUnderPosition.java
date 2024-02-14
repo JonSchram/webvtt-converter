@@ -20,17 +20,9 @@ public class OverUnderPosition implements RubyPosition {
         this.position = position;
     }
 
-    public boolean isAlternate() {
-        return alternate;
-    }
-
-    public RubyTextPosition getPosition() {
-        return position;
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(alternate, position);
+    public RubyPosition computeValue() {
+        return this;
     }
 
     @Override
@@ -43,6 +35,24 @@ public class OverUnderPosition implements RubyPosition {
             return false;
         OverUnderPosition other = (OverUnderPosition) obj;
         return alternate == other.alternate && position == other.position;
+    }
+
+    public RubyTextPosition getPosition() {
+        return position;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(alternate, position);
+    }
+
+    public boolean isAlternate() {
+        return alternate;
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
     }
 
     @Override

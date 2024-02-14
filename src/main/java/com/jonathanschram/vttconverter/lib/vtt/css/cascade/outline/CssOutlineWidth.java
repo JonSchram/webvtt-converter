@@ -1,14 +1,20 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.outline;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.KeywordOutlineWidth;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineWidth;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineWidthKeyword;
 
 public class CssOutlineWidth extends CascadingProperty<OutlineWidth> {
-    public static final OutlineWidth INITIAL_VALUE = new KeywordOutlineWidth(OutlineWidthKeyword.MEDIUM);
+    public static final OutlineWidth INITIAL_VALUE = new KeywordOutlineWidth(
+            OutlineWidthKeyword.MEDIUM);
 
     public CssOutlineWidth() {
+    }
+
+    public CssOutlineWidth(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override

@@ -1,13 +1,12 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.font;
 
-import java.util.List;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontFamily;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontFamilyList;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontSize;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStretch;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyle;
@@ -34,7 +33,7 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
             return new Builder();
         }
 
-        private CssProperty<List<FontFamily>> family = null;
+        private CssProperty<FontFamilyList> family = null;
         private CssProperty<FontSize> size = null;
         private CssProperty<FontStretch> stretch = null;
         private CssProperty<FontStyle> style = null;
@@ -51,8 +50,8 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
             return this;
         }
 
-        public Builder setFamily(List<FontFamily> values) {
-            this.family = new ConcreteProperty<List<FontFamily>>(values);
+        public Builder setFamily(FontFamilyList values) {
+            this.family = new ConcreteProperty<FontFamilyList>(values);
             return this;
         }
 
@@ -120,7 +119,7 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
         }
     }
 
-    private CssProperty<List<FontFamily>> family;
+    private CssProperty<FontFamilyList> family;
     private CssProperty<FontSize> size;
     private CssProperty<FontStretch> stretch;
     private CssProperty<FontStyle> style;
@@ -153,6 +152,17 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
         this.variant = variant;
         this.weight = weight;
         this.lineHeight = lineHeight;
+    }
+
+    @Override
+    public void cascadeFrom(FontShorthand parent) {
+        family = CssProperty.cascade(parent.family, family);
+        size = CssProperty.cascade(parent.size, size);
+        stretch = CssProperty.cascade(parent.stretch, stretch);
+        style = CssProperty.cascade(parent.style, style);
+        variant = CssProperty.cascade(parent.variant, variant);
+        weight = CssProperty.cascade(parent.weight, weight);
+        lineHeight = CssProperty.cascade(parent.lineHeight, lineHeight);
     }
 
     @Override

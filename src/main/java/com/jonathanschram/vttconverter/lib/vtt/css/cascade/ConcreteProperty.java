@@ -3,18 +3,31 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 
 /***
  * A CSS property whose value is set to a known, single value. It may be a
  * relative property (such as relative length like "em") but it is not a global
  * value like INITIAL.
  */
-public class ConcreteProperty<T> implements CssProperty<T> {
+public class ConcreteProperty<T extends CssValue<T>> implements CssProperty<T> {
 
     private final T value;
 
     public ConcreteProperty(T value) {
         this.value = value;
+    }
+
+    @Override
+    public CssProperty<T> cascadeFrom(CssProperty<T> parent) {
+        // A concrete property is always a set value. It might not always be acceptable
+        // as a computed value.
+        if (value.isComputedValue()) {
+            return this;
+        }
+        // If not, ask it to convert itself to a computed value. The result is a regular
+        // CSS value, so we can always store it in a ConcreteProperty.
+        return new ConcreteProperty<>(value.computeValue());
     }
 
     @Override
@@ -29,6 +42,10 @@ public class ConcreteProperty<T> implements CssProperty<T> {
         return Objects.equals(value, other.value);
     }
 
+    public T getCurrentValue() {
+        return value;
+    }
+
     public T getValue() {
         return value;
     }
@@ -39,12 +56,13 @@ public class ConcreteProperty<T> implements CssProperty<T> {
     }
 
     @Override
-    public String toString() {
-        return "ConcreteProperty [value=" + value + "]";
+    public boolean isResolved() {
+        return true;
     }
 
-    public T getCurrentValue() {
-        return value;
+    @Override
+    public String toString() {
+        return "ConcreteProperty [value=" + value + "]";
     }
 
 }

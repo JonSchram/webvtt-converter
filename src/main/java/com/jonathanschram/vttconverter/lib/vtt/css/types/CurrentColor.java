@@ -19,8 +19,21 @@ public class CurrentColor implements Color {
     }
 
     @Override
+    public boolean isComputedValue() {
+        // The current color refers to the inherited value (when used for 'color') or
+        // the color property (when used for anything else).
+        return false;
+    }
+
+    @Override
     public String toString() {
         return "CurrentColor []";
+    }
+
+    @Override
+    public AbsoluteColor computeValue() {
+        // TODO (Somehow) find the correct color.
+        return null;
     }
 
     // TODO: resolve against a node to get the color. Needs to be on the Color

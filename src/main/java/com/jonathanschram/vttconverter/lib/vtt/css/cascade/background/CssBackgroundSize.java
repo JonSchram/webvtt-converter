@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.AutoDimension;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.BackgroundSize;
@@ -10,6 +11,10 @@ public class CssBackgroundSize extends CascadingProperty<BackgroundSize> {
             AutoDimension.getInstance());
 
     public CssBackgroundSize() {
+    }
+
+    public CssBackgroundSize(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override

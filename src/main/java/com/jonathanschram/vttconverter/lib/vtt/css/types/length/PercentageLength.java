@@ -41,4 +41,10 @@ public class PercentageLength implements Length {
         return "PercentageLength [percent=" + percent + "]";
     }
 
+    @Override
+    public boolean isAbsoluteLength() {
+        // A length as a percentage of some other element is by definition not absolute.
+        return false;
+    }
+
 }

@@ -211,6 +211,21 @@ public class NodeStyle {
         return whiteSpace;
     }
 
+    public void cascadeFrom(NodeStyle parent) {
+        if (parent == null) {
+            return;
+        }
+
+        color = CssProperty.cascade(parent.color, color);
+        opacity = CssProperty.cascade(parent.opacity, opacity);
+        rubyPosition = CssProperty.cascade(parent.rubyPosition, rubyPosition);
+        textCombineUpright = CssProperty.cascade(parent.textCombineUpright, textCombineUpright);
+        textShadow = CssProperty.cascade(parent.textShadow, textShadow);
+        visibility = CssProperty.cascade(parent.visibility, visibility);
+        whiteSpace = CssProperty.cascade(parent.whiteSpace, whiteSpace);
+        
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(background, color, font, opacity, outline, rubyPosition, textCombineUpright, textDecoration,
@@ -289,7 +304,7 @@ public class NodeStyle {
         whiteSpace = calculateUpdate(whiteSpace, newValue);
     }
 
-    private <T> CssProperty<T> calculateUpdate(CssProperty<T> oldValue, CssProperty<T> newValue) {
+    private <T extends CssValue<T>> CssProperty<T> calculateUpdate(CssProperty<T> oldValue, CssProperty<T> newValue) {
         if (newValue != null) {
             return newValue;
         }

@@ -3,6 +3,7 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 
 /***
@@ -13,7 +14,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
  * These properties are only useful during the CSS cascade and must be replaced
  * with an appropriate {@link ConcreteProperty} before layout.
  */
-public abstract class CascadingProperty<T> implements CssProperty<T> {
+public abstract class CascadingProperty<T extends CssValue<T>> implements CssProperty<T> {
 
     /***
      * A special global value that indicates how this object will determine its
@@ -27,6 +28,40 @@ public abstract class CascadingProperty<T> implements CssProperty<T> {
 
     public CascadingProperty(GlobalValue currentValue) {
         globalValue = currentValue;
+    }
+
+    @Override
+    public CssProperty<T> cascadeFrom(CssProperty<T> parent) {
+        if (parent == null) {
+            throw new IllegalArgumentException("Parent property must not be null");
+        }
+        // Cascade must use resolved property values.
+        assert parent.isResolved();
+
+        switch (globalValue) {
+        case INHERIT:
+            return parent;
+        case INITIAL:
+            return new ConcreteProperty<>(getInitialValue());
+        case UNSET:
+            if (isInherited()) {
+                return parent;
+            } else {
+                return new ConcreteProperty<>(getInitialValue());
+            }
+        default:
+            /*
+             * TODO: Implement remaining cascade logic.
+             * 
+             * REVERT reverts back to the user's custom style. This program doesn't support
+             * custom styles, so it should use the user agent's style. This program doesn't
+             * really have those either, so there isn't much else to do.
+             * 
+             * Without layer support, REVERT_LAYER acts like REVERT.
+             * 
+             */
+            return parent;
+        }
     }
 
     @Override
@@ -60,6 +95,11 @@ public abstract class CascadingProperty<T> implements CssProperty<T> {
      * @return
      */
     public abstract boolean isInherited();
+
+    @Override
+    public boolean isResolved() {
+        return false;
+    }
 
     /***
      * Gets the initial value that this property type should have, according to the

@@ -17,6 +17,16 @@ public class NormalLineHeight implements LineHeight {
     }
 
     @Override
+    public LineHeight computeValue() {
+        return this;
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "NormalLineHeight []";
     }

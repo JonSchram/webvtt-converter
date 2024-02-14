@@ -46,4 +46,15 @@ public class MeasuredSize implements BackgroundSize {
         return "MeasuredSize [width=" + width + ", height=" + height + "]";
     }
 
+    @Override
+    public boolean isComputedValue() {
+        return width.isAbsoluteLength() && height.isAbsoluteLength();
+    }
+
+    @Override
+    public BackgroundSize computeValue() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

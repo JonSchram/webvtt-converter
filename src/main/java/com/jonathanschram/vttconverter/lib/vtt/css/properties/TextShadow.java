@@ -2,19 +2,23 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Unit;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.length.NumericLength;
 
-public class TextShadow {
-    private final int offsetX;
-    private final int offsetY;
-    private final int blurRadius;
+public class TextShadow implements CssValue<TextShadow> {
+    private final Length offsetX;
+    private final Length offsetY;
+    private final Length blurRadius;
     private final AbsoluteColor color;
 
-    public TextShadow(int offsetX, int offsetY, AbsoluteColor color) {
-        this(offsetX, offsetY, 0, color);
+    public TextShadow(Length offsetX, Length offsetY, AbsoluteColor color) {
+        this(offsetX, offsetY, new NumericLength(0, Unit.PIXELS), color);
     }
 
-    public TextShadow(int offsetX, int offsetY, int blurRadius, AbsoluteColor color) {
+    public TextShadow(Length offsetX, Length offsetY, Length blurRadius, AbsoluteColor color) {
         super();
         this.offsetX = offsetX;
         this.offsetY = offsetY;
@@ -22,7 +26,7 @@ public class TextShadow {
         this.color = color;
     }
 
-    public int getBlurRadius() {
+    public Length getBlurRadius() {
         return blurRadius;
     }
 
@@ -30,11 +34,11 @@ public class TextShadow {
         return color;
     }
 
-    public int getOffsetX() {
+    public Length getOffsetX() {
         return offsetX;
     }
 
-    public int getOffsetY() {
+    public Length getOffsetY() {
         return offsetY;
     }
 
@@ -60,6 +64,18 @@ public class TextShadow {
     public String toString() {
         return "TextShadow [offsetX=" + offsetX + ", offsetY=" + offsetY + ", blurRadius=" + blurRadius + ", color="
                 + color + "]";
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public TextShadow computeValue() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

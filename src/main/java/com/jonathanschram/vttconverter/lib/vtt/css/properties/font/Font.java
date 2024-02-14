@@ -1,10 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Font {
-    private final List<FontFamily> families;
+    private final FontFamilyList families;
     private final FontSize size;
     private final FontStretch stretch;
     private final FontStyle style;
@@ -12,7 +11,7 @@ public class Font {
     private final FontWeight weight;
     private final LineHeight lineHeight;
 
-    public Font(List<FontFamily> families, FontSize size, FontStretch stretch, FontStyle style, FontVariant variant,
+    public Font(FontFamilyList families, FontSize size, FontStretch stretch, FontStyle style, FontVariant variant,
             FontWeight weight, LineHeight lineHeight) {
         super();
         this.families = families;
@@ -24,7 +23,7 @@ public class Font {
         this.lineHeight = lineHeight;
     }
 
-    public List<FontFamily> getFamilies() {
+    public FontFamilyList getFamilies() {
         return families;
     }
 

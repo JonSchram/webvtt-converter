@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Angle;
 
-public class ObliqueStyle {
+public class ObliqueStyle implements FontStyle {
 
     private final Angle angle;
 
@@ -12,13 +12,9 @@ public class ObliqueStyle {
         this.angle = angle;
     }
 
-    public Angle getAngle() {
-        return angle;
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(angle);
+    public FontStyle computeValue() {
+        return this;
     }
 
     @Override
@@ -31,6 +27,20 @@ public class ObliqueStyle {
             return false;
         ObliqueStyle other = (ObliqueStyle) obj;
         return Objects.equals(angle, other.angle);
+    }
+
+    public Angle getAngle() {
+        return angle;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(angle);
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
     }
 
     @Override

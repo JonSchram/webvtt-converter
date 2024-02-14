@@ -9,13 +9,9 @@ public class KeywordFontStyle implements FontStyle {
         this.style = style;
     }
 
-    public FontStyleKeyword getStyle() {
-        return style;
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(style);
+    public FontStyle computeValue() {
+        return this;
     }
 
     @Override
@@ -28,6 +24,20 @@ public class KeywordFontStyle implements FontStyle {
             return false;
         KeywordFontStyle other = (KeywordFontStyle) obj;
         return style == other.style;
+    }
+
+    public FontStyleKeyword getStyle() {
+        return style;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(style);
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
     }
 
     @Override

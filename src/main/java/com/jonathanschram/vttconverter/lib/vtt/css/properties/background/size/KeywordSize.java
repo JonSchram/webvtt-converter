@@ -14,13 +14,9 @@ public class KeywordSize implements BackgroundSize {
         this.value = value;
     }
 
-    public SizeKeyword getValue() {
-        return value;
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(value);
+    public BackgroundSize computeValue() {
+        return this;
     }
 
     @Override
@@ -33,6 +29,20 @@ public class KeywordSize implements BackgroundSize {
             return false;
         KeywordSize other = (KeywordSize) obj;
         return value == other.value;
+    }
+
+    public SizeKeyword getValue() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
     }
 
     @Override

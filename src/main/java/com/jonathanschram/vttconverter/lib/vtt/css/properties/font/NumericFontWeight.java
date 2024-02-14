@@ -35,4 +35,14 @@ public class NumericFontWeight implements FontWeight {
         return "NumericFontWeight [weight=" + weight + "]";
     }
 
+    @Override
+    public boolean isComputedValue() {
+        return true;
+    }
+
+    @Override
+    public FontWeight computeValue() {
+        return this;
+    }
+
 }

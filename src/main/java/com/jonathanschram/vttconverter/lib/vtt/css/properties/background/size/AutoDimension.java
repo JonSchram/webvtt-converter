@@ -22,4 +22,9 @@ public class AutoDimension implements SizeDimension {
         return "AutoDimension []";
     }
 
+    @Override
+    public boolean isAbsoluteLength() {
+        return true;
+    }
+
 }

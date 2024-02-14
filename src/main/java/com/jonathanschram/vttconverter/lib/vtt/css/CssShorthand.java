@@ -23,6 +23,14 @@ public interface CssShorthand<T, S extends CssShorthand<T, S>> {
      */
     void updateStyle(S newValue);
 
+    /***
+     * Updates the styles in this shorthand, cascading from the styles in the
+     * parent.
+     * 
+     * @param parent
+     */
+    void cascadeFrom(S parent);
+
     /**
      * Convenience method for choosing <code>newValue</code> only if it is non-null.
      * 
@@ -31,11 +39,13 @@ public interface CssShorthand<T, S extends CssShorthand<T, S>> {
      * @param newValue
      * @return
      */
-    static <P> CssProperty<P> newPropertyIfNotNull(CssProperty<P> oldValue, CssProperty<P> newValue) {
+    static <P extends CssValue<P>> CssProperty<P> newPropertyIfNotNull(CssProperty<P> oldValue,
+            CssProperty<P> newValue) {
         if (newValue != null) {
             return newValue;
         }
 
         return oldValue;
     }
+
 }

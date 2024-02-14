@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 
@@ -8,6 +9,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
  * for either setting a {@link Length}, a {@link Percentage}, or a keyword like
  * "cover".
  */
-public interface BackgroundSize {
+public interface BackgroundSize extends CssValue<BackgroundSize> {
     // TODO: Add method to calculate size of the background.
 }

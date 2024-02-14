@@ -50,4 +50,16 @@ public class KeywordOutlineWidth implements OutlineWidth {
         return "KeywordOutlineWidth [width=" + width + "]";
     }
 
+    @Override
+    public boolean isComputedValue() {
+        return false;
+    }
+
+    @Override
+    public OutlineWidth computeValue() {
+        // TODO The computed value is a length, not an outline width... Unless there is
+        // an "absolute length outline width" I don't see how to make this work.
+        return new AbsoluteOutlineWidth(getMeasuredSize());
+    }
+
 }

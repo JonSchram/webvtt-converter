@@ -31,4 +31,19 @@ public class KeywordFontWeight implements FontWeight {
         return "KeywordFontWeight [weight=" + weight + "]";
     }
 
+    @Override
+    public boolean isComputedValue() {
+        // Keywords are allowed as a computed value as long as they are absolute.
+        return weight != FontWeightKeyword.BOLDER && weight != FontWeightKeyword.LIGHTER;
+    }
+
+    @Override
+    public FontWeight computeValue() {
+        if (isComputedValue()) {
+            return this;
+        }
+        // TODO Convert bolder / lighter to absolute amounts.
+        return null;
+    }
+
 }

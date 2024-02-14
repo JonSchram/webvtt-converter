@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Position;
 
 /***
@@ -8,6 +9,6 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.Position;
  * 
  * TODO: Now that Position is a data type, this may not be needed
  */
-public interface BackgroundPosition extends Position {
+public interface BackgroundPosition extends Position, CssValue<BackgroundPosition> {
 
 }

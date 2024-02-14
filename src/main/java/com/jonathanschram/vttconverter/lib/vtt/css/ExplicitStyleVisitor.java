@@ -1,10 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
-import java.util.Set;
-
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration.TextDecorationShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.font.FontShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineTypeSet;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyleKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeightKeyword;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.KeywordFontStyle;
@@ -81,7 +80,7 @@ public class ExplicitStyleVisitor implements NodeVisitor {
     @Override
     public void visitUnderlineNode(UnderlineNode node) {
         TextDecorationShorthand decorationUpdate = TextDecorationShorthand.Builder.createUpdate()
-                .setLine(Set.of(LineType.UNDERLINE))
+                .setLine(new LineTypeSet(LineType.UNDERLINE))
                 .build();
         node.getStyle().updateTextDecoration(decorationUpdate);
     }

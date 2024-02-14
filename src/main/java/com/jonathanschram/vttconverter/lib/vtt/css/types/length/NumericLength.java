@@ -44,4 +44,9 @@ public class NumericLength implements Length {
         return "NumericLength [value=" + value + ", unit=" + unit + "]";
     }
 
+    @Override
+    public boolean isAbsoluteLength() {
+        return Unit.ABSOLUTE_UNITS.contains(unit);
+    }
+
 }

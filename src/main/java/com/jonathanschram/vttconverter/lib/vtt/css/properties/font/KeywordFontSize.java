@@ -11,6 +11,12 @@ public class KeywordFontSize implements FontSize {
     }
 
     @Override
+    public FontSize computeValue() {
+        // TODO Convert the keyword to an absolute value
+        return null;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -29,6 +35,11 @@ public class KeywordFontSize implements FontSize {
     @Override
     public int hashCode() {
         return Objects.hash(size);
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return false;
     }
 
     @Override

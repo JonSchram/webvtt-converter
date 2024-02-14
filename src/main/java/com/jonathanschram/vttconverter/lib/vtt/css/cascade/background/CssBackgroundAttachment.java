@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundAttachment;
 
@@ -7,6 +8,10 @@ public class CssBackgroundAttachment extends CascadingProperty<BackgroundAttachm
     public static final BackgroundAttachment INITIAL_VALUE = BackgroundAttachment.SCROLL;
 
     public CssBackgroundAttachment() {
+    }
+
+    public CssBackgroundAttachment(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override

@@ -1,22 +1,21 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration;
 
 import java.util.Objects;
-import java.util.Set;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class TextDecoration {
     private final Color color;
-    private final Set<LineType> lines;
+    private final LineTypeSet lines;
     private final LineStyle style;
 
     public TextDecoration(Color color, LineType line, LineStyle style) {
-        this(color, Set.of(line), style);
+        this(color, new LineTypeSet(line), style);
     }
 
-    public TextDecoration(Color color, Set<LineType> lines, LineStyle style) {
+    public TextDecoration(Color color, LineTypeSet lines, LineStyle style) {
         this.color = color;
-        this.lines = Set.copyOf(lines);
+        this.lines = lines;
         this.style = style;
     }
 
@@ -24,7 +23,7 @@ public class TextDecoration {
         return color;
     }
 
-    public Set<LineType> getLines() {
+    public LineTypeSet getLines() {
         return lines;
     }
 

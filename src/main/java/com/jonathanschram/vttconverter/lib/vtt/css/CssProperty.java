@@ -6,5 +6,38 @@ package com.jonathanschram.vttconverter.lib.vtt.css;
  * 
  * @param <T> Type of value contained in this property.
  */
-public interface CssProperty<T> {
+public interface CssProperty<T extends CssValue<T>> {
+
+    /***
+     * Returns whether the property has been resolved to a set value. It must return
+     * false if this property is an unknown value such as a global value.
+     * 
+     * @return
+     */
+    boolean isResolved();
+
+    /***
+     * Calculates and returns a CSS property that follows CSS cascading rules. The
+     * result of calling {@link CssValue#isComputedValue()} must be
+     * <code>true</code> on the returned type <code>T</code>.
+     * 
+     * @param parent
+     * @return
+     */
+    CssProperty<T> cascadeFrom(CssProperty<T> parent);
+
+    /***
+     * Convenience method for cascading a style from a parent onto the child.
+     * 
+     * @param <S>    The CSS value type.
+     * @param parent
+     * @param child
+     * @return
+     */
+    static <S extends CssValue<S>> CssProperty<S> cascade(CssProperty<S> parent, CssProperty<S> child) {
+        if (child == null) {
+            return parent;
+        }
+        return child.cascadeFrom(parent);
+    }
 }

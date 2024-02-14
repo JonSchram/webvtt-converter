@@ -91,6 +91,13 @@ public class OutlineShorthand implements CssShorthand<Outline, OutlineShorthand>
     }
 
     @Override
+    public void cascadeFrom(OutlineShorthand parent) {
+        color = CssProperty.cascade(parent.color, color);
+        style = CssProperty.cascade(parent.style, style);
+        width = CssProperty.cascade(parent.width, width);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

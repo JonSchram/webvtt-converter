@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.background;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadingProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundPosition;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.SimpleBackgroundPosition;
@@ -14,6 +15,10 @@ public class CssBackgroundPosition extends CascadingProperty<BackgroundPosition>
             new LengthPosition(ZERO_LENGTH, ZERO_LENGTH));
 
     public CssBackgroundPosition() {
+    }
+
+    public CssBackgroundPosition(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override

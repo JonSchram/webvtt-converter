@@ -247,8 +247,18 @@ public class AbsoluteColor implements Color {
     }
 
     @Override
+    public boolean isComputedValue() {
+        return true;
+    }
+
+    @Override
     public String toString() {
         return "AbsoluteColor [red=" + red + ", green=" + green + ", blue=" + blue + ", alpha=" + alpha + "]";
+    }
+
+    @Override
+    public AbsoluteColor computeValue() {
+        return this;
     }
 
 }

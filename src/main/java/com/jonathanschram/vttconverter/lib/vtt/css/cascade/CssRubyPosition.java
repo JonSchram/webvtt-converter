@@ -1,5 +1,6 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.OverUnderPosition;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyPosition;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyTextPosition;
@@ -7,6 +8,10 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby.RubyTextPosit
 public class CssRubyPosition extends CascadingProperty<RubyPosition> {
 
     public CssRubyPosition() {
+    }
+
+    public CssRubyPosition(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override

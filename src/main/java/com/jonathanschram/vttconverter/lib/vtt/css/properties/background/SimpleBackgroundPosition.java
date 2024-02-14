@@ -15,13 +15,10 @@ public class SimpleBackgroundPosition implements BackgroundPosition {
         position = p;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(position);
+    public BackgroundPosition computeValue() {
+        // TODO Compute value.
+        return null;
     }
 
     @Override
@@ -34,6 +31,21 @@ public class SimpleBackgroundPosition implements BackgroundPosition {
             return false;
         SimpleBackgroundPosition other = (SimpleBackgroundPosition) obj;
         return Objects.equals(position, other.position);
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position);
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        // TODO Determine whether this is a computed value.
+        return false;
     }
 
     @Override

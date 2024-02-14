@@ -28,5 +28,4 @@ public class CssColor extends CascadingProperty<Color> {
     public String toString() {
         return "CssColor [globalValue=" + globalValue + "]";
     }
-
 }

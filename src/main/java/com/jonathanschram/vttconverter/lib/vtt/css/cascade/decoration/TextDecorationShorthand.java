@@ -1,13 +1,12 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade.decoration;
 
 import java.util.Objects;
-import java.util.Set;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineStyle;
-import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineType;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineTypeSet;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDecoration;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
@@ -27,7 +26,7 @@ public class TextDecorationShorthand implements CssShorthand<TextDecoration, Tex
         }
 
         private CssProperty<Color> color = null;
-        private CssProperty<Set<LineType>> line = null;
+        private CssProperty<LineTypeSet> line = null;
         private CssProperty<LineStyle> style = null;
 
         public TextDecorationShorthand build() {
@@ -49,8 +48,8 @@ public class TextDecorationShorthand implements CssShorthand<TextDecoration, Tex
             return this;
         }
 
-        public Builder setLine(Set<LineType> values) {
-            this.line = new ConcreteProperty<Set<LineType>>(values);
+        public Builder setLine(LineTypeSet values) {
+            this.line = new ConcreteProperty<>(values);
             return this;
         }
 
@@ -66,25 +65,32 @@ public class TextDecorationShorthand implements CssShorthand<TextDecoration, Tex
     }
 
     private CssProperty<Color> color;
-    private CssProperty<Set<LineType>> line;
+    private CssProperty<LineTypeSet> line;
     private CssProperty<LineStyle> style;
 
     public TextDecorationShorthand() {
         this(new CssDecorationColor(), new CssDecorationLine(), new CssDecorationStyle());
     }
 
+    public TextDecorationShorthand(Builder builder) {
+        this.color = builder.color;
+        this.line = builder.line;
+        this.style = builder.style;
+    }
+
     public TextDecorationShorthand(
             CssProperty<Color> color,
-            CssProperty<Set<LineType>> line, CssProperty<LineStyle> style) {
+            CssProperty<LineTypeSet> line, CssProperty<LineStyle> style) {
         this.color = color;
         this.line = line;
         this.style = style;
     }
 
-    public TextDecorationShorthand(Builder builder) {
-        this.color = builder.color;
-        this.line = builder.line;
-        this.style = builder.style;
+    @Override
+    public void cascadeFrom(TextDecorationShorthand parent) {
+        color = CssProperty.cascade(parent.color, color);
+        line = CssProperty.cascade(parent.line, line);
+        style = CssProperty.cascade(parent.style, style);
     }
 
     @Override

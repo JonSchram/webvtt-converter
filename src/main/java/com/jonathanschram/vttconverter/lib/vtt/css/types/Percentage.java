@@ -9,6 +9,26 @@ import java.util.Objects;
 public class Percentage {
 
     /***
+     * Creates a new Percentage value from a double, where 1 represents 100%.
+     * 
+     * @param value
+     * @return
+     */
+    public static Percentage createFromDecimal(double value) {
+        return new Percentage(100 * value);
+    }
+
+    /***
+     * Creates a new Percentage value from a double, where 100 represents 100%.
+     * 
+     * @param value
+     * @return
+     */
+    public static Percentage createFromPercent(double value) {
+        return new Percentage(value);
+    }
+
+    /***
      * The percentage value, where 100 corresponds to 100%.
      */
     private final double value;
@@ -22,29 +42,6 @@ public class Percentage {
         this.value = value;
     }
 
-    /***
-     * Returns the percentage value, where 100% is represented as 100.
-     * 
-     * @return
-     */
-    public double getAsPercent() {
-        return value;
-    }
-
-    /***
-     * Returns the percentage value, where 100% is represented as 1.
-     * 
-     * @return
-     */
-    public double getAsDouble() {
-        return value / 100;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -55,6 +52,29 @@ public class Percentage {
             return false;
         Percentage other = (Percentage) obj;
         return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
+    }
+
+    /***
+     * Returns the percentage value, where 100% is represented as 1.
+     * 
+     * @return
+     */
+    public double getAsDecimal() {
+        return value / 100;
+    }
+
+    /***
+     * Returns the percentage value, where 100% is represented as 100.
+     * 
+     * @return
+     */
+    public double getAsPercent() {
+        return value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
     @Override

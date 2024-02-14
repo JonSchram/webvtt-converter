@@ -2,7 +2,9 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
 import java.util.Objects;
 
-public class BackgroundRepeat {
+import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+
+public class BackgroundRepeat implements CssValue<BackgroundRepeat> {
 
     public static final BackgroundRepeat REPEAT_X = new BackgroundRepeat(Repeat.REPEAT, Repeat.NO_REPEAT);
     public static final BackgroundRepeat REPEAT_Y = new BackgroundRepeat(Repeat.NO_REPEAT, Repeat.REPEAT);
@@ -47,6 +49,16 @@ public class BackgroundRepeat {
     @Override
     public String toString() {
         return "BackgroundRepeat [repeatX=" + repeatX + ", repeatY=" + repeatY + "]";
+    }
+
+    @Override
+    public boolean isComputedValue() {
+        return true;
+    }
+
+    @Override
+    public BackgroundRepeat computeValue() {
+        return this;
     }
 
 }

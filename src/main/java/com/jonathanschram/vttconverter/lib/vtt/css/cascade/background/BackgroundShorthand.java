@@ -180,6 +180,18 @@ public class BackgroundShorthand implements CssShorthand<Background, BackgroundS
     }
 
     @Override
+    public void cascadeFrom(BackgroundShorthand parent) {
+        attachment = CssProperty.cascade(parent.attachment, attachment);
+        color = CssProperty.cascade(parent.color, color);
+        image = CssProperty.cascade(parent.image, image);
+        origin = CssProperty.cascade(parent.origin, origin);
+        position = CssProperty.cascade(parent.position, position);
+        repeat = CssProperty.cascade(parent.repeat, repeat);
+        size = CssProperty.cascade(parent.size, size);
+        clip = CssProperty.cascade(parent.clip, clip);
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;

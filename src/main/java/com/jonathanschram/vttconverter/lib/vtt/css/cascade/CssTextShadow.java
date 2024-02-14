@@ -1,10 +1,15 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.TextShadow;
 
 public class CssTextShadow extends CascadingProperty<TextShadow> {
 
     public CssTextShadow() {
+    }
+
+    public CssTextShadow(GlobalValue currentValue) {
+        super(currentValue);
     }
 
     @Override
