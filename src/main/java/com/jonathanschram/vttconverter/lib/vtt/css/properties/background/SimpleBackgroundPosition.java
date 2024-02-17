@@ -16,7 +16,7 @@ public class SimpleBackgroundPosition implements BackgroundPosition {
     }
 
     @Override
-    public BackgroundPosition computeValue() {
+    public BackgroundPosition computeValue(BackgroundPosition parentValue) {
         // TODO Compute value.
         return null;
     }

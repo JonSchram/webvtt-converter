@@ -11,7 +11,7 @@ public enum WhiteSpace implements CssValue<WhiteSpace> {
     }
 
     @Override
-    public WhiteSpace computeValue() {
+    public WhiteSpace computeValue(WhiteSpace parentValue) {
         return this;
     }
 

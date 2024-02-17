@@ -57,7 +57,7 @@ public class BackgroundRepeat implements CssValue<BackgroundRepeat> {
     }
 
     @Override
-    public BackgroundRepeat computeValue() {
+    public BackgroundRepeat computeValue(BackgroundRepeat parentValue) {
         return this;
     }
 

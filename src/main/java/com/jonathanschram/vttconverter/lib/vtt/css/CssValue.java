@@ -23,8 +23,12 @@ public interface CssValue<T extends CssValue<T>> {
     /***
      * Returns a computed value equivalent to the current value.
      * 
-     * @param <T>
+     * @param <T> The parent style, to be used when the parent style is required to
+     *            calculate the absolute value.
      * @return
+     * @throws UncomputedValueException If the parent value is not computed, making
+     *                                  it impossible for this property to compute
+     *                                  its own value.
      */
-    T computeValue();
+    T computeValue(T parentValue) throws UncomputedValueException;
 }

@@ -10,7 +10,7 @@ public class KeywordFontStyle implements FontStyle {
     }
 
     @Override
-    public FontStyle computeValue() {
+    public FontStyle computeValue(FontStyle parentValue) {
         return this;
     }
 

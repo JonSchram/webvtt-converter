@@ -15,7 +15,7 @@ public enum FontVariant implements CssValue<FontVariant> {
     }
 
     @Override
-    public FontVariant computeValue() {
+    public FontVariant computeValue(FontVariant parentValue) {
         return this;
     }
 }

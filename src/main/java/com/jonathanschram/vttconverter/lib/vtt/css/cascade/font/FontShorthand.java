@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
+import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontFamilyList;
@@ -155,7 +157,7 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
     }
 
     @Override
-    public void cascadeFrom(FontShorthand parent) {
+    public void cascadeFrom(FontShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
         family = CssProperty.cascade(parent.family, family);
         size = CssProperty.cascade(parent.size, size);
         stretch = CssProperty.cascade(parent.stretch, stretch);

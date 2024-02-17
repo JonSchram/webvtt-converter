@@ -56,7 +56,7 @@ public class KeywordOutlineWidth implements OutlineWidth {
     }
 
     @Override
-    public OutlineWidth computeValue() {
+    public OutlineWidth computeValue(OutlineWidth parentValue) {
         // TODO The computed value is a length, not an outline width... Unless there is
         // an "absolute length outline width" I don't see how to make this work.
         return new AbsoluteOutlineWidth(getMeasuredSize());

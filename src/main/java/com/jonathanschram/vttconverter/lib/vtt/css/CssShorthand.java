@@ -28,8 +28,10 @@ public interface CssShorthand<T, S extends CssShorthand<T, S>> {
      * parent.
      * 
      * @param parent
+     * @throws UncomputedValueException
+     * @throws UnresolvedPropertyException
      */
-    void cascadeFrom(S parent);
+    void cascadeFrom(S parent) throws UnresolvedPropertyException, UncomputedValueException;
 
     /**
      * Convenience method for choosing <code>newValue</code> only if it is non-null.

@@ -257,7 +257,7 @@ public class AbsoluteColor implements Color {
     }
 
     @Override
-    public AbsoluteColor computeValue() {
+    public AbsoluteColor computeValue(Color parentValue) {
         return this;
     }
 

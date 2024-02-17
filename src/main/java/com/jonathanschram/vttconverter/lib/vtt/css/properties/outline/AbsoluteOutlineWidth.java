@@ -13,7 +13,7 @@ public class AbsoluteOutlineWidth implements OutlineWidth {
     }
 
     @Override
-    public OutlineWidth computeValue() {
+    public OutlineWidth computeValue(OutlineWidth parentValue) {
         if (isComputedValue()) {
             return this;
         }

@@ -27,7 +27,7 @@ public class FontFamilyList implements CssValue<FontFamilyList> {
     }
 
     @Override
-    public FontFamilyList computeValue() {
+    public FontFamilyList computeValue(FontFamilyList parentValue) {
         return this;
     }
 

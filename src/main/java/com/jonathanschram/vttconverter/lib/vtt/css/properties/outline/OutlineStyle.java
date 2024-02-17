@@ -11,7 +11,7 @@ public enum OutlineStyle implements CssValue<OutlineStyle> {
     }
 
     @Override
-    public OutlineStyle computeValue() {
+    public OutlineStyle computeValue(OutlineStyle parentValue) {
         return this;
     }
 }

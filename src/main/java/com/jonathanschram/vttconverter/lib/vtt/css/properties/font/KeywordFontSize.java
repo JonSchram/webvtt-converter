@@ -11,7 +11,7 @@ public class KeywordFontSize implements FontSize {
     }
 
     @Override
-    public FontSize computeValue() {
+    public FontSize computeValue(FontSize parentValue) {
         // TODO Convert the keyword to an absolute value
         return null;
     }

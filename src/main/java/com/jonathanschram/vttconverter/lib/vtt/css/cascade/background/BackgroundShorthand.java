@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
+import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.Background;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundAttachment;
@@ -180,7 +182,7 @@ public class BackgroundShorthand implements CssShorthand<Background, BackgroundS
     }
 
     @Override
-    public void cascadeFrom(BackgroundShorthand parent) {
+    public void cascadeFrom(BackgroundShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
         attachment = CssProperty.cascade(parent.attachment, attachment);
         color = CssProperty.cascade(parent.color, color);
         image = CssProperty.cascade(parent.image, image);

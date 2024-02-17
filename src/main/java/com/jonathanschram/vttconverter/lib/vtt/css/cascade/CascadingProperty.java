@@ -2,6 +2,7 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
@@ -62,6 +63,11 @@ public abstract class CascadingProperty<T extends CssValue<T>> implements CssPro
              */
             return parent;
         }
+    }
+
+    @Override
+    public T getResolvedValue() throws UnresolvedPropertyException {
+        throw new UnresolvedPropertyException("This is not a resolved value, cannot get value.");
     }
 
     @Override

@@ -21,10 +21,6 @@ public class NumericFontWeight implements FontWeight {
         return weight == other.weight;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(weight);
@@ -41,8 +37,13 @@ public class NumericFontWeight implements FontWeight {
     }
 
     @Override
-    public FontWeight computeValue() {
+    public FontWeight computeValue(FontWeight parentValue) {
         return this;
+    }
+
+    @Override
+    public int getAbsoluteWeight() {
+        return weight;
     }
 
 }

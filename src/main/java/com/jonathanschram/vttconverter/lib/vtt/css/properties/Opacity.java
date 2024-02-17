@@ -36,7 +36,7 @@ public class Opacity implements CssValue<Opacity> {
     }
 
     @Override
-    public Opacity computeValue() {
+    public Opacity computeValue(Opacity parentValue) {
         return this;
     }
 

@@ -11,7 +11,7 @@ public enum Visibility implements CssValue<Visibility> {
     }
 
     @Override
-    public Visibility computeValue() {
+    public Visibility computeValue(Visibility parentValue) {
         return this;
     }
 }

@@ -21,7 +21,7 @@ public class OverUnderPosition implements RubyPosition {
     }
 
     @Override
-    public RubyPosition computeValue() {
+    public RubyPosition computeValue(RubyPosition parentValue) {
         return this;
     }
 

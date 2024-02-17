@@ -11,7 +11,7 @@ public enum BackgroundAttachment implements CssValue<BackgroundAttachment> {
     }
 
     @Override
-    public BackgroundAttachment computeValue() {
+    public BackgroundAttachment computeValue(BackgroundAttachment parentValue) {
         return this;
     }
 

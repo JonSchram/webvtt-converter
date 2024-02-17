@@ -12,7 +12,7 @@ public enum LineStyle implements CssValue<LineStyle> {
     }
 
     @Override
-    public LineStyle computeValue() {
+    public LineStyle computeValue(LineStyle parentValue) {
         return this;
     }
 }

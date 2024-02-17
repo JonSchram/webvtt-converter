@@ -17,7 +17,7 @@ public class NormalLineHeight implements LineHeight {
     }
 
     @Override
-    public LineHeight computeValue() {
+    public LineHeight computeValue(LineHeight parentValue) {
         return this;
     }
 

@@ -15,7 +15,7 @@ public class KeywordSize implements BackgroundSize {
     }
 
     @Override
-    public BackgroundSize computeValue() {
+    public BackgroundSize computeValue(BackgroundSize parentValue) {
         return this;
     }
 

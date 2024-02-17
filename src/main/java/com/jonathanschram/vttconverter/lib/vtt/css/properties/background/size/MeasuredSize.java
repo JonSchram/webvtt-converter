@@ -52,7 +52,7 @@ public class MeasuredSize implements BackgroundSize {
     }
 
     @Override
-    public BackgroundSize computeValue() {
+    public BackgroundSize computeValue(BackgroundSize parentValue) {
         // TODO Auto-generated method stub
         return null;
     }

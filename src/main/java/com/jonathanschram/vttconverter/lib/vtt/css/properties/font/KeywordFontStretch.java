@@ -66,7 +66,7 @@ public class KeywordFontStretch implements FontStretch {
     }
 
     @Override
-    public FontStretch computeValue() {
+    public FontStretch computeValue(FontStretch parentValue) {
         // TODO Create a percentage font stretch.
         return null;
     }

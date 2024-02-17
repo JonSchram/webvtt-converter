@@ -73,7 +73,7 @@ public class TextShadow implements CssValue<TextShadow> {
     }
 
     @Override
-    public TextShadow computeValue() {
+    public TextShadow computeValue(TextShadow parentValue) {
         // TODO Auto-generated method stub
         return null;
     }

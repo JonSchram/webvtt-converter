@@ -11,7 +11,7 @@ public enum BackgroundOrigin implements CssValue<BackgroundOrigin> {
     }
 
     @Override
-    public BackgroundOrigin computeValue() {
+    public BackgroundOrigin computeValue(BackgroundOrigin parentValue) {
         return this;
     }
 

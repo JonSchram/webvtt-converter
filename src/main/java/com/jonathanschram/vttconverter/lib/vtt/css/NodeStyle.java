@@ -211,7 +211,7 @@ public class NodeStyle {
         return whiteSpace;
     }
 
-    public void cascadeFrom(NodeStyle parent) {
+    public void cascadeFrom(NodeStyle parent) throws UnresolvedPropertyException, UncomputedValueException {
         if (parent == null) {
             return;
         }

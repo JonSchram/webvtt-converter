@@ -22,7 +22,7 @@ public class LineTypeSet implements CssValue<LineTypeSet> {
     }
 
     @Override
-    public LineTypeSet computeValue() {
+    public LineTypeSet computeValue(LineTypeSet parentValue) {
         return this;
     }
 

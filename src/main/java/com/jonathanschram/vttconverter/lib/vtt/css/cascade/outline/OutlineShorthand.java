@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
+import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.Outline;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineStyle;
@@ -91,7 +93,7 @@ public class OutlineShorthand implements CssShorthand<Outline, OutlineShorthand>
     }
 
     @Override
-    public void cascadeFrom(OutlineShorthand parent) {
+    public void cascadeFrom(OutlineShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
         color = CssProperty.cascade(parent.color, color);
         style = CssProperty.cascade(parent.style, style);
         width = CssProperty.cascade(parent.width, width);

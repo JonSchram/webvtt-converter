@@ -31,8 +31,9 @@ public class CurrentColor implements Color {
     }
 
     @Override
-    public AbsoluteColor computeValue() {
-        // TODO (Somehow) find the correct color.
+    public Color computeValue(Color parentValue) {
+        // TODO (Somehow) find the correct color. Might be able to add a parameter
+        // indicating which property name is being computed.
         return null;
     }
 

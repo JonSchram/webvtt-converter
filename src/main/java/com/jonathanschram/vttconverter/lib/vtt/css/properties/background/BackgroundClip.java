@@ -11,7 +11,7 @@ public enum BackgroundClip implements CssValue<BackgroundClip> {
     }
 
     @Override
-    public BackgroundClip computeValue() {
+    public BackgroundClip computeValue(BackgroundClip parentValue) {
         return this;
     }
 
