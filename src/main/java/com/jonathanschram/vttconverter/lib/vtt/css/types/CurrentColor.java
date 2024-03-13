@@ -1,5 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+
 /***
  * A special implementation of {@link Color} that references the current node's
  * color (or the initial color if this is used for the color property itself).
@@ -31,7 +35,7 @@ public class CurrentColor implements Color {
     }
 
     @Override
-    public Color computeValue(Color parentValue) {
+    public Color computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO (Somehow) find the correct color. Might be able to add a parameter
         // indicating which property name is being computed.
         return null;

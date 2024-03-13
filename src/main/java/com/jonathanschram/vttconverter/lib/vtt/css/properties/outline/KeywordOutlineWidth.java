@@ -2,6 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Unit;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.NumericLength;
@@ -56,7 +60,7 @@ public class KeywordOutlineWidth implements OutlineWidth {
     }
 
     @Override
-    public OutlineWidth computeValue(OutlineWidth parentValue) {
+    public OutlineWidth computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO The computed value is a length, not an outline width... Unless there is
         // an "absolute length outline width" I don't see how to make this work.
         return new AbsoluteOutlineWidth(getMeasuredSize());

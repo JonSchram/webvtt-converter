@@ -4,8 +4,10 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontFamilyList;
@@ -15,6 +17,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontVariant;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.FontWeight;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.LineHeight;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class FontShorthand implements CssShorthand<Font, FontShorthand> {
 
@@ -157,14 +160,16 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
     }
 
     @Override
-    public void cascadeFrom(FontShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
-        family = CssProperty.cascade(parent.family, family);
-        size = CssProperty.cascade(parent.size, size);
-        stretch = CssProperty.cascade(parent.stretch, stretch);
-        style = CssProperty.cascade(parent.style, style);
-        variant = CssProperty.cascade(parent.variant, variant);
-        weight = CssProperty.cascade(parent.weight, weight);
-        lineHeight = CssProperty.cascade(parent.lineHeight, lineHeight);
+    public void cascadeFrom(FontShorthand parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UnresolvedPropertyException, UncomputedValueException {
+        family = CssProperty.cascade(parent.family, family, colorReference, fontReference, parameters);
+        size = CssProperty.cascade(parent.size, size, colorReference, fontReference, parameters);
+        stretch = CssProperty.cascade(parent.stretch, stretch, colorReference, fontReference, parameters);
+        style = CssProperty.cascade(parent.style, style, colorReference, fontReference, parameters);
+        variant = CssProperty.cascade(parent.variant, variant, colorReference, fontReference, parameters);
+        weight = CssProperty.cascade(parent.weight, weight, colorReference, fontReference, parameters);
+        lineHeight = CssProperty.cascade(parent.lineHeight, lineHeight, colorReference, fontReference, parameters);
     }
 
     @Override
@@ -182,11 +187,39 @@ public class FontShorthand implements CssShorthand<Font, FontShorthand> {
                 && Objects.equals(weight, other.weight);
     }
 
+    public CssProperty<FontFamilyList> getFamily() {
+        return family;
+    }
+
     @Override
     public Font getInitialValue() {
         return new Font(CssFontFamily.INITIAL_VALUE, CssFontSize.INITIAL_VALUE, CssFontStretch.INITIAL_VALUE,
                 CssFontStyle.INITIAL_VALUE, CssFontVariant.INITIAL_VALUE, CssFontWeight.INITIAL_VALUE,
                 CssLineHeight.INITIAL_VALUE);
+    }
+
+    public CssProperty<LineHeight> getLineHeight() {
+        return lineHeight;
+    }
+
+    public CssProperty<FontSize> getSize() {
+        return size;
+    }
+
+    public CssProperty<FontStretch> getStretch() {
+        return stretch;
+    }
+
+    public CssProperty<FontStyle> getStyle() {
+        return style;
+    }
+
+    public CssProperty<FontVariant> getVariant() {
+        return variant;
+    }
+
+    public CssProperty<FontWeight> getWeight() {
+        return weight;
     }
 
     @Override

@@ -3,6 +3,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 
 public class Opacity implements CssValue<Opacity> {
@@ -36,7 +40,7 @@ public class Opacity implements CssValue<Opacity> {
     }
 
     @Override
-    public Opacity computeValue(Opacity parentValue) {
+    public Opacity computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

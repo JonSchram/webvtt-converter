@@ -4,8 +4,10 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.Background;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundAttachment;
@@ -15,6 +17,7 @@ import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.Backgro
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundPosition;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.BackgroundRepeat;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size.BackgroundSize;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class BackgroundShorthand implements CssShorthand<Background, BackgroundShorthand> {
@@ -182,15 +185,17 @@ public class BackgroundShorthand implements CssShorthand<Background, BackgroundS
     }
 
     @Override
-    public void cascadeFrom(BackgroundShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
-        attachment = CssProperty.cascade(parent.attachment, attachment);
-        color = CssProperty.cascade(parent.color, color);
-        image = CssProperty.cascade(parent.image, image);
-        origin = CssProperty.cascade(parent.origin, origin);
-        position = CssProperty.cascade(parent.position, position);
-        repeat = CssProperty.cascade(parent.repeat, repeat);
-        size = CssProperty.cascade(parent.size, size);
-        clip = CssProperty.cascade(parent.clip, clip);
+    public void cascadeFrom(BackgroundShorthand parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UnresolvedPropertyException, UncomputedValueException {
+        attachment = CssProperty.cascade(parent.attachment, attachment, colorReference, fontReference, parameters);
+        color = CssProperty.cascade(parent.color, color, colorReference, fontReference, parameters);
+        image = CssProperty.cascade(parent.image, image, colorReference, fontReference, parameters);
+        origin = CssProperty.cascade(parent.origin, origin, colorReference, fontReference, parameters);
+        position = CssProperty.cascade(parent.position, position, colorReference, fontReference, parameters);
+        repeat = CssProperty.cascade(parent.repeat, repeat, colorReference, fontReference, parameters);
+        size = CssProperty.cascade(parent.size, size, colorReference, fontReference, parameters);
+        clip = CssProperty.cascade(parent.clip, clip, colorReference, fontReference, parameters);
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * A value that can be stored in a CSS property. Ensures that values can be
  * cascaded properly.
@@ -23,12 +27,16 @@ public interface CssValue<T extends CssValue<T>> {
     /***
      * Returns a computed value equivalent to the current value.
      * 
-     * @param <T> The parent style, to be used when the parent style is required to
-     *            calculate the absolute value.
+     * @param fontReference TODO
+     * @param parameters    TODO
+     * 
+     * @param <T>           The parent style, to be used when the parent style is
+     *                      required to calculate the absolute value.
      * @return
      * @throws UncomputedValueException If the parent value is not computed, making
      *                                  it impossible for this property to compute
      *                                  its own value.
      */
-    T computeValue(T parentValue) throws UncomputedValueException;
+    T computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference,
+            RenderParameters parameters) throws UncomputedValueException;
 }

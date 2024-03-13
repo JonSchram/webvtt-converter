@@ -2,6 +2,9 @@ package com.jonathanschram.vttconverter.lib.vtt.css.types.length;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.PropertyName;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 
 /***
@@ -45,6 +48,17 @@ public class PercentageLength implements Length {
     public boolean isAbsoluteLength() {
         // A length as a percentage of some other element is by definition not absolute.
         return false;
+    }
+
+    @Override
+    public Length multiply(double scalar) {
+        return new PercentageLength(percent.multiply(scalar));
+    }
+
+    @Override
+    public Length convertToAbsoluteLength(CascadeValueReference<Font> fontReference, PropertyName currentProperty) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

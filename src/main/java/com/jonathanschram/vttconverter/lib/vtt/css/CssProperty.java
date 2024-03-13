@@ -1,5 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * Interface for a CSS property that can take on either a real value of
  * {@link T} or a {@link GlobalValue} that specifies cascade behavior.
@@ -31,30 +35,39 @@ public interface CssProperty<T extends CssValue<T>> {
      * <code>true</code> on the returned type <code>T</code>.
      * 
      * @param parent
+     * @param colorReference TODO
+     * @param fontReference TODO
+     * @param parameters TODO
      * @return
-     * @throws UncomputedValueException    If a child property references an
-     *                                     uncomputed parent property.
+     * @throws UncomputedValueException If a child property references an uncomputed
+     *         parent property.
      * @throws UnresolvedPropertyException If a child property references a parent
-     *                                     property whose value is a global value
-     *                                     keyword.
+     *         property whose value is a global value keyword.
      */
-    CssProperty<T> cascadeFrom(CssProperty<T> parent) throws UnresolvedPropertyException, UncomputedValueException;
+    CssProperty<T> cascadeFrom(CssProperty<T> parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UnresolvedPropertyException, UncomputedValueException;
 
     /***
      * Convenience method for cascading a style from a parent onto the child.
      * 
-     * @param <S>    The CSS value type.
+     * @param <S> The CSS value type.
      * @param parent
      * @param child
+     * @param colorReference TODO
+     * @param fontReference TODO
+     * @param parameters TODO
      * @return
      * @throws UncomputedValueException
      * @throws UnresolvedPropertyException
      */
-    static <S extends CssValue<S>> CssProperty<S> cascade(CssProperty<S> parent, CssProperty<S> child)
+    static <S extends CssValue<S>> CssProperty<S> cascade(CssProperty<S> parent, CssProperty<S> child,
+            CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference,
+            RenderParameters parameters)
             throws UnresolvedPropertyException, UncomputedValueException {
         if (child == null) {
             return parent;
         }
-        return child.cascadeFrom(parent);
+        return child.cascadeFrom(parent, colorReference, fontReference, parameters);
     }
 }

@@ -2,6 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Position;
 
 /***
@@ -16,7 +20,7 @@ public class SimpleBackgroundPosition implements BackgroundPosition {
     }
 
     @Override
-    public BackgroundPosition computeValue(BackgroundPosition parentValue) {
+    public BackgroundPosition computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO Compute value.
         return null;
     }

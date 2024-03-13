@@ -3,6 +3,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.background;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class BackgroundRepeat implements CssValue<BackgroundRepeat> {
 
@@ -57,7 +61,7 @@ public class BackgroundRepeat implements CssValue<BackgroundRepeat> {
     }
 
     @Override
-    public BackgroundRepeat computeValue(BackgroundRepeat parentValue) {
+    public BackgroundRepeat computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

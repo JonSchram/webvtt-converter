@@ -4,9 +4,12 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.Outline;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.outline.OutlineWidth;
@@ -93,10 +96,12 @@ public class OutlineShorthand implements CssShorthand<Outline, OutlineShorthand>
     }
 
     @Override
-    public void cascadeFrom(OutlineShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
-        color = CssProperty.cascade(parent.color, color);
-        style = CssProperty.cascade(parent.style, style);
-        width = CssProperty.cascade(parent.width, width);
+    public void cascadeFrom(OutlineShorthand parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UnresolvedPropertyException, UncomputedValueException {
+        color = CssProperty.cascade(parent.color, color, colorReference, fontReference, parameters);
+        style = CssProperty.cascade(parent.style, style, colorReference, fontReference, parameters);
+        width = CssProperty.cascade(parent.width, width, colorReference, fontReference, parameters);
     }
 
     @Override

@@ -1,6 +1,10 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public enum OutlineStyle implements CssValue<OutlineStyle> {
     AUTO, NONE, DOTTED, DASHED, SOLID, DOUBLE, GROOVE, RIDGE, INSET, OUTSET;
@@ -11,7 +15,7 @@ public enum OutlineStyle implements CssValue<OutlineStyle> {
     }
 
     @Override
-    public OutlineStyle computeValue(OutlineStyle parentValue) {
+    public OutlineStyle computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 }

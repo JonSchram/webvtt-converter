@@ -2,7 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class KeywordFontWeight implements FontWeight {
     private final FontWeightKeyword weight;
@@ -12,16 +15,18 @@ public class KeywordFontWeight implements FontWeight {
     }
 
     @Override
-    public FontWeight computeValue(FontWeight parentValue) throws UncomputedValueException {
-        int numericWeight;
-        // An absolute keyword is valid as a computed value, but calculate the numeric
-        // value just to make inheritance easier.
+    public FontWeight computeValue(CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UncomputedValueException {
+
         if (isRelativeKeyword()) {
-            numericWeight = resolveRelativeKeyword(parentValue.getAbsoluteWeight());
+            Font parentValue = fontReference.getParentValue();
+            FontWeight parentWeight = parentValue.getWeight();
+            int numericWeight = resolveRelativeKeyword(parentWeight.getAbsoluteWeight());
+            return new NumericFontWeight(numericWeight);
         } else {
-            numericWeight = resolveAbsoluteKeyword();
+            return this;
         }
-        return new NumericFontWeight(numericWeight);
     }
 
     @Override

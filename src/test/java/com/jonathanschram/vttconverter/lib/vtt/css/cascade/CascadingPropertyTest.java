@@ -20,7 +20,7 @@ class CascadingPropertyTest {
         ConcreteProperty<Color> parentColor = new ConcreteProperty<>(AbsoluteColor.BLUE);
         CssColor childColor = new CssColor(GlobalValue.UNSET);
 
-        CssProperty<Color> result = childColor.cascadeFrom(parentColor);
+        CssProperty<Color> result = childColor.cascadeFrom(parentColor, null, null, null);
 
         assertEquals(parentColor, result);
     }
@@ -30,7 +30,7 @@ class CascadingPropertyTest {
         ConcreteProperty<Color> parentColor = new ConcreteProperty<>(AbsoluteColor.BLUE);
         CssColor childColor = new CssColor(GlobalValue.INITIAL);
 
-        CssProperty<Color> result = childColor.cascadeFrom(parentColor);
+        CssProperty<Color> result = childColor.cascadeFrom(parentColor, null, null, null);
 
         assertEquals(new ConcreteProperty<>(AbsoluteColor.CANVAS_TEXT), result);
     }
@@ -40,7 +40,7 @@ class CascadingPropertyTest {
         ConcreteProperty<Opacity> parent = new ConcreteProperty<Opacity>(new Opacity(.5));
         CssOpacity child = new CssOpacity();
 
-        CssProperty<Opacity> result = child.cascadeFrom(parent);
+        CssProperty<Opacity> result = child.cascadeFrom(parent, null, null, null);
 
         CssProperty<Opacity> expected = new ConcreteProperty<Opacity>(new Opacity(1));
         assertEquals(expected, result);
@@ -51,7 +51,7 @@ class CascadingPropertyTest {
         ConcreteProperty<Opacity> parent = new ConcreteProperty<Opacity>(new Opacity(.5));
         CssOpacity child = new CssOpacity(GlobalValue.INHERIT);
 
-        CssProperty<Opacity> result = child.cascadeFrom(parent);
+        CssProperty<Opacity> result = child.cascadeFrom(parent, null, null, null);
 
         assertEquals(parent, result);
     }

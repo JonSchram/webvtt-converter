@@ -3,8 +3,11 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
 
 /***
@@ -21,17 +24,17 @@ public class ConcreteProperty<T extends CssValue<T>> implements CssProperty<T> {
     }
 
     @Override
-    public CssProperty<T> cascadeFrom(CssProperty<T> parent)
+    public CssProperty<T> cascadeFrom(CssProperty<T> parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
             throws UnresolvedPropertyException, UncomputedValueException {
         // A concrete property is always a set value. It might not always be acceptable
         // as a computed value.
         if (value.isComputedValue()) {
             return this;
         }
-        T parentValue = parent == null ? null : parent.getResolvedValue();
         // If not, ask it to convert itself to a computed value. The result is a regular
         // CSS value, so we can always store it in a ConcreteProperty.
-        return new ConcreteProperty<>(value.computeValue(parentValue));
+        return new ConcreteProperty<>(value.computeValue(colorReference, fontReference, parameters));
     }
 
     @Override

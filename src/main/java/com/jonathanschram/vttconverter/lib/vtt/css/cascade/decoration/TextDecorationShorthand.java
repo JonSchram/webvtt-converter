@@ -4,12 +4,15 @@ import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssShorthand;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 import com.jonathanschram.vttconverter.lib.vtt.css.cascade.ConcreteProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineStyle;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.LineTypeSet;
 import com.jonathanschram.vttconverter.lib.vtt.css.properties.decoration.TextDecoration;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class TextDecorationShorthand implements CssShorthand<TextDecoration, TextDecorationShorthand> {
@@ -89,10 +92,12 @@ public class TextDecorationShorthand implements CssShorthand<TextDecoration, Tex
     }
 
     @Override
-    public void cascadeFrom(TextDecorationShorthand parent) throws UnresolvedPropertyException, UncomputedValueException {
-        color = CssProperty.cascade(parent.color, color);
-        line = CssProperty.cascade(parent.line, line);
-        style = CssProperty.cascade(parent.style, style);
+    public void cascadeFrom(TextDecorationShorthand parent, CascadeValueReference<Color> colorReference,
+            CascadeValueReference<Font> fontReference, RenderParameters parameters)
+            throws UnresolvedPropertyException, UncomputedValueException {
+        color = CssProperty.cascade(parent.color, color, colorReference, fontReference, parameters);
+        line = CssProperty.cascade(parent.line, line, colorReference, fontReference, parameters);
+        style = CssProperty.cascade(parent.style, style, colorReference, fontReference, parameters);
     }
 
     @Override

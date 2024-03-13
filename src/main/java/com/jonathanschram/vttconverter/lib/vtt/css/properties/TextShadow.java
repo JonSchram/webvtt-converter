@@ -3,7 +3,11 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.AbsoluteColor;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Unit;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.NumericLength;
@@ -73,8 +77,10 @@ public class TextShadow implements CssValue<TextShadow> {
     }
 
     @Override
-    public TextShadow computeValue(TextShadow parentValue) {
+    public TextShadow computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO Auto-generated method stub
+        // This needs BOTH color and font reference (for currentcolor and EM units).
+        // A parent textShadow doesn't help at all.
         return null;
     }
 

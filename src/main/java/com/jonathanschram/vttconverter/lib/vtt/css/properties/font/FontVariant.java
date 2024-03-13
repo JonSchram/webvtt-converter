@@ -1,6 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 /***
  * All font variants supported. This doesn't include any new variants or the
@@ -15,7 +18,7 @@ public enum FontVariant implements CssValue<FontVariant> {
     }
 
     @Override
-    public FontVariant computeValue(FontVariant parentValue) {
+    public FontVariant computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 }

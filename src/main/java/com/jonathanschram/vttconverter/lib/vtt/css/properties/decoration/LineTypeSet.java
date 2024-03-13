@@ -4,6 +4,10 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class LineTypeSet implements CssValue<LineTypeSet> {
 
@@ -22,7 +26,7 @@ public class LineTypeSet implements CssValue<LineTypeSet> {
     }
 
     @Override
-    public LineTypeSet computeValue(LineTypeSet parentValue) {
+    public LineTypeSet computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

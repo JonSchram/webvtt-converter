@@ -2,6 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.types;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+
 public class AbsoluteColor implements Color {
     // Standard HTML named colors.
     public static final AbsoluteColor ALICE_BLUE = new AbsoluteColor(240, 248, 255);
@@ -257,7 +261,7 @@ public class AbsoluteColor implements Color {
     }
 
     @Override
-    public AbsoluteColor computeValue(Color parentValue) {
+    public AbsoluteColor computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

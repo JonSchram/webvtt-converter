@@ -1,12 +1,16 @@
 package com.jonathanschram.vttconverter.lib.vtt.css;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * An interface to allow CSS shorthand properties to cascade over a set of
  * properties at once.
  * 
  * @param <T> The type of the object this shorthand defines.
  * @param <S> The type of the object to use when updating self value. This will
- *            usually be the same as the type implementing this interface.
+ *        usually be the same as the type implementing this interface.
  */
 public interface CssShorthand<T, S extends CssShorthand<T, S>> {
 
@@ -28,10 +32,14 @@ public interface CssShorthand<T, S extends CssShorthand<T, S>> {
      * parent.
      * 
      * @param parent
+     * @param colorReference TODO
+     * @param fontReference TODO
+     * @param parameters TODO
      * @throws UncomputedValueException
      * @throws UnresolvedPropertyException
      */
-    void cascadeFrom(S parent) throws UnresolvedPropertyException, UncomputedValueException;
+    void cascadeFrom(S parent, CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference,
+            RenderParameters parameters) throws UnresolvedPropertyException, UncomputedValueException;
 
     /**
      * Convenience method for choosing <code>newValue</code> only if it is non-null.

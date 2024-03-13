@@ -3,9 +3,12 @@ package com.jonathanschram.vttconverter.lib.vtt.css.cascade;
 import java.util.Objects;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.UnresolvedPropertyException;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssProperty;
 import com.jonathanschram.vttconverter.lib.vtt.css.CssValue;
 import com.jonathanschram.vttconverter.lib.vtt.css.GlobalValue;
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
 
 /***
  * A superclass for a property whose value is a global value. These require
@@ -32,7 +35,7 @@ public abstract class CascadingProperty<T extends CssValue<T>> implements CssPro
     }
 
     @Override
-    public CssProperty<T> cascadeFrom(CssProperty<T> parent) {
+    public CssProperty<T> cascadeFrom(CssProperty<T> parent, CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         if (parent == null) {
             throw new IllegalArgumentException("Parent property must not be null");
         }

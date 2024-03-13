@@ -21,7 +21,7 @@ class ConcretePropertyTest {
     void testCascadeFrom_visibility() throws UnresolvedPropertyException, UncomputedValueException {
         ConcreteProperty<Visibility> value = new ConcreteProperty<Visibility>(Visibility.COLLAPSE);
 
-        CssProperty<Visibility> result = value.cascadeFrom(null);
+        CssProperty<Visibility> result = value.cascadeFrom(null, null, null, null);
 
         assertEquals(value, result);
     }
@@ -31,7 +31,7 @@ class ConcretePropertyTest {
         ConcreteProperty<OutlineWidth> value = new ConcreteProperty<OutlineWidth>(
                 new KeywordOutlineWidth(OutlineWidthKeyword.THICK));
 
-        CssProperty<OutlineWidth> result = value.cascadeFrom(null);
+        CssProperty<OutlineWidth> result = value.cascadeFrom(null, null, null, null);
 
         CssProperty<OutlineWidth> expected = new ConcreteProperty<OutlineWidth>(
                 new AbsoluteOutlineWidth(new NumericLength(5, Unit.PIXELS)));

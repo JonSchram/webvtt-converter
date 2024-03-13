@@ -2,6 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.outline;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
 
 public class AbsoluteOutlineWidth implements OutlineWidth {
@@ -13,7 +17,7 @@ public class AbsoluteOutlineWidth implements OutlineWidth {
     }
 
     @Override
-    public OutlineWidth computeValue(OutlineWidth parentValue) {
+    public OutlineWidth computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         if (isComputedValue()) {
             return this;
         }

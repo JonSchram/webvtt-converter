@@ -2,7 +2,10 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Angle;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 
 public class ObliqueStyle implements FontStyle {
 
@@ -13,7 +16,7 @@ public class ObliqueStyle implements FontStyle {
     }
 
     @Override
-    public FontStyle computeValue(FontStyle parentValue) {
+    public FontStyle computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

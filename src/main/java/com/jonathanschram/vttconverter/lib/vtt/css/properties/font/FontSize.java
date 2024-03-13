@@ -10,5 +10,19 @@ import com.jonathanschram.vttconverter.lib.vtt.css.types.length.Length;
  * "larger"), a {@link Length}, or a {@link Percentage}.
  */
 public interface FontSize extends CssValue<FontSize> {
+    /***
+     * Calculates the next font size smaller than this font size.
+     * 
+     * @return
+     */
+    FontSize getNextSmaller();
 
+    /**
+     * Calculates the next font size larger than this font size.
+     * 
+     * @return
+     */
+    FontSize getNextLarger();
+
+    
 }

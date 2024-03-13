@@ -72,6 +72,17 @@ public class Percentage {
         return value;
     }
 
+    /***
+     * Creates a new Percentage object by multiplying this percentage by the given
+     * value.
+     * 
+     * @param scalar
+     * @return
+     */
+    public Percentage multiply(double scalar) {
+        return new Percentage(value * scalar);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);

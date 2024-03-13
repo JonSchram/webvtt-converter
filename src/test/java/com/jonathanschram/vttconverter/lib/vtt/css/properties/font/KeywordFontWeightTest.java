@@ -5,13 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import com.jonathanschram.vttconverter.lib.vtt.css.UncomputedValueException;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
 
 class KeywordFontWeightTest {
 
     @Test
     void testComputeValue_LighterThan700() throws UncomputedValueException {
         KeywordFontWeight fontWeight = new KeywordFontWeight(FontWeightKeyword.LIGHTER);
-        FontWeight result = fontWeight.computeValue(new NumericFontWeight(700));
+        CascadeValueReference<Font> fontReference = buildFontReference(new NumericFontWeight(700));
+        FontWeight result = fontWeight.computeValue(null, fontReference, null);
 
         assertEquals(400, result.getAbsoluteWeight());
     }
@@ -19,7 +21,8 @@ class KeywordFontWeightTest {
     @Test
     void testComputeValue_LighterThanNormal() throws UncomputedValueException {
         KeywordFontWeight fontWeight = new KeywordFontWeight(FontWeightKeyword.LIGHTER);
-        FontWeight result = fontWeight.computeValue(new KeywordFontWeight(FontWeightKeyword.NORMAL));
+        CascadeValueReference<Font> fontReference = buildFontReference(new KeywordFontWeight(FontWeightKeyword.NORMAL));
+        FontWeight result = fontWeight.computeValue(null, fontReference, null);
 
         assertEquals(100, result.getAbsoluteWeight());
     }
@@ -27,10 +30,15 @@ class KeywordFontWeightTest {
     @Test
     void testComputeValue_Normal() throws UncomputedValueException {
         KeywordFontWeight fontWeight = new KeywordFontWeight(FontWeightKeyword.NORMAL);
-
-        FontWeight result = fontWeight.computeValue(new NumericFontWeight(1));
+        CascadeValueReference<Font> fontReference = buildFontReference(new NumericFontWeight(1));
+        FontWeight result = fontWeight.computeValue(null, fontReference, null);
 
         assertEquals(400, result.getAbsoluteWeight());
+    }
+
+    private CascadeValueReference<Font> buildFontReference(FontWeight weight) {
+        Font parentFont = new Font(null, null, null, null, null, weight, null);
+        return new CascadeValueReference<Font>(parentFont, null);
     }
 
     @Test

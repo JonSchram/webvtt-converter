@@ -216,14 +216,14 @@ public class NodeStyle {
             return;
         }
 
-        color = CssProperty.cascade(parent.color, color);
-        opacity = CssProperty.cascade(parent.opacity, opacity);
-        rubyPosition = CssProperty.cascade(parent.rubyPosition, rubyPosition);
-        textCombineUpright = CssProperty.cascade(parent.textCombineUpright, textCombineUpright);
-        textShadow = CssProperty.cascade(parent.textShadow, textShadow);
-        visibility = CssProperty.cascade(parent.visibility, visibility);
-        whiteSpace = CssProperty.cascade(parent.whiteSpace, whiteSpace);
-        
+        // TODO: Populate property references and cascade shorthand properties.
+        color = CssProperty.cascade(parent.color, color, null, null, null);
+        opacity = CssProperty.cascade(parent.opacity, opacity, null, null, null);
+        rubyPosition = CssProperty.cascade(parent.rubyPosition, rubyPosition, null, null, null);
+        textCombineUpright = CssProperty.cascade(parent.textCombineUpright, textCombineUpright, null, null, null);
+        textShadow = CssProperty.cascade(parent.textShadow, textShadow, null, null, null);
+        visibility = CssProperty.cascade(parent.visibility, visibility, null, null, null);
+        whiteSpace = CssProperty.cascade(parent.whiteSpace, whiteSpace, null, null, null);
     }
 
     @Override

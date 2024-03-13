@@ -2,6 +2,11 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.ruby;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * An implementation of {@link RubyPosition} that encodes an over or under style
  * with corresponding alternate setting.
@@ -21,7 +26,7 @@ public class OverUnderPosition implements RubyPosition {
     }
 
     @Override
-    public RubyPosition computeValue(RubyPosition parentValue) {
+    public RubyPosition computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 

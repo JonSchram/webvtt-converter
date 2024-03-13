@@ -2,6 +2,9 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
 import com.jonathanschram.vttconverter.lib.vtt.css.types.Percentage;
 
 public class KeywordFontStretch implements FontStretch {
@@ -66,7 +69,7 @@ public class KeywordFontStretch implements FontStretch {
     }
 
     @Override
-    public FontStretch computeValue(FontStretch parentValue) {
+    public FontStretch computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO Create a percentage font stretch.
         return null;
     }

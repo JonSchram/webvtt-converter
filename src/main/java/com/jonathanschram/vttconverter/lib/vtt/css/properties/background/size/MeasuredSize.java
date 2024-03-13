@@ -2,6 +2,11 @@ package com.jonathanschram.vttconverter.lib.vtt.css.properties.background.size;
 
 import java.util.Objects;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.properties.font.Font;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * An implementation of {@link BackgroundSize} that calculates size based on a
  * measurement.
@@ -52,7 +57,7 @@ public class MeasuredSize implements BackgroundSize {
     }
 
     @Override
-    public BackgroundSize computeValue(BackgroundSize parentValue) {
+    public BackgroundSize computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         // TODO Auto-generated method stub
         return null;
     }

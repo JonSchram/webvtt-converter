@@ -1,5 +1,9 @@
 package com.jonathanschram.vttconverter.lib.vtt.css.properties.font;
 
+import com.jonathanschram.vttconverter.lib.vtt.css.RenderParameters;
+import com.jonathanschram.vttconverter.lib.vtt.css.cascade.CascadeValueReference;
+import com.jonathanschram.vttconverter.lib.vtt.css.types.Color;
+
 /***
  * An implementation of {@link LineHeight} for normal height.
  */
@@ -17,7 +21,7 @@ public class NormalLineHeight implements LineHeight {
     }
 
     @Override
-    public LineHeight computeValue(LineHeight parentValue) {
+    public LineHeight computeValue(CascadeValueReference<Color> colorReference, CascadeValueReference<Font> fontReference, RenderParameters parameters) {
         return this;
     }
 
